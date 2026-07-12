@@ -1,0 +1,210 @@
+/**
+ * Theme Main JavaScript.
+ *
+ * @package Robo
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    'use strict';
+
+    // Initialize core elements.
+    const header = document.getElementById('masthead');
+    const backToTopBtn = document.getElementById('back-to-top');
+
+    /**
+     * 1. Sticky Header scroll behavior.
+     */
+    const handleHeaderScroll = () => {
+        if (!header) return;
+        
+        if (window.scrollY > 50) {
+            header.classList.add('shadow', 'py-1');
+            header.classList.remove('shadow-sm', 'py-2');
+        } else {
+            header.classList.add('shadow-sm', 'py-2');
+            header.classList.remove('shadow', 'py-1');
+        }
+    };
+
+    window.addEventListener('scroll', handleHeaderScroll);
+    handleHeaderScroll(); // Trigger immediately in case page is loaded scrolled.
+
+    /**
+     * 2. Back To Top button visibility and action.
+     */
+    if (backToTopBtn) {
+        const toggleBackToTopBtn = () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.style.setProperty('display', 'flex', 'important');
+                setTimeout(() => {
+                    backToTopBtn.style.opacity = '1';
+                    backToTopBtn.style.transform = 'scale(1)';
+                }, 10);
+            } else {
+                backToTopBtn.style.opacity = '0';
+                backToTopBtn.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    if (window.scrollY <= 300) {
+                        backToTopBtn.style.setProperty('display', 'none', 'important');
+                    }
+                }, 300);
+            }
+        };
+
+        window.addEventListener('scroll', toggleBackToTopBtn);
+        toggleBackToTopBtn();
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // /**
+    //  * 3. Fix dropdown interaction on desktop and mobile devices (prevent page navigation/reload).
+    //  */
+    // const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    
+    // // Helper function to close all open dropdowns
+    // const closeAllDropdowns = (exceptToggle = null) => {
+    //     document.querySelectorAll('.dropdown-menu.show').forEach((menu) => {
+    //         const parentLi = menu.closest('.dropdown, .dropdown-submenu');
+    //         if (exceptToggle) {
+    //             const exceptParent = exceptToggle.closest('.dropdown, .dropdown-submenu');
+    //             const exceptMenu = exceptParent ? exceptParent.querySelector('.dropdown-menu') : null;
+    //             if (menu === exceptMenu || (exceptParent && exceptParent.contains(menu))) {
+    //                 return;
+    //             }
+    //         }
+    //         menu.classList.remove('show');
+    //         if (parentLi) {
+    //             parentLi.classList.remove('show');
+    //         }
+    //     });
+    //     document.querySelectorAll('.dropdown-toggle.show').forEach((tgl) => {
+    //         if (exceptToggle && tgl === exceptToggle) {
+    //             return;
+    //         }
+    //         tgl.classList.remove('show');
+    //         tgl.setAttribute('aria-expanded', 'false');
+    //     });
+    // };
+
+    // dropdownToggles.forEach((toggle) => {
+    //     toggle.addEventListener('click', (e) => {
+    //         const href = toggle.getAttribute('href');
+    //         const hasValidUrl = href && href !== '#' && href !== 'javascript:void(0)';
+            
+    //         const parentLi = toggle.closest('.dropdown, .dropdown-submenu');
+    //         const nextMenu = parentLi ? parentLi.querySelector('.dropdown-menu') : null;
+
+    //         if (!nextMenu) {
+    //             return;
+    //         }
+
+    //         const isNested = toggle.closest('.dropdown-menu') !== null;
+
+    //         // Desktop logic
+    //         if (window.innerWidth >= 992) {
+    //             if (hasValidUrl) {
+    //                 const isOpen = nextMenu.classList.contains('show');
+                    
+    //                 if (!isOpen) {
+    //                     // First click: dropdown is closed. Open it and prevent navigation.
+    //                     e.preventDefault();
+    //                     e.stopPropagation();
+                        
+    //                     if (!isNested) {
+    //                         closeAllDropdowns(toggle);
+    //                     }
+                        
+    //                     nextMenu.classList.add('show');
+    //                     toggle.classList.add('show');
+    //                     if (parentLi) {
+    //                         parentLi.classList.add('show');
+    //                     }
+    //                     toggle.setAttribute('aria-expanded', 'true');
+    //                 } else {
+    //                     // Second click: dropdown is open. Navigate to the link.
+    //                     window.location.href = href;
+    //                 }
+    //             } else {
+    //                 // No valid URL: toggle dropdown
+    //                 e.preventDefault();
+    //                 e.stopPropagation();
+                    
+    //                 const isOpen = nextMenu.classList.contains('show');
+    //                 if (!isNested && !isOpen) {
+    //                     closeAllDropdowns(toggle);
+    //                 }
+                    
+    //                 nextMenu.classList.toggle('show');
+    //                 toggle.classList.toggle('show');
+    //                 if (parentLi) {
+    //                     parentLi.classList.toggle('show');
+    //                 }
+    //                 toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    //             }
+    //         } else {
+    //             // Mobile logic: always toggle, prevent navigation
+    //             e.preventDefault();
+    //             e.stopPropagation();
+                
+    //             const isOpen = nextMenu.classList.contains('show');
+    //             if (!isNested && !isOpen) {
+    //                 closeAllDropdowns(toggle);
+    //             }
+                
+    //             nextMenu.classList.toggle('show');
+    //             toggle.classList.toggle('show');
+    //             if (parentLi) {
+    //                 parentLi.classList.toggle('show');
+    //             }
+    //             toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    //         }
+    //     });
+    // });
+
+    // Close dropdowns when clicking outside (commented out as custom dropdown JS is disabled)
+    // document.addEventListener('click', (e) => {
+    //     if (!e.target.closest('.dropdown') && !e.target.closest('.dropdown-submenu')) {
+    //         closeAllDropdowns();
+    //     }
+    // });
+
+    /**
+     * 4. Bootstrap form validations helper.
+     */
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach((form) => {
+        form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+
+    // Close mobile menu when hash links are clicked (useful for landing pages).
+    const navLinks = document.querySelectorAll('#primaryNavbar .nav-link');
+    const navbarCollapse = document.getElementById('primaryNavbar');
+    if (navbarCollapse) {
+        // Retrieve Bootstrap Collapse instance if it exists.
+        navLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+                        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                        if (bsCollapse) {
+                            bsCollapse.hide();
+                        }
+                    }
+                }
+            });
+        });
+    }
+});
