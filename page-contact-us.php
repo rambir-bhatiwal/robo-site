@@ -101,29 +101,9 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 						if ( ! $has_content ) {
 							// Render a beautiful fallback form if no CF7 or custom form shortcode is in editor content
 							?>
-							<form action="#" method="post" class="needs-validation" novalidate>
-								<div class="row g-3">
-									<div class="col-md-6">
-										<label for="contact_name" class="form-label small fw-bold text-muted"><?php esc_html_e( 'Your Name', 'robo' ); ?></label>
-										<input type="text" class="form-control" id="contact_name" name="contact_name" required placeholder="<?php esc_attr_e( 'e.g. John Doe', 'robo' ); ?>">
-									</div>
-									<div class="col-md-6">
-										<label for="contact_email" class="form-label small fw-bold text-muted"><?php esc_html_e( 'Your Email', 'robo' ); ?></label>
-										<input type="email" class="form-control" id="contact_email" name="contact_email" required placeholder="<?php esc_attr_e( 'e.g. john@example.com', 'robo' ); ?>">
-									</div>
-									<div class="col-12">
-										<label for="contact_subject" class="form-label small fw-bold text-muted"><?php esc_html_e( 'Subject', 'robo' ); ?></label>
-										<input type="text" class="form-control" id="contact_subject" name="contact_subject" required placeholder="<?php esc_attr_e( 'e.g. Kit Inquiry', 'robo' ); ?>">
-									</div>
-									<div class="col-12">
-										<label for="contact_message" class="form-label small fw-bold text-muted"><?php esc_html_e( 'Message', 'robo' ); ?></label>
-										<textarea class="form-control" id="contact_message" name="contact_message" rows="5" required placeholder="<?php esc_attr_e( 'Describe your requirements...', 'robo' ); ?>"></textarea>
-									</div>
-									<div class="col-12 mt-4">
-										<button type="submit" class="btn btn-primary px-4 py-2.5 fw-bold w-100 rounded-3 shadow-sm transition-all"><?php esc_html_e( 'Send Message', 'robo' ); ?></button>
-									</div>
-								</div>
-							</form>
+							<?php
+								echo do_shortcode('[contact-form-7 id="0c39c88" title="Contact"]');
+							?>
 							<?php
 						}
 						?>

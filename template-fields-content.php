@@ -18,6 +18,7 @@ if ( ! function_exists( 'robo_format_meta_value' ) ) {
 	/**
 	 * Formats custom field value for table rendering.
 	 * Handles string, array lists, and key-value objects.
+	 * Detects URLs and renders them as clickable links.
 	 *
 	 * @param mixed $value Field value.
 	 * @return string Formatted HTML.
@@ -29,20 +30,41 @@ if ( ! function_exists( 'robo_format_meta_value' ) ) {
 				$output = '<ul class="list-unstyled mb-0 small">';
 				foreach ( $value as $k => $v ) {
 					if ( ! is_array( $v ) && ! is_object( $v ) ) {
-						$output .= '<li><strong>' . esc_html( ucwords( str_replace( array( '_', '-' ), ' ', $k ) ) ) . ':</strong> ' . esc_html( $v ) . '</li>';
+						$v_str = (string) $v;
+						if ( filter_var( $v_str, FILTER_VALIDATE_URL ) ) {
+							$v_html = '<a href="' . esc_url( $v_str ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( $v_str ) . '</a>';
+						} else {
+							$v_html = esc_html( $v_str );
+						}
+						$output .= '<li><strong>' . esc_html( ucwords( str_replace( array( '_', '-' ), ' ', $k ) ) ) . ':</strong> ' . $v_html . '</li>';
 					}
 				}
 				$output .= '</ul>';
 				return $output;
 			}
-			return implode( ', ', array_map( 'esc_html', $value ) );
+			
+			$formatted_values = array();
+			foreach ( $value as $v ) {
+				$v_str = (string) $v;
+				if ( filter_var( $v_str, FILTER_VALIDATE_URL ) ) {
+					$formatted_values[] = '<a href="' . esc_url( $v_str ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( $v_str ) . '</a>';
+				} else {
+					$formatted_values[] = esc_html( $v_str );
+				}
+			}
+			return implode( ', ', $formatted_values );
 		}
 		
 		if ( is_object( $value ) ) {
 			return esc_html__( 'Metadata Object', 'robo' );
 		}
 
-		return wp_kses_post( (string) $value );
+		$value_str = (string) $value;
+		if ( filter_var( $value_str, FILTER_VALIDATE_URL ) ) {
+			return '<a href="' . esc_url( $value_str ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( $value_str ) . '</a>';
+		}
+
+		return wp_kses_post( $value_str );
 	}
 }
 ?>

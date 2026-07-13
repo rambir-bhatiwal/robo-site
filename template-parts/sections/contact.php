@@ -91,32 +91,12 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 			<!-- Right Form Column -->
 			<div class="col-lg-7">
 				<div class="card h-100 border-0 shadow-sm p-5 bg-light rounded-4">
-					<h3 class="h4 fw-bold text-dark mb-4"><?php esc_html_e( 'Send Us a Message', 'robo' ); ?></h3>
+					<h3 class="h4 fw-bold text-dark mb-4"><?php esc_html_e( '2Send Us a Message', 'robo' ); ?></h3>
 					
-					<form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" class="needs-validation">
-						<div class="row g-3">
-							<div class="col-md-6">
-								<label for="contact-name" class="form-label small fw-bold text-muted"><?php esc_html_e( 'Full Name', 'robo' ); ?></label>
-								<input type="text" class="form-control shadow-none py-2 border-light-subtle rounded-3" id="contact-name" placeholder="<?php esc_attr_e( 'John Doe', 'robo' ); ?>" required>
-							</div>
-							<div class="col-md-6">
-								<label for="contact-email" class="form-label small fw-bold text-muted"><?php esc_html_e( 'Email Address', 'robo' ); ?></label>
-								<input type="email" class="form-control shadow-none py-2 border-light-subtle rounded-3" id="contact-email" placeholder="<?php esc_attr_e( 'john@example.com', 'robo' ); ?>" required>
-							</div>
-							<div class="col-12">
-								<label for="contact-subject" class="form-label small fw-bold text-muted"><?php esc_html_e( 'Subject', 'robo' ); ?></label>
-								<input type="text" class="form-control shadow-none py-2 border-light-subtle rounded-3" id="contact-subject" placeholder="<?php esc_attr_e( 'Sumo bot kits, battery specs, custom controllers...', 'robo' ); ?>" required>
-							</div>
-							<div class="col-12">
-								<label for="contact-message" class="form-label small fw-bold text-muted"><?php esc_html_e( 'Your Message', 'robo' ); ?></label>
-								<textarea class="form-control shadow-none py-2 border-light-subtle rounded-3" id="contact-message" rows="5" placeholder="<?php esc_attr_e( 'Write your robotics project questions or parts inquiries here...', 'robo' ); ?>" required></textarea>
-							</div>
-							<div class="col-12 mt-4">
-								<button type="submit" class="btn btn-primary px-4 py-3 fw-bold w-100 rounded-3 shadow-sm"><?php esc_html_e( 'Send Message Now', 'robo' ); ?></button>
-							</div>
-						</div>
-					</form>
-
+					
+					<?php
+						echo do_shortcode('[contact-form-7 id="0c39c88" title="Contact"]');
+					?>
 				</div>
 			</div>
 

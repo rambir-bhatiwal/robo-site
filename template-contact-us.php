@@ -92,7 +92,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 				<div class="col-lg-7">
 					<div class="card border-0 shadow-sm p-4 p-md-5 h-100 bg-white">
 						<span class="text-primary text-uppercase fw-bold small tracking-wider mb-2 d-block"><?php esc_html_e( 'Contact Form', 'robo' ); ?></span>
-						<h2 class="h2 fw-bold text-dark mb-4"><?php esc_html_e( 'Send Us a Message', 'robo' ); ?></h2>
+						<h2 class="h2 fw-bold text-dark mb-4"><?php esc_html_e( '1Send Us a Message', 'robo' ); ?></h2>
 						
 						<?php
 						$has_content = false;
@@ -133,6 +133,8 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 									</div>
 								</div>
 							</form>
+
+							
 							<?php
 						}
 						?>

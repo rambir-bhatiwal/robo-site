@@ -25,6 +25,7 @@
 		initModalDismissFix();
 		initCartQuantityMonitor();
 		initQuantityButtons();
+		initCheckoutCouponBridge();
 	});
 
 	// Re-initialize custom quantity buttons after WooCommerce AJAX updates the cart
@@ -331,5 +332,93 @@
 		// Trigger change event so WooCommerce knows to enable the "Update Cart" button!
 		$input.trigger('change');
 	});
+
+	/**
+	 * Premium WooCommerce Checkout Custom Coupon handler.
+	 */
+	function initCheckoutCouponBridge() {
+		const $couponCard = $('.robo-checkout-coupon-card');
+		if (!$couponCard.length) {
+			return;
+		}
+
+		const $input = $('#robo_coupon_code');
+		const $button = $('#robo_apply_coupon');
+		const $msg = $('#robo_coupon_message');
+
+		// Handle keypress Enter on custom coupon input
+		$input.on('keypress', function(e) {
+			if (e.which === 13) {
+				e.preventDefault();
+				$button.trigger('click');
+			}
+		});
+
+		$button.on('click', function(e) {
+			e.preventDefault();
+			const code = $input.val().trim();
+			if (!code) {
+				showCouponMessage('Please enter a coupon code.', 'danger');
+				return;
+			}
+
+			// Clear previous message
+			$msg.hide().html('');
+
+			// Find real WooCommerce coupon form
+			const $realForm = $('form.checkout_coupon');
+			if (!$realForm.length) {
+				showCouponMessage('Coupon form not found. Please try again.', 'danger');
+				return;
+			}
+
+			// Set value in real form and submit
+			$realForm.find('input[name="coupon_code"]').val(code);
+			
+			// Show loading spinner
+			$button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Applying...');
+			
+			$realForm.submit();
+		});
+
+		// Listen for checkout update event
+		$(document.body).on('updated_checkout', function() {
+			// Restore button state
+			$button.prop('disabled', false).html('Apply');
+			$input.val('');
+
+			// Extract notices if any relate to coupons
+			const $notices = $('.woocommerce-error, .woocommerce-message, .woocommerce-info');
+			let foundCouponNotice = false;
+
+			$notices.each(function() {
+				const text = $(this).text().toLowerCase();
+				// If notice contains coupon keywords, display it inside our card
+				if (text.includes('coupon') || text.includes('code')) {
+					const noticeHTML = $(this).html();
+					const isError = $(this).hasClass('woocommerce-error');
+					showCouponMessage(noticeHTML, isError ? 'danger' : 'success');
+					foundCouponNotice = true;
+				}
+			});
+
+			if (!foundCouponNotice) {
+				$msg.hide().html('');
+			}
+		});
+
+		function showCouponMessage(content, type) {
+			// Clean up output if WooCommerce adds raw buttons
+			let cleanedContent = content;
+			if (cleanedContent.includes('<a') && cleanedContent.includes('button')) {
+				// Strip any actions like "Show Coupon" or "Login" links that woo notices might include
+				cleanedContent = cleanedContent.replace(/<a\b[^>]*>(.*?)<\/a>/gi, '');
+			}
+			$msg.removeClass('text-danger text-success')
+				.addClass(type === 'danger' ? 'text-danger' : 'text-success')
+				.html(cleanedContent)
+				.fadeIn(200);
+		}
+	}
 
 })(jQuery);

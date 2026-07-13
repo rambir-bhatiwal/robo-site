@@ -23,50 +23,75 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 ?>
 
-<form name="checkout" method="post" class="checkout woocommerce-checkout mt-2" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
+<form name="checkout" method="post" class="checkout woocommerce-checkout mt-4" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
 
 	<div class="row g-4">
-		<!-- Left Column: Customer details (Billing & Shipping) -->
-		<div class="col-lg-7 col-xl-8">
+		<!-- Left Column: Customer details (Billing, Shipping, Additional Info, Coupon) -->
+		<div class="col-lg-8 checkout-left-col">
 			<?php if ( $checkout->get_checkout_fields() ) : ?>
 
 				<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
 
 				<div id="customer_details">
 					<!-- Billing details card -->
-					<div class="card border-0 shadow-sm p-4 mb-4">
+					<div class="card border-0 shadow-sm p-4 mb-4 woocommerce-billing-fields-card">
+						<h4 class="fw-bold text-dark mb-4" style="font-size: 1.15rem;">
+							<i class="bi bi-person-fill-gear me-2 text-primary"></i>
+							<span><?php esc_html_e( 'Billing details', 'woocommerce' ); ?></span>
+						</h4>
 						<?php do_action( 'woocommerce_checkout_billing' ); ?>
 					</div>
 
-					<!-- Shipping details card -->
-					<div class="card border-0 shadow-sm p-4 mb-4">
-						<?php do_action( 'woocommerce_checkout_shipping' ); ?>
-					</div>
+					<!-- Shipping details & Additional Information card (handled inside form-shipping.php) -->
+					<?php do_action( 'woocommerce_checkout_shipping' ); ?>
 				</div>
 
 				<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
 
 			<?php endif; ?>
+
+			<!-- Custom Coupon Card -->
+			<?php if ( wc_coupons_enabled() ) : ?>
+				<div class="card border-0 shadow-sm p-4 mb-4 robo-checkout-coupon-card">
+					<h4 class="fw-bold text-dark mb-2" style="font-size: 1.15rem;">
+						<i class="bi bi-tag-fill me-2 text-primary"></i>
+						<span><?php esc_html_e( 'Have a Coupon?', 'robo' ); ?></span>
+					</h4>
+					<p class="text-muted small mb-3"><?php esc_html_e( 'Enter your promo code to get a discount on your order.', 'robo' ); ?></p>
+					<div class="input-group gap-2 d-flex">
+						<input type="text" id="robo_coupon_code" class="form-control rounded" placeholder="<?php esc_attr_e( 'Promo code', 'robo' ); ?>" style="height: 46px;" />
+						<button type="button" id="robo_apply_coupon" class="btn btn-primary px-4 fw-bold rounded" style="height: 46px;"><?php esc_html_e( 'Apply', 'robo' ); ?></button>
+					</div>
+					<div id="robo_coupon_message" class="mt-2 small" style="display: none;"></div>
+				</div>
+			<?php endif; ?>
 		</div>
 
-		<!-- Right Column: Order Review & Payments -->
-		<div class="col-lg-5 col-xl-4">
-			<div class="checkout-sidebar sticky-top" style="top: 100px; z-index: 9;">
+		<!-- Right Column: Sticky Order Summary card & Payment Methods -->
+		<div class="col-lg-4 checkout-right-col">
+			<div class="checkout-sidebar sticky-top" style="top: 24px; z-index: 10;">
 				
 				<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
 				
-				<h5 class="fw-bold text-dark text-uppercase mb-3 px-1 tracking-wider d-flex align-items-center" style="font-size: 0.85rem; letter-spacing: 0.5px;">
-					<i class="bi bi-cart-check-fill me-2 text-primary fs-5"></i>
-					<span><?php esc_html_e( 'Order Summary', 'woocommerce' ); ?></span>
-				</h5>
-				
-				<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
+				<div class="card border-0 shadow-sm p-4 mb-4 woocommerce-checkout-review-order-card">
+					<h4 class="fw-bold text-dark mb-4 d-flex align-items-center justify-content-between" style="font-size: 1.15rem;">
+						<span class="d-flex align-items-center">
+							<i class="bi bi-bag-check-fill me-2 text-primary"></i>
+							<span><?php esc_html_e( 'Order Summary', 'woocommerce' ); ?></span>
+						</span>
+						<span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill" style="font-size: 0.75rem;">
+							<?php echo sprintf( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count(), 'robo' ), WC()->cart->get_cart_contents_count() ); ?>
+						</span>
+					</h4>
+					
+					<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
 
-				<div id="order_review" class="woocommerce-checkout-review-order card border-0 shadow-sm p-4 mb-4">
-					<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+					<div id="order_review" class="woocommerce-checkout-review-order">
+						<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+					</div>
+
+					<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
 				</div>
-
-				<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
 				
 			</div>
 		</div>
