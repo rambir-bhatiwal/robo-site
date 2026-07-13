@@ -11,7 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 ?>
-<section id="newsletter" class="newsletter-section py-5 text-white" style="background: linear-gradient(135deg, #0f172a 0%, #0052FF 100%);">
+<section id="newsletter" class="newsletter-section text-white" style="background: linear-gradient(135deg,
+#4B1FA8 0%,
+#6D28FF 45%,
+#A33BFF 75%,
+#FF3F8E 100%);">
 	<div class="<?php echo esc_attr( $container_class ); ?> py-4 text-center">
 		<div class="row justify-content-center">
 			<div class="col-lg-7">

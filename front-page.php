@@ -23,13 +23,13 @@ $homepage_sections = array(
 	'features',
 	'portfolio',
 	// 'counter',
-	'testimonials',
+	// 'testimonials',
 	'team',
 	'pricing',
-	'faq',
+	// 'faq',
 	// 'latest-blog',
 	'newsletter',
-	'contact',
+	// 'contact',
 );
 
 foreach ( $homepage_sections as $section ) {

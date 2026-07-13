@@ -34,7 +34,7 @@ $features = array(
 	),
 );
 ?>
-<section id="features" class="features-section py-5 my-5">
+<section id="features" class="features-section py-5">
 	<div class="<?php echo esc_attr( $container_class ); ?> py-4">
 		<div class="row align-items-center g-5">
 			

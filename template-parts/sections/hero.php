@@ -29,46 +29,71 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 
 
 
-<section id="hero" class="py-5  my-5 bg-white bg-opacity-10 border-bottom border-white border-opacity-10">
-    <div class="<?php echo esc_attr( $container_class ); ?>">
-        <div class="row align-items-center min-vh-75">
 
-            <!-- Left Content -->
-            <div class="col-lg-6">
+<section id="hero" class="hero-section">
 
-                <h1 class="display-2 fw-bold text-primary mb-4">
-                    Mini Sumo <br> Robot
-                </h1>
+<div class="<?php echo esc_attr($container_class); ?>">
 
-                <p class="lead text-dark mb-5">
-                    <!-- Build • Code • Compete —
-                    Your journey into robotics starts here. -->
+<div class="row align-items-center min-vh-100">
 
-                    Design, Build, Code & Compete with high-performance Mini Sumo robots. Everything you need to start your robotics journey.
-                </p>
+<!-- LEFT -->
 
-                <a href="<?php echo esc_url( $btn1_url ); ?>" class="btn btn-warning btn-lg rounded-pill px-5 py-3 fw-bold">
-                    <!-- Make a Website -->
-                     Explore Robots
-                </a>
+<div class="col-lg-5">
 
-            </div>
+<span class="hero-badge">
+🤖 Robotics Kit
+</span>
 
-            <!-- Right Image -->
-            <div class="col-lg-6 text-center">
+<h1 class="hero-title">
+Mini Sumo
+<span>Robot</span>
+</h1>
 
-                <img
-                    src="https://roboscaler.com/wp-content/uploads/2026/07/ChatGPT-Image-Mar-13-2026-02_28_53-PM-3.png"
-                    class="img-fluid"
-                    alt="Mini Sumo Robot">
+<p class="hero-text">
+Build, Code & Compete with India's most advanced Mini Sumo Robot kit.
+</p>
 
-            </div>
+<a href="<?php echo esc_url($btn1_url); ?>" class="btn hero-btn">
+Explore Robots →
+</a>
 
-        </div>
-    </div>
+</div>
+
+<!-- RIGHT -->
+
+<div class="col-lg-7">
+
+<div class="robot-wrapper">
+
+<div class="glow"></div>
+
+<div class="ring ring1"></div>
+<div class="ring ring2"></div>
+
+<div class="grid"></div>
+
+<div class="particle p1"></div>
+<div class="particle p2"></div>
+<div class="particle p3"></div>
+<div class="particle p4"></div>
+<div class="particle p5"></div>
+
+<img
+src="https://app.roboscaler.com/wp-content/uploads/2026/07/513ac378-2fee-4500-8756-c9fb74781012.png"
+class="robot-img"
+alt="Mini Sumo Robot">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-
+</section>
 
 <!-- 
 <section id="hero" class="py-5  my-5 bg-white bg-opacity-10 border-bottom border-white border-opacity-10">
@@ -100,7 +125,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
             <!-- <div class="col-lg-6 text-center">
 
                 <img
-                    src="https://roboscaler.com/wp-content/uploads/2026/07/ChatGPT-Image-Mar-13-2026-02_28_53-PM-3.png"
+                    src="https://app.roboscaler.com/wp-content/uploads/2026/07/a.png"
                     class="img-fluid"
                     alt="Mini Sumo Robot">
 

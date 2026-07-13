@@ -60,60 +60,103 @@ $pricing_plans = array(
 );
 ?>
 <section id="pricing" class="pricing-section py-5 my-5">
-	<div class="<?php echo esc_attr( $container_class ); ?> py-4">
-		
-		<!-- Section Header -->
-		<div class="row mb-5 justify-content-center text-center">
-			<div class="col-lg-6">
-				<span class="text-primary text-uppercase fw-bold small tracking-wider mb-2 d-block"><?php esc_html_e( 'Parts Bundles', 'robo' ); ?></span>
-				<h2 class="h1 fw-bold text-dark mb-3"><?php esc_html_e( 'Robotics Build Kits', 'robo' ); ?></h2>
-				<p class="text-muted"><?php esc_html_e( 'Pick a pre-configured kit with matched parts to jump-start your project. Perfect for classrooms and competitions.', 'robo' ); ?></p>
-			</div>
-		</div>
+    <div class="<?php echo esc_attr( $container_class ); ?> py-4">
 
-		<!-- Pricing Grid -->
-		<div class="row g-4 align-items-center">
-			<?php foreach ( $pricing_plans as $plan ) : ?>
-				<div class="col-lg-4 col-md-6">
-					<div class="pricing-card card h-100 border-0 p-4 rounded-4 <?php echo $plan['featured'] ? 'shadow-lg border-primary border-top border-5 position-relative z-1' : 'shadow-sm'; ?>">
-						
-						<?php if ( $plan['featured'] ) : ?>
-							<span class="badge bg-primary text-white position-absolute top-0 end-0 m-4 text-uppercase fw-bold px-3 py-1 fs-8">
-								<?php esc_html_e( 'Most Popular', 'robo' ); ?>
-							</span>
-						<?php endif; ?>
+        <!-- Section Header -->
+        <div class="row mb-5 justify-content-center text-center">
+            <div class="col-lg-6">
+                <span class="text-uppercase fw-bold small tracking-wider mb-2 d-block">
+                    <?php esc_html_e( 'Parts Bundles', 'robo' ); ?>
+                </span>
 
-						<div class="card-body">
-							<h3 class="h5 fw-bold text-dark mb-2"><?php echo esc_html( $plan['title'] ); ?></h3>
-							<p class="text-muted small mb-4"><?php echo esc_html( $plan['desc'] ); ?></p>
-							
-							<!-- Price -->
-							<div class="price-wrapper d-flex align-items-baseline mb-4">
-								<span class="h4 text-dark fw-bold mb-0"><?php esc_html_e( '$', 'robo' ); ?></span>
-								<span class="display-4 text-dark fw-extrabold mb-0 leading-none"><?php echo esc_html( $plan['price'] ); ?></span>
-								<span class="text-muted small ms-1"><?php echo esc_html( $plan['period'] ); ?></span>
-							</div>
+                <h2 class="h1 fw-bold mb-3">
+                    <?php esc_html_e( 'Robotics Build Kits', 'robo' ); ?>
+                </h2>
 
-							<!-- Features List -->
-							<ul class="list-unstyled mb-5 border-top border-light-subtle pt-4">
-								<?php foreach ( $plan['features'] as $feat ) : ?>
-									<li class="d-flex align-items-center gap-2 mb-3 small text-muted">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check text-primary" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/></svg>
-										<span><?php echo esc_html( $feat ); ?></span>
-									</li>
-								<?php endforeach; ?>
-							</ul>
+                <p>
+                    <?php esc_html_e( 'Pick a pre-configured kit with matched parts to jump-start your project. Perfect for classrooms and competitions.', 'robo' ); ?>
+                </p>
+            </div>
+        </div>
 
-							<!-- Call to Action -->
-							<a href="<?php echo esc_url( home_url( '/pricing/' ) ); ?>" class="btn w-100 py-3 fw-bold <?php echo esc_attr( $plan['btn_class'] ); ?>">
-								<?php echo esc_html( $plan['btn_text'] ); ?>
-							</a>
-						</div>
+        <!-- Pricing Grid -->
+        <div class="row g-4 align-items-center">
 
-					</div>
-				</div>
-			<?php endforeach; ?>
-		</div>
+            <?php foreach ( $pricing_plans as $plan ) : ?>
 
-	</div>
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="pricing-card card h-100 border-0 p-4 rounded-4 <?php echo $plan['featured'] ? 'shadow-lg border-primary border-top border-5 position-relative z-1' : 'shadow-sm'; ?>">
+
+                        <?php if ( $plan['featured'] ) : ?>
+                            <span class="badge position-absolute top-0 end-0 m-4 text-uppercase fw-bold px-3 py-1">
+                                <?php esc_html_e( 'Most Popular', 'robo' ); ?>
+                            </span>
+                        <?php endif; ?>
+
+                        <div class="card-body">
+
+                            <!-- Title -->
+                            <h3 class="h5 fw-bold mb-2">
+                                <?php echo esc_html( $plan['title'] ); ?>
+                            </h3>
+
+                            <!-- Description -->
+                            <p class="small mb-4">
+                                <?php echo esc_html( $plan['desc'] ); ?>
+                            </p>
+
+                            <!-- Price -->
+                            <div class="price-wrapper d-flex align-items-baseline mb-4">
+                                <span class="h4 fw-bold mb-0">$</span>
+
+                                <span class="display-4 fw-extrabold mb-0 leading-none">
+                                    <?php echo esc_html( $plan['price'] ); ?>
+                                </span>
+
+                                <span class="small ms-1">
+                                    <?php echo esc_html( $plan['period'] ); ?>
+                                </span>
+                            </div>
+
+                            <!-- Features -->
+                            <ul class="list-unstyled mb-5 border-top pt-4">
+
+                                <?php foreach ( $plan['features'] as $feat ) : ?>
+
+                                    <li class="d-flex align-items-center gap-2 mb-3 small">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                            <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                        </svg>
+
+                                        <span>
+                                            <?php echo esc_html( $feat ); ?>
+                                        </span>
+
+                                    </li>
+
+                                <?php endforeach; ?>
+
+                            </ul>
+
+                            <!-- Button -->
+                            <a href="<?php echo esc_url( home_url( '/pricing/' ) ); ?>"
+                               class="btn w-100 py-3 fw-bold <?php echo esc_attr( $plan['btn_class'] ); ?>">
+
+                                <?php echo esc_html( $plan['btn_text'] ); ?>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <?php endforeach; ?>
+
+        </div>
+
+    </div>
 </section>

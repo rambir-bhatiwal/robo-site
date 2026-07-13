@@ -102,7 +102,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 							// Render a beautiful fallback form if no CF7 or custom form shortcode is in editor content
 							?>
 							<?php
-								echo do_shortcode('[contact-form-7 id="0c39c88" title="Contact"]');
+								echo do_shortcode('[contact-form-7 id="6c9359c" title="Contact"]');
 							?>
 							<?php
 						}
