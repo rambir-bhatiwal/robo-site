@@ -364,6 +364,27 @@ robo/
 
 ## Changelog
 
+### v1.0.4
+* Created reusable, responsive Full Width Page Template (`template-full-width.php`) allowing any WordPress page (About, Contact, Gallery, Privacy Policy, Terms, etc.) to be rendered in full width without left or right sidebars.
+* Formatted pagination links on the full width template to use custom Bootstrap 5 outline styles.
+* Created reusable "Full Width + Custom Fields" page template (`template-full-width-fields.php`) displaying page details and dynamic custom fields (supporting ACF plugin array-objects and native WordPress metadata keys) in a responsive, striped table.
+* Created reusable "Custom Fields + Content" page template (`template-fields-content.php`) placing dynamic custom fields (ACF and native meta) directly below the title, followed by the page content, suitable for product guides and manuals.
+
+### v1.0.3
+* Created beautiful, responsive custom page templates for About Us (`template-about.php` / `page-about.php`) and Contact Us (`template-contact.php` / `page-contact.php`) pages built with Bootstrap 5.
+* Integrated premium designs featuring interactive hover cards, developer code blocks, dynamic counters, maps, business hours components, and FAQ accordion blocks.
+
+### v1.0.2
+* Removed forced layout stretching and height-stretching properties (`h-100`) from the product gallery card and container, allowing them to shrink-wrap their contents tightly.
+* Enabled sticky scroll positioning for the gallery columns on desktop layouts to keep the product media visible during details scroll.
+* Fixed sticky gallery boundaries by splitting the single-product grid row, enclosing gallery and details in a dedicated row while moving bottom sections (Frequently Bought Together, Tabs, Related Products) to a secondary row to prevent layout overlaps.
+
+### v1.0.1
+* Fixed product gallery slider heights to maintain a responsive, static height (550px desktop, 450px tablet, 350px mobile).
+* Set product gallery images to fit dynamically via `object-fit: contain` to prevent stretching, distortion, or layout shifting.
+* Adjusted footer link colors and non-link muted text for premium contrast on dark backgrounds.
+* Converted plain text footer location, email, and phone contact details into active, interactive links (opening Google Maps, Gmail webmail, and tel dialer).
+
 ### v1.0.0
 * Initial release of the Robo theme.
 * Local integration of the Bootstrap 5.3.3 styling engine.

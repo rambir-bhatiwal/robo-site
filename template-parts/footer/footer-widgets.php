@@ -102,13 +102,13 @@ if ( 1 === $active_sidebars ) {
 						<?php esc_html_e( 'Engineering Lab', 'robo' ); ?>
 					</h5>
 					<p class="text-muted small mb-2 lh-lg">
-						<i class="bi bi-geo-alt-fill text-primary me-2"></i><?php esc_html_e( '100 Robotics Way, Austin, TX 78701', 'robo' ); ?>
+						<i class="bi bi-geo-alt-fill text-primary me-2"></i><a href="https://maps.google.com/?q=100+Robotics+Way,+Austin,+TX+78701" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php esc_html_e( '100 Robotics Way, Austin, TX 78701', 'robo' ); ?></a>
 					</p>
 					<p class="text-muted small mb-2">
-						<i class="bi bi-envelope-fill text-primary me-2"></i><?php esc_html_e( 'support@example.com', 'robo' ); ?>
+						<i class="bi bi-envelope-fill text-primary me-2"></i><a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@example.com" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php esc_html_e( 'support@example.com', 'robo' ); ?></a>
 					</p>
 					<p class="text-muted small mb-0">
-						<i class="bi bi-telephone-fill text-primary me-2"></i><?php esc_html_e( '+1 (555) 867-5309', 'robo' ); ?>
+						<i class="bi bi-telephone-fill text-primary me-2"></i><a href="tel:+15558675309" class="text-decoration-none hover-primary"><?php esc_html_e( '+1 (555) 867-5309', 'robo' ); ?></a>
 					</p>
 				</div>
 			<?php endif; ?>

@@ -380,3 +380,56 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
 }
 
 }
+
+/* ==========================================================================
+   Footer Styling & Contrast Controls
+   ========================================================================== */
+.site-footer {
+    background-color: var(--robo-footer-bg) !important;
+    color: #ffffff !important;
+}
+
+.site-footer a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    transition: var(--robo-transition-smooth);
+}
+
+.site-footer a:hover {
+    color: var(--robo-primary-color) !important;
+}
+
+/* Override Bootstrap text-muted classes in footer to display as white */
+.site-footer .text-muted {
+    color: #ffffff !important;
+    opacity: 0.85; /* Keep it slightly soft but clearly white */
+}
+
+/* Ensure text-muted classes inside links inherit the parent link hover/default colors */
+.site-footer a .text-muted {
+    color: inherit !important;
+    opacity: 1;
+}
+
+.site-footer a:hover .text-muted {
+    color: var(--robo-primary-color) !important;
+}
+
+/* Footer widget headings */
+.site-footer .widget-title,
+.site-footer h5,
+.site-footer h6 {
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
+   Card Hover-up animation helper
+   ========================================================================== */
+.hover-up {
+    transition: var(--robo-transition-smooth) !important;
+}
+
+.hover-up:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08) !important;
+}
