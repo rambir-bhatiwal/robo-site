@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
+get_template_part( 'template-parts/woocommerce-banner' );
+
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 ?>
 
@@ -24,15 +26,14 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 				?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					
-					<!-- Header Section with Title & Featured Image -->
-					<header class="entry-header mb-4 text-center">
-						<h1 class="entry-title display-5 fw-extrabold text-dark mb-3"><?php the_title(); ?></h1>
-						<?php if ( has_post_thumbnail() ) : ?>
+					<!-- Header Section with Featured Image -->
+					<?php if ( has_post_thumbnail() ) : ?>
+						<header class="entry-header mb-4 text-center">
 							<div class="post-thumbnail my-4 rounded-3 overflow-hidden shadow-sm">
 								<?php the_post_thumbnail( 'large', array( 'class' => 'img-fluid w-100 object-fit-cover', 'style' => 'max-height: 450px;' ) ); ?>
 							</div>
-						<?php endif; ?>
-					</header>
+						</header>
+					<?php endif; ?>
 
 					<!-- Entry Content Area -->
 					<div class="entry-content text-muted fs-6 lh-lg">

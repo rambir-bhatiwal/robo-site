@@ -1861,5 +1861,50 @@ transform:none;
 /* Ensure symmetric outer margins and padding for the checkout page */
 
 
+/* WooCommerce Thank You (Order Received) Page Overview Table Styles */
+.woocommerce-table--order-overview {
+	border-collapse: collapse !important;
+	width: 100% !important;
+}
+
+.woocommerce-table--order-overview th,
+.woocommerce-table--order-overview td {
+	padding: 1rem 1.25rem !important;
+	border-bottom: 1px solid var(--bs-border-color-translucent) !important;
+}
+
+.woocommerce-table--order-overview tr:last-child th,
+.woocommerce-table--order-overview tr:last-child td {
+	border-bottom: none !important;
+}
+
+/* Style WooCommerce Thank You Page received notice as a standard green success notification instead of purple */
+.woocommerce-thankyou-order-received {
+	padding: 1.25rem 1.5rem 1.25rem 3.5rem !important;
+	border-radius: 8px !important;
+	margin-bottom: 1.5rem !important;
+	font-weight: 600;
+	display: block !important;
+	position: relative !important;
+	overflow: hidden !important;
+	font-size: 0.9rem;
+	border: 0 !important;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+	background-color: #d1e7dd !important;
+	border-left: 5px solid #0f5132 !important;
+	color: #0f5132 !important;
+}
+
+.woocommerce-thankyou-order-received::before {
+	font-family: 'bootstrap-icons' !important;
+	position: absolute !important;
+	left: 1.25rem !important;
+	top: 50% !important;
+	transform: translateY(-50%) !important;
+	font-size: 1.2rem !important;
+	line-height: 1 !important;
+	content: "\f26b" !important; /* bi-check-circle */
+	color: #0f5132 !important;
+}
 
 /* end css of design update */

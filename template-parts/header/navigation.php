@@ -12,6 +12,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 $cta_text        = get_theme_mod( 'robo_hero_btn1_text', esc_html__( 'Get Started', 'robo' ) );
 $cta_url         = get_theme_mod( 'robo_hero_btn1_url', '#contact' );
+
+$login_url = '';
+$login_text = '';
+
+if ( is_user_logged_in() ) {
+	$login_text = esc_html__( 'My Account', 'robo' );
+	if ( class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_permalink' ) ) {
+		$login_url = wc_get_page_permalink( 'myaccount' );
+	} else {
+		$login_url = admin_url( 'profile.php' );
+	}
+} else {
+	$login_text = esc_html__( 'Login', 'robo' );
+	if ( class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_permalink' ) ) {
+		$login_url = wc_get_page_permalink( 'myaccount' );
+	} else {
+		$login_url = wp_login_url();
+	}
+}
+
+// Generate the HTML for the menu item    <i class="bi bi-person-circle me-1"></i>
+$login_menu_item = sprintf(
+	'<li class="menu-item nav-item"><a href="%s" class="nav-link">%s</a></li>',
+	esc_url( $login_url ),
+	esc_html( $login_text )
+);
 ?>
 <nav class="navbar navbar-expand-lg py-3 navbar-light bg-white" aria-label="<?php esc_attr_e( 'Main Navigation', 'robo' ); ?>">
 	<div class="<?php echo esc_attr( $container_class ); ?>">
@@ -48,10 +74,15 @@ $cta_url         = get_theme_mod( 'robo_hero_btn1_url', '#contact' );
 						'menu_class'     => 'navbar-nav mx-auto mb-2 mb-lg-0 fw-medium',
 						'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
 						'walker'         => new Robo_WP_Bootstrap_Navwalker(),
+						'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s' . $login_menu_item . '</ul>',
 					)
 				);
 			} else {
 				// Fallback to custom menu items or page list.
+				$page_menu_filter = function( $menu ) use ( $login_menu_item ) {
+					return str_replace( '</ul>', $login_menu_item . '</ul>', $menu );
+				};
+				add_filter( 'wp_page_menu', $page_menu_filter );
 				wp_page_menu(
 					array(
 						'menu_class'  => 'navbar-nav mx-auto mb-2 mb-lg-0',
@@ -62,6 +93,7 @@ $cta_url         = get_theme_mod( 'robo_hero_btn1_url', '#contact' );
 						'link_after'  => '</span>',
 					)
 				);
+				remove_filter( 'wp_page_menu', $page_menu_filter );
 			}
 			?>
 
