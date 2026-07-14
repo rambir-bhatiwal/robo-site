@@ -351,6 +351,21 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     font-weight:700;
 }
 
+.hero-btn {
+    background: #FFC107;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+    color: #ffffff !important;
+    background-color: #ff2c00 !important;
+    border-color: #ff2c00 !important;
+}
+
 
 
 

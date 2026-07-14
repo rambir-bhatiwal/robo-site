@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define Theme Constants.
-define( 'ROBO_THEME_VERSION', '1.0.0' );
+define( 'ROBO_THEME_VERSION', '1.0.1' );
 define( 'ROBO_THEME_DIR', get_template_directory() );
 define( 'ROBO_THEME_URI', get_template_directory_uri() );
 
