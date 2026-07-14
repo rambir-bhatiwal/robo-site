@@ -28,11 +28,25 @@ $main_col_class = $is_woo_page ? 'col-12' : 'col-lg-8';
 $wrapper_padding_class = $is_woo_page ? 'pt-4 pb-5' : 'py-5';
 ?>
 
+<?php
+if ( $is_woo_page ) {
+	get_template_part( 'template-parts/woocommerce-banner' );
+}
+?>
+
 <div class="container-wrapper <?php echo esc_attr( $wrapper_padding_class ); ?>">
 	<div class="<?php echo esc_attr( $container_class ); ?>">
 		
 		<!-- Breadcrumbs -->
-		<?php robo_breadcrumbs(); ?>
+		<?php
+		if ( $is_woo_page ) {
+			if ( function_exists( 'robo_woocommerce_breadcrumbs' ) ) {
+				robo_woocommerce_breadcrumbs();
+			}
+		} else {
+			robo_breadcrumbs();
+		}
+		?>
 
 		<div class="row">
 			

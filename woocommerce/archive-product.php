@@ -11,27 +11,7 @@ defined( 'ABSPATH' ) || exit;
 get_header( 'shop' );
 ?>
 
-<!-- Shop Header Banner (Full Width, outside the main container wrapper) -->
-<div class="shop-header-banner py-5 bg-dark text-white text-center position-relative overflow-hidden mb-3">
-	<div class="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-50 z-0"></div>
-	<div class="container position-relative z-1 py-3 px-4">
-		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
-			<h1 class="woocommerce-products-header__title page-title display-5 fw-extrabold text-uppercase tracking-wider text-white mb-2">
-				<?php woocommerce_page_title(); ?>
-			</h1>
-		<?php endif; ?>
-		
-		<?php
-		/**
-		 * Hook: woocommerce_archive_description.
-		 *
-		 * @hooked woocommerce_taxonomy_archive_description - 10
-		 * @hooked woocommerce_product_archive_description - 10
-		 */
-		do_action( 'woocommerce_archive_description' );
-		?>
-	</div>
-</div>
+<?php get_template_part( 'template-parts/woocommerce-banner' ); ?>
 
 <?php
 /**

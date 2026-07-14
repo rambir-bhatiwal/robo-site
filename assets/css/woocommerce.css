@@ -1229,9 +1229,7 @@
 /* ==========================================================================
    14. Checkout Page Layout & Form Styling (Premium Redesign)
    ========================================================================== */
-.woocommerce-checkout {
-	margin-top: 2rem !important;
-}
+
 
 /* Two-column layout on desktop: Left (70%) and Right (30%) */
 @media (min-width: 992px) {

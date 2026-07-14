@@ -18,12 +18,12 @@ $article_classes = $is_woo_page ? 'entry-content-wrap mb-4' : 'card border-0 sha
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( $article_classes ); ?>>
 	
-	<header class="entry-header mb-4">
-		<?php the_title( '<h1 class="entry-title fw-bold text-dark mb-0">', '</h1>' ); ?>
-		<?php if ( ! $is_woo_page ) : ?>
+	<?php if ( ! $is_woo_page ) : ?>
+		<header class="entry-header mb-4">
+			<?php the_title( '<h1 class="entry-title fw-bold text-dark mb-0">', '</h1>' ); ?>
 			<hr class="border-light-subtle my-3">
-		<?php endif; ?>
-	</header>
+		</header>
+	<?php endif; ?>
 
 	<!-- Page Featured Image -->
 	<?php if ( has_post_thumbnail() ) : ?>
