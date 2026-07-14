@@ -13,6 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Unhook default payment section from order review action to prevent duplicate rendering
+remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+
 do_action( 'woocommerce_before_checkout_form', $checkout );
 
 // If checkout registration is disabled and not logged in, return
@@ -73,6 +76,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 				
 				<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
 				
+				<!-- Card 1: Order Summary -->
 				<div class="card border-0 shadow-sm p-4 mb-4 woocommerce-checkout-review-order-card">
 					<h4 class="fw-bold text-dark mb-4 d-flex align-items-center justify-content-between" style="font-size: 1.15rem;">
 						<span class="d-flex align-items-center">
@@ -91,6 +95,17 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 					</div>
 
 					<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
+				</div>
+
+				<!-- Card 2: Payment Method -->
+				<div style="padding: 0px !important;" class="card border-0 shadow-sm mb-4 woocommerce-checkout-payment-card">
+					<h4 class="fw-bold text-dark mb-4" style="font-size: 1.15rem;">
+						<i class="bi bi-credit-card-2-front-fill me-2 text-primary"></i>
+						<span><?php esc_html_e( 'Payment Method', 'woocommerce' ); ?></span>
+					</h4>
+					<div class="woocommerce-checkout-payment">
+						<?php woocommerce_checkout_payment(); ?>
+					</div>
 				</div>
 				
 			</div>

@@ -354,13 +354,21 @@
 }
 
 /* Quantity and Buttons side-by-side Alignment */
-.woocommerce div.product form.cart {
+.woocommerce div.product form.cart,
+.woocommerce div.product form.cart .woocommerce-variation-add-to-cart {
 	display: flex !important;
 	flex-wrap: wrap !important;
 	align-items: center !important;
 	gap: 15px !important;
+}
+
+.woocommerce div.product form.cart {
 	margin-bottom: 1.75rem !important;
 	margin-top: 1.5rem !important;
+}
+
+.woocommerce div.product form.cart .woocommerce-variation-add-to-cart {
+	width: 100% !important;
 }
 
 .woocommerce div.product form.cart .quantity {
@@ -439,7 +447,7 @@
 }
 
 .woocommerce div.product form.cart .buy-now-btn {
-	flex-grow: 1;
+	width: 100% !important;
 	height: 52px;
 	background-color: #ff9f00 !important;
 	border-color: #ff9f00 !important;

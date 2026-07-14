@@ -1668,7 +1668,7 @@ height:5px;
     background:transparent!important;
 }
 
-.pricing-card .btn-outline-primary:hover{
+.pricing-card .btn-outline-primary:hover, .newsletter-section-button{
    background:linear-gradient(135deg,#8A2BE2 0%,#A855F7 35%,#FF512F 100%) !important;
 
 color:#fff;
@@ -1692,6 +1692,182 @@ box-shadow:0 18px 40px rgba(138,43,226,.45);
 transform:none;
 }
 
+}
+
+/* ==========================================================================
+   Checkout Layout & Order Summary Redesign
+   ========================================================================== */
+
+/* Modern Checkout Sidebar Card */
+.woocommerce-checkout-review-order-card {
+	padding: 24px !important;
+	border-radius: 12px !important;
+	border: 1px solid rgba(0, 0, 0, 0.04) !important;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.01) !important;
+}
+
+/* Flex Row Structure for Checkout Items */
+.woocommerce-checkout-review-order-table {
+	display: block !important;
+	width: 100% !important;
+}
+
+/* Vertically center the flex row contents */
+.woocommerce-checkout-review-order-table .review-order-item {
+	padding: 20px 0 !important;
+	border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.woocommerce-checkout-review-order-table .review-order-item:last-child {
+	border-bottom: 0 !important;
+}
+
+/* Fixed size image for product rows */
+.woocommerce-checkout-review-order-table .product-thumbnail {
+	width: 70px !important;
+	height: 70px !important;
+	position: relative !important;
+}
+
+.woocommerce-checkout-review-order-table .product-thumbnail img {
+	width: 70px !important;
+	height: 70px !important;
+	border-radius: 8px !important;
+	border: 1px solid #e2e8f0 !important;
+	object-fit: cover !important;
+}
+
+/* Quantity badge in the top-right corner of thumbnail, without overlapping card */
+.woocommerce-checkout-review-order-table .product-thumbnail .badge {
+	position: absolute !important;
+	top: -6px !important;
+	right: -6px !important;
+	left: auto !important;
+	transform: none !important;
+	z-index: 2;
+	font-size: 0.72rem !important;
+	font-weight: 700 !important;
+	padding: 0.35em 0.6em !important;
+	border-radius: 50rem !important;
+	border: 2px solid #ffffff !important;
+	background-color: #475569 !important;
+}
+
+/* Title and price layout inside info */
+.woocommerce-checkout-review-order-table .product-info {
+	margin-left: 0 !important;
+}
+
+.woocommerce-checkout-review-order-table .product-info .product-title {
+	margin-bottom: 4px !important;
+	font-size: 0.95rem !important;
+	font-weight: 600 !important;
+	color: #0f172a !important;
+}
+
+.woocommerce-checkout-review-order-table .product-info .product-price {
+	font-size: 0.85rem !important;
+	color: #64748b !important;
+}
+
+/* Consistent text alignment and font weights */
+.woocommerce-checkout-review-order-table .product-total {
+	font-weight: 600 !important;
+	color: #0f172a !important;
+}
+
+/* Totals sections formatting */
+.woocommerce-checkout-review-order-table .review-order-totals {
+	border-top: 1px solid #e2e8f0 !important;
+}
+
+/* Spacing before Subtotal and Total sections */
+.woocommerce-checkout-review-order-table .review-order-totals > div {
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+}
+
+/* Shipping table rows inside review order card */
+.woocommerce-checkout-review-order-table .shipping-wrapper table tr {
+	display: flex !important;
+	align-items: flex-start !important;
+	justify-content: space-between !important;
+	width: 100% !important;
+	padding: 10px 0 !important;
+	border: 0 !important;
+}
+
+.woocommerce-checkout-review-order-table .shipping-wrapper table th {
+	flex: 0 0 auto !important;
+	font-weight: normal !important;
+	color: #64748b !important;
+	font-size: 0.9rem !important;
+	padding: 0 !important;
+}
+
+.woocommerce-checkout-review-order-table .shipping-wrapper table td {
+	flex: 1 1 auto !important;
+	text-align: right !important;
+	font-size: 0.9rem !important;
+	padding: 0 !important;
+}
+
+.woocommerce-checkout-review-order-table .shipping-wrapper ul#shipping_method {
+	list-style: none !important;
+	padding-left: 0 !important;
+	margin-bottom: 0 !important;
+	text-align: right !important;
+}
+
+.woocommerce-checkout-review-order-table .shipping-wrapper ul#shipping_method li {
+	margin-bottom: 8px !important;
+}
+
+/* Extra prominence for the Total row */
+.woocommerce-checkout-review-order-table .review-order-totals .border-top {
+	margin-top: 24px !important;
+	padding-top: 24px !important;
+}
+
+.woocommerce-checkout-review-order-table .review-order-totals h5 {
+	font-size: 1.2rem !important;
+	font-weight: 800 !important;
+	color: #0f172a !important;
+}
+
+.woocommerce-checkout-review-order-table .review-order-totals h4,
+.woocommerce-checkout-review-order-table .review-order-totals h4 .amount {
+	font-size: 1.35rem !important;
+	font-weight: 800 !important;
+	color: #0052FF !important;
+}
+
+/* Responsive Sticky adjustments */
+@media (max-width: 991.98px) {
+	.checkout-sidebar.sticky-top {
+		position: static !important;
+		margin-top: 2rem !important;
+	}
+	.woocommerce-checkout-review-order-card,
+	.woocommerce-checkout-payment-card {
+		padding: 20px !important;
+	}
+}
+
+/* Ensure symmetric outer margins and padding for the checkout page */
+.woocommerce-checkout {
+	padding-left: 20px !important;
+	padding-right: 20px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	max-width: 1320px !important;
+}
+
+@media (max-width: 576px) {
+	.woocommerce-checkout {
+		padding-left: 12px !important;
+		padding-right: 12px !important;
+	}
 }
 
 /* end css of design update */
