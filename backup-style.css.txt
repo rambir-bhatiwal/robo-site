@@ -44,9 +44,6 @@ This theme is 100% custom-built for WordPress using Bootstrap 5.
         max-height: 45px;
         max-width: 180px;
     }
-    .Right-Graphic-Card-Column{
-        padding: 0 !important;
-    }
 }
 
 /* start css of design update */
@@ -1536,14 +1533,10 @@ button#back-to-top{
 .page-id-164 .about-page-wrapper section.about-hero.bg-dark.text-white.py-5.text-center.position-relative.overflow-hidden.mb-5{
 	background: linear-gradient(135deg, #4B0FA3 0%, #7B2FF7 55%, #A020F0 100%) !important;
 }
- section.about-hero , section.contact-hero , .page-template-template-learning-videos section.videos-hero {
+ section.about-hero , section.contact-hero , .page-template-template-learning-videos section.videos-hero{
 	background: linear-gradient(135deg, #4B0FA3 0%, #7B2FF7 55%, #A020F0 100%) !important;
 }
 .shop-header-banner{
-    background: linear-gradient(135deg, #4B0FA3 0%, #7B2FF7 55%, #A020F0 100%) !important;
-}
-.entry-header{
-    padding: 2% 0 ;
     background: linear-gradient(135deg, #4B0FA3 0%, #7B2FF7 55%, #A020F0 100%) !important;
 }
 /* Card */

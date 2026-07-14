@@ -17,7 +17,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 
 <div class="contact-page-wrapper bg-light-subtle pb-5">
 	<!-- Hero Section -->
-	<section class="contact-hero bg-dark text-white py-5 text-center position-relative overflow-hidden mb-5" style="background: linear-gradient(135deg, #090F1d 0%, #0052FF 100%) !important;">
+	<section class="contact-hero bg-dark text-white py-5 text-center position-relative overflow-hidden mb-5">
 		<div class="position-absolute top-0 start-0 w-100 h-100 opacity-10 bg-grid" style="background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px;"></div>
 		<div class="<?php echo esc_attr( $container_class ); ?> position-relative z-1 py-4">
 			<h1 class="display-4 fw-extrabold text-white mb-2"><?php the_title(); ?></h1>

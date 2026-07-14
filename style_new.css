@@ -1,0 +1,1374 @@
+/*
+Theme Name: Robo
+Theme URI: https://example.com/robo
+Author: Rambir Bhatiwal
+Author URI: https://rambir-bhatiwal.github.io/portfolio/
+Description: A highly customizable, modern, responsive Bootstrap 5 WordPress theme designed for businesses, portfolios, and blogs.
+Version: 1.0.0
+Requires at least: 6.0
+Requires PHP: 8.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: robo
+Domain Path: /languages
+Tags: block-styles, custom-background, custom-colors, custom-header, custom-logo, custom-menu, featured-images, footer-widgets, full-width-template, post-formats, theme-options, threaded-comments, translation-ready
+
+This theme is 100% custom-built for WordPress using Bootstrap 5.
+*/
+
+/* start css of design update */
+
+/* ==========================================================================
+   Global
+   ========================================================================== */
+
+.popular-products,
+.team-section {
+    background: linear-gradient(135deg, #E7ECF7 0%, #DCE3F2 50%, #E9EEFA 100%) !important;
+}
+
+section.about-hero,
+section.contact-hero,
+.page-template-template-learning-videos section.videos-hero {
+    background: linear-gradient(135deg, #4B0FA3 0%, #7B2FF7 55%, #A020F0 100%) !important;
+}
+
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+.btn-primary {
+    color: #fff;
+    border: none;
+    padding: 16px 42px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all .35s ease;
+    box-shadow: 0 12px 30px rgba(255, 77, 48, .35);
+    background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%);
+}
+
+button#back-to-top {
+    padding: 0px !important;
+}
+
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+/* Logo */
+.custom-logo-link {
+    display: flex;
+    align-items: center;
+}
+
+.custom-logo {
+    max-height: 60px;   /* Adjust as needed */
+    width: auto;
+    max-width: 220px;   /* Prevent very wide logos */
+    object-fit: contain;
+    display: block;
+}
+
+#menu-top-menu {
+    /* display: flex; */
+    /* align-items: right; */
+    margin-right: 20px !important; /* Adjust as needed */
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .custom-logo {
+        max-height: 45px;
+        max-width: 180px;
+    }
+}
+
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+.hero-section {
+    background: radial-gradient(circle at top right, rgba(123, 47, 247, .30) 0%, transparent 35%),
+        radial-gradient(circle at bottom left, rgba(255, 77, 48, .22) 0%, transparent 35%),
+        linear-gradient(135deg, #12052E 0%, #22114B 45%, #341A73 100%);
+    padding: 60px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-section h1 {
+    color: #fff;
+}
+
+/* LEFT */
+.hero-badge {
+    display: inline-block;
+    background: #ffffff18;
+    padding: 10px 22px;
+    border-radius: 50px;
+    color: #fff;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.hero-title {
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1;
+    color: #fff;
+}
+
+.hero-title span {
+    background: linear-gradient(90deg, #FF4D30, #FF7A00, #A855F7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+}
+
+.hero-text {
+    font-size: 20px;
+    color: #d7e2ff;
+    margin: 25px 0 40px;
+    max-width: 420px;
+}
+
+.hero-btn {
+    background: #FFC107;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+/* RIGHT */
+.robot-wrapper {
+    position: relative;
+    height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* BIG IMAGE */
+.robot-img {
+    width: 600px;
+    max-width: none;
+    position: relative;
+    z-index: 10;
+    animation: floatRobot 5s ease-in-out infinite;
+    filter: drop-shadow(0 40px 60px rgba(0, 0, 0, .5));
+}
+
+/* GLOW */
+.glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #00BFFF66 0%, transparent 70%);
+    filter: blur(60px);
+    animation: pulse 4s infinite;
+}
+
+/* ROTATING RINGS */
+.ring {
+    position: absolute;
+    border: 2px dashed rgba(255, 255, 255, .2);
+    border-radius: 50%;
+}
+
+.ring1 {
+    width: 600px;
+    height: 600px;
+    animation: rotate 20s linear infinite;
+}
+
+.ring2 {
+    width: 700px;
+    height: 700px;
+    animation: rotateReverse 30s linear infinite;
+}
+
+/* GRID */
+.grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: .3;
+}
+
+/* PARTICLES */
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #FFD54F;
+    border-radius: 50%;
+    animation: particleMove 6s infinite;
+}
+
+.p1 { top: 80px; left: 120px; }
+.p2 { top: 150px; right: 150px; animation-delay: 1s; }
+.p3 { bottom: 120px; left: 100px; animation-delay: 2s; }
+.p4 { bottom: 80px; right: 100px; animation-delay: 3s; }
+.p5 { top: 50%; left: 30px; animation-delay: 4s; }
+
+/* FLOAT */
+@keyframes floatRobot {
+    0%, 100% {
+        transform: translateY(0px) rotate(-2deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(2deg);
+    }
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotateReverse {
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes particleMove {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 46px;
+    }
+    .robot-wrapper {
+        height: 500px;
+        margin-top: 40px;
+    }
+    .robot-img {
+        width: 480px;
+        max-width: 100%;
+    }
+    .ring1 {
+        width: 350px;
+        height: 350px;
+    }
+    .ring2 {
+        width: 430px;
+        height: 430px;
+    }
+    .glow {
+        width: 350px;
+        height: 350px;
+    }
+}
+
+
+/* ==========================================================================
+   Services
+   ========================================================================== */
+
+/*=============================
+    SERVICES SECTION
+==============================*/
+.services-section {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #eef5ff 0%, #f6fbff 40%, #ffffff 100%);
+    padding: 90px 0;
+}
+
+/* Animated Gradient */
+.services-section::before {
+    content: "";
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #3b82f640 0%, transparent 70%);
+    top: -250px;
+    left: -200px;
+    animation: float1 10s ease-in-out infinite;
+}
+
+.services-section::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #8b5cf640 0%, transparent 70%);
+    bottom: -180px;
+    right: -150px;
+    animation: float2 12s ease-in-out infinite;
+}
+
+/* Heading */
+.services-section span {
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+.services-section h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.services-section p {
+    font-size: 17px;
+    color: #6b7280;
+}
+
+/*=============================
+        SERVICE CARD
+==============================*/
+.service-card {
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .75);
+    backdrop-filter: blur(20px);
+    border-radius: 22px;
+    padding: 35px;
+    border: 1px solid rgba(255, 255, 255, .6);
+    transition: .45s;
+    transform: translateY(70px);
+    opacity: 0;
+    animation: cardReveal .8s forwards;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .08);
+}
+
+/* Card Delay */
+.col-lg-4:nth-child(1) .service-card {
+    animation-delay: .1s;
+}
+
+.col-lg-4:nth-child(2) .service-card {
+    animation-delay: .25s;
+}
+
+.col-lg-4:nth-child(3) .service-card {
+    animation-delay: .4s;
+}
+
+.col-lg-4:nth-child(4) .service-card {
+    animation-delay: .55s;
+}
+
+.col-lg-4:nth-child(5) .service-card {
+    animation-delay: .7s;
+}
+
+.col-lg-4:nth-child(6) .service-card {
+    animation-delay: .85s;
+}
+
+/* Hover */
+.service-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 35px 60px rgba(59, 130, 246, .25);
+}
+
+/* Top Border Animation */
+.service-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(
+        90deg,
+        #FF512F,
+        #FF7A00,
+        #8A2BE2,
+        #FF512F
+    );
+    background-size: 200% 100%;
+    animation: borderFlow 4s linear infinite;
+    transform: scaleX(0);
+    transition: .5s;
+    transform-origin: left;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Glowing Background */
+.service-card::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, .08);
+    right: -80px;
+    top: -80px;
+    transition: .5s;
+}
+
+.service-card:hover::after {
+    transform: scale(1.4);
+}
+
+/*=============================
+        ICON
+==============================*/
+.service-icon {
+    width: 75px;
+    height: 75px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #FF512F 0%, #FF7A00 45%, #8A2BE2 100%);
+    color: #fff;
+    font-size: 32px;
+    box-shadow: 0 15px 35px rgba(138, 43, 226, .25);
+    transition: .35s;
+}
+
+.service-icon svg {
+    width: 34px;
+    height: 34px;
+    fill: #fff;
+    transition: .5s;
+}
+
+.service-card:hover .service-icon {
+    transform: rotate(-10deg) scale(1.15);
+}
+
+.service-card:hover .service-icon svg {
+    transform: rotate(360deg);
+}
+
+/*=============================
+        TITLE
+==============================*/
+.service-card h3 {
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 20px;
+    transition: .3s;
+}
+
+.service-card:hover h3 {
+    color: #2563eb;
+}
+
+/*=============================
+        TEXT
+==============================*/
+.service-card p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #6b7280;
+}
+
+.service-card {
+    opacity: 0;
+    transform: translateY(80px);
+    transition: all .8s ease;
+}
+
+.service-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes float1 {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(40px) rotate(20deg);
+    }
+}
+
+@keyframes float2 {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-40px);
+    }
+}
+
+@keyframes cardReveal {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/*=============================
+      RESPONSIVE
+==============================*/
+@media (max-width: 992px) {
+    .services-section h2 {
+        font-size: 2.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .services-section {
+        padding: 70px 0;
+    }
+    .services-section h2 {
+        font-size: 2rem;
+    }
+    .service-card {
+        padding: 30px;
+    }
+}
+
+
+/* ==========================================================================
+   About
+   ========================================================================== */
+
+/*==================================================
+                ABOUT SECTION
+===================================================*/
+.about-section {
+    position: relative;
+    overflow: hidden;
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f5f9ff, #eef4ff, #ffffff);
+}
+
+/* Animated Background */
+.about-section::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #2563eb25 0%, transparent 70%);
+    top: -150px;
+    left: -120px;
+    border-radius: 50%;
+    animation: blob1 12s ease-in-out infinite;
+}
+
+.about-section::after {
+    content: "";
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, #7c3aed20 0%, transparent 70%);
+    bottom: -180px;
+    right: -120px;
+    border-radius: 50%;
+    animation: blob2 10s ease-in-out infinite;
+}
+
+/*==================================================
+            IMAGE WRAPPER
+===================================================*/
+.about-image-wrapper {
+    position: relative;
+    animation: floatCard 5s ease-in-out infinite;
+}
+
+/* Decorative Background */
+.about-image-wrapper .bg-primary-subtle {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+    opacity: .15;
+}
+
+/*==================================================
+            CODE CARD
+===================================================*/
+.about-image-wrapper .card:first-child {
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(37, 99, 235, .20);
+    transition: .45s;
+}
+
+.about-image-wrapper .card:first-child:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 35px 80px rgba(37, 99, 235, .35);
+}
+
+.card-header {
+    background: linear-gradient(90deg, #111827, #1f2937) !important;
+}
+
+/* Terminal Text Animation */
+.card-body p {
+    animation: fadeTyping .8s ease forwards;
+    opacity: 0;
+}
+
+.card-body p:nth-child(1) { animation-delay: .2s; }
+.card-body p:nth-child(2) { animation-delay: .4s; }
+.card-body p:nth-child(3) { animation-delay: .6s; }
+.card-body p:nth-child(4) { animation-delay: .8s; }
+.card-body p:nth-child(5) { animation-delay: 1s; }
+.card-body p:nth-child(6) { animation-delay: 1.2s; }
+
+/*==================================================
+          FLOATING CARD
+===================================================*/
+.about-image-wrapper .card.position-absolute {
+    border-radius: 18px;
+    animation: floatSmall 4s ease-in-out infinite;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .15);
+}
+
+.about-image-wrapper .card.position-absolute .bg-primary {
+    background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+}
+
+/*==================================================
+            CONTENT
+===================================================*/
+.about-section span.text-primary {
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.about-section h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 25px;
+}
+
+.about-section p {
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+/*==================================================
+            CHECKLIST
+===================================================*/
+.about-section ul li {
+    padding: 15px;
+    border-radius: 15px;
+    transition: .4s;
+}
+
+.about-section ul li:hover {
+    background: #ffffff;
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+.about-section ul li svg {
+    transition: .4s;
+}
+
+.about-section ul li:hover svg {
+    transform: scale(1.2) rotate(360deg);
+    color: #2563eb !important;
+}
+
+/*==================================================
+                BUTTON
+===================================================*/
+.about-section .btn {
+    background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%);
+    color: #fff;
+    border: none;
+    padding: 16px 42px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all .35s ease;
+    box-shadow: 0 12px 30px rgba(255, 77, 48, .35);
+    border: none;
+    border-radius: 12px;
+    padding: 14px 35px;
+    font-weight: 700;
+    transition: .4s;
+    box-shadow: 0 15px 35px rgba(37, 99, 235, .25);
+}
+
+.about-section .btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 45px rgba(37, 99, 235, .35);
+}
+
+.about-page-wrapper.bg-light-subtle.pb-5 {
+    padding-bottom: 0px !important;
+}
+
+.page-id-164 .about-page-wrapper section.about-hero.bg-dark.text-white.py-5.text-center.position-relative.overflow-hidden.mb-5 {
+    background: linear-gradient(135deg, #4B0FA3 0%, #7B2FF7 55%, #A020F0 100%) !important;
+}
+
+@keyframes blob1 {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(40px);
+    }
+}
+
+@keyframes blob2 {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-40px);
+    }
+}
+
+@keyframes floatCard {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes fadeTyping {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes floatSmall {
+    0%, 100% {
+        transform: translate(20px, 20px);
+    }
+    50% {
+        transform: translate(20px, 8px);
+    }
+}
+
+/*==================================================
+            RESPONSIVE
+===================================================*/
+@media (max-width: 992px) {
+    .about-section h2 {
+        font-size: 2.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        padding: 70px 0;
+    }
+    .about-section h2 {
+        font-size: 2rem;
+    }
+    .about-image-wrapper .card.position-absolute {
+        display: none !important;
+    }
+}
+
+
+/* ==========================================================================
+   Features
+   ========================================================================== */
+
+/*==================================
+    PREMIUM ROBOTICS BACKGROUND
+===================================*/
+.features-section {
+    position: relative;
+    overflow: hidden;
+    padding: 100px 0;
+    background: linear-gradient(135deg, #5E2BFF 0%, #A12BFF 45%, #FF4D8D 75%, #FF6A1A 100%);
+}
+
+/* Animated Blob 1 */
+.features-section::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #38bdf8, #2563eb);
+    filter: blur(120px);
+    opacity: .18;
+    left: -180px;
+    top: -150px;
+    animation: blobOne 10s ease-in-out infinite;
+}
+
+/* Animated Blob 2 */
+
+/*==================================================
+        FEATURES SECTION
+==================================================*/
+
+/* Animated Background */
+.features-section:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 18s linear infinite;
+    opacity: .5;
+}
+
+.features-section:after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #00d9ff40 0%, transparent 70%);
+    top: -180px;
+    right: -180px;
+    animation: glow 8s ease-in-out infinite;
+}
+
+/* Left Content */
+.features-section .text-primary {
+    color: #38bdf8 !important;
+}
+
+.features-section h2,
+.features-section h3,
+.features-section h4,
+.features-section .text-dark {
+    color: #ffffff !important;
+}
+
+.features-section p,
+.features-section .text-muted,
+.features-section .small {
+    color: #d6e2f0 !important;
+}
+
+/* Feature Cards */
+.features-section .col-sm-6 > div {
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 16px;
+    padding: 20px;
+    transition: .4s;
+    height: 100%;
+    backdrop-filter: blur(8px);
+}
+
+.features-section .col-sm-6 > div:hover {
+    transform: translateY(-8px);
+    background: rgba(0, 217, 255, .12);
+    border-color: #00d9ff;
+    box-shadow: 0 15px 35px rgba(0, 217, 255, .25);
+}
+
+.features-section svg {
+    transition: .5s;
+}
+
+.features-section .col-sm-6 > div:hover svg {
+    transform: rotate(360deg) scale(1.2);
+    color: #00d9ff !important;
+}
+
+/* Right Card */
+.features-section .card {
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(135deg,
+        #6F2CFF 0%,
+        #9A4DFF 35%,
+        #FF4D8D 70%,
+        #FF7A1A 100%);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, .35);
+    animation: floatCard 5s ease-in-out infinite;
+    position: relative;
+}
+
+/* Shine Effect */
+.features-section .card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .4), transparent);
+    transform: skewX(-20deg);
+    animation: shine 5s infinite;
+}
+
+/* Inner Panel */
+.features-section .card-body {
+    background: transparent !important;
+    margin: 20px;
+    border-radius: 16px;
+    padding: 35px !important;
+}
+
+/* Stats */
+.features-section .border-end {
+    border-color: rgba(255, 255, 255, .15) !important;
+}
+
+.features-section .card h4 {
+    color: #38bdf8 !important;
+    font-size: 32px;
+    animation: pulse 2s infinite;
+}
+
+/* CPU Background */
+.features-section .opacity-10 {
+    opacity: .08 !important;
+    animation: rotateCPU 25s linear infinite;
+}
+
+/* Heading */
+.features-section h2 {
+    font-size: 52px;
+    font-weight: 800;
+}
+
+.features-section h3 {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.features-section h4 {
+    font-weight: 700;
+}
+
+@keyframes blobOne {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(60px, 40px) scale(1.2);
+    }
+}
+
+@keyframes blobTwo {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(-40px, -50px) scale(.9);
+    }
+}
+
+@keyframes gridMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(40px); }
+}
+
+@keyframes glow {
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes floatCard {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes shine {
+    100% {
+        left: 170%;
+    }
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes rotateCPU {
+    100% {
+        transform: translate(30%, -30%) rotate(360deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .features-section {
+        padding: 70px 0;
+    }
+    .features-section h2 {
+        font-size: 36px;
+    }
+    .features-section .card {
+        margin-top: 40px;
+    }
+}
+
+
+/* ==========================================================================
+   Popular Products
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Team
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Gallery
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Pricing
+   ========================================================================== */
+
+/*=========================
+ Pricing Section
+==========================*/
+.pricing-section {
+    padding: 100px 0;
+    background: #f8fbff;
+}
+
+.pricing-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: .4s ease;
+    border: 1px solid #e8eefc !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .08) !important;
+    position: relative;
+}
+
+.pricing-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #2563eb, #06b6d4);
+}
+
+.pricing-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 60px rgba(37, 99, 235, .18) !important;
+}
+
+/* Featured Card */
+.pricing-card.shadow-lg {
+    color: #fff;
+    transform: scale(1.04);
+}
+
+.pricing-card.shadow-lg h3,
+.pricing-card.shadow-lg h4,
+.pricing-card.shadow-lg .display-4,
+.pricing-card.shadow-lg .h4 {
+    color: #fff !important;
+}
+
+.pricing-card.shadow-lg p,
+.pricing-card.shadow-lg span,
+.pricing-card.shadow-lg li {
+    color: rgba(255, 255, 255, .75) !important;
+}
+
+.pricing-card.shadow-lg ul {
+    border-color: rgba(255, 255, 255, .15) !important;
+}
+
+/* Badge */
+.pricing-card .badge {
+    border-radius: 30px;
+    background: linear-gradient(90deg, #2563eb, #06b6d4) !important;
+}
+
+/* Price */
+.price-wrapper .display-4 {
+    font-size: 60px;
+    font-weight: 800;
+}
+
+.price-wrapper .h4 {
+    color: #2563eb;
+}
+
+/* Buttons */
+.pricing-card .btn {
+    border-radius: 10px;
+    transition: .35s;
+}
+
+.pricing-card .btn-primary {
+    background: linear-gradient(135deg, #FF512F 0%, #FF7A00 55%, #8A2BE2 100%);
+    color: #fff !important;
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 18px 45px;
+    border-radius: 14px;
+    transition: .35s ease;
+    box-shadow: 0 12px 30px rgba(255, 81, 47, .35);
+}
+
+.pricing-card .btn-outline-primary {
+    border: 2px solid #2563eb;
+}
+
+.pricing-card .btn:hover {
+    transform: translateY(-3px);
+}
+
+/* Features */
+.pricing-card li {
+    transition: .3s;
+}
+
+.pricing-card li:hover {
+    transform: translateX(6px);
+}
+
+/* ==========================
+   Pricing Section Fix
+========================== */
+.pricing-section {
+    background: #f5f9ff;
+    padding: 100px 0;
+}
+
+/* Card */
+.pricing-card {
+    background: linear-gradient(180deg, #24164F, #1B123D);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, .08) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .15);
+    transition: .4s;
+}
+
+.pricing-card:hover {
+    transform: translateY(-12px);
+}
+
+/* Featured Card */
+.pricing-card.shadow-lg {
+    background: linear-gradient(180deg, #24164F, #1B123D) !important;
+}
+
+/* TOP BORDER */
+.pricing-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(90deg,
+        #6F2CFF,
+        #B43CFF,
+        #FF4D8D,
+        #FF6A1A);
+    height: 5px;
+}
+
+/* ======================
+   TEXT COLORS
+====================== */
+.pricing-card h3,
+.pricing-card h4,
+.pricing-card h5,
+.pricing-card .h5 {
+    color: #fff !important;
+}
+
+.pricing-card p {
+    color: #cfd8ea !important;
+}
+
+.pricing-card .text-dark {
+    color: #ffffff !important;
+}
+
+.pricing-card .text-muted {
+    color: #cfd8ea !important;
+}
+
+.pricing-card li,
+.pricing-card span {
+    color: #ffffff !important;
+}
+
+.pricing-card ul li {
+    color: #e8eefb !important;
+}
+
+.pricing-card ul li svg {
+    color: #3b82f6 !important;
+}
+
+/* ======================
+   PRICE
+====================== */
+.price-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.price-wrapper .display-4 {
+    color: #ffffff !important;
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.price-wrapper .h4 {
+    color: #3b82f6 !important;
+    font-size: 22px;
+}
+
+.price-wrapper .small {
+    color: #dbeafe !important;
+    font-size: 22px;
+}
+
+/* Divider */
+.pricing-card ul {
+    border-top: 1px solid rgba(255, 255, 255, .15) !important;
+}
+
+/* Badge */
+.pricing-card .badge {
+    background: linear-gradient(90deg, #2563eb, #22d3ee) !important;
+    color: #fff !important;
+    border-radius: 30px;
+    padding: 8px 18px;
+}
+
+/* Buttons */
+.pricing-card .btn {
+    border-radius: 12px;
+    padding: 16px;
+    font-weight: 700;
+}
+
+.pricing-card .btn-outline-primary {
+    color: #fff !important;
+    border: 2px solid #2563eb !important;
+    background: transparent !important;
+}
+
+.pricing-card .btn-outline-primary:hover {
+    background: linear-gradient(135deg, #8A2BE2 0%, #A855F7 35%, #FF512F 100%) !important;
+    color: #fff;
+    transform: translateY(-4px);
+    border: none !important;
+    box-shadow: 0 18px 40px rgba(138, 43, 226, .45);
+}
+
+/* Section Heading */
+.pricing-section h2 {
+    color: #1d2939 !important;
+}
+
+.pricing-section p {
+    color: #667085 !important;
+}
+
+/* Mobile */
+@media (max-width: 991px) {
+    .pricing-card.shadow-lg {
+        transform: none;
+    }
+}
+
+
+/* ==========================================================================
+   Shop
+   ========================================================================== */
+
+.shop-header-banner {
+    background: linear-gradient(135deg, #4B0FA3 0%, #7B2FF7 55%, #A020F0 100%) !important;
+}
+
+
+/* ==========================================================================
+   Product
+   ========================================================================== */
+
+.product-actions .btn:hover {
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all .35s ease;
+    box-shadow: 0 12px 30px rgba(255, 77, 48, .35);
+    background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%);
+}
+
+
+/* ==========================================================================
+   Cart
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Checkout
+   ========================================================================== */
+
+
+/* ==========================================================================
+   My Account
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+/* end css of design update */
