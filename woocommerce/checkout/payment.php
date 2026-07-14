@@ -17,13 +17,9 @@ if ( ! wp_doing_ajax() ) {
 ?>
 <div id="payment" class="woocommerce-checkout-payment mt-4 pt-4 border-top border-light-subtle">
 	
-	<h5 class="fw-bold text-dark mb-3" style="font-size: 1rem;">
-		<i class="bi bi-credit-card-2-front-fill me-2 text-primary"></i>
-		<span><?php esc_html_e( 'Payment Method', 'woocommerce' ); ?></span>
-	</h5>
 
 	<?php if ( WC()->cart && WC()->cart->needs_payment() ) : ?>
-		<ul class="wc_payment_methods payment_methods methods list-unstyled ps-0 mb-3">
+		<ul style="padding: 0px 6px; margin-left: 6px;" class="wc_payment_methods payment_methods methods list-unstyled ps-0 mb-3">
 			<?php
 			if ( ! empty( $available_gateways ) ) {
 				foreach ( $available_gateways as $gateway ) {
@@ -38,7 +34,7 @@ if ( ! wp_doing_ajax() ) {
 		</ul>
 	<?php endif; ?>
 
-	<div class="form-row place-order">
+	<div class="form-row place-order" >
 		<noscript>
 			<?php
 			/* translators: $1 and $2 opening and closing emphasis tags respectively */

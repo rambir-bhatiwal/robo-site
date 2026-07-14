@@ -1258,7 +1258,7 @@
 	border: 1px solid rgba(0, 0, 0, 0.04) !important;
 	border-radius: 16px !important;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.015), 0 1px 3px rgba(0, 0, 0, 0.01) !important;
-	padding: 2rem !important;
+	/* padding: 2rem !important; */
 	margin-bottom: 1.5rem !important;
 	transition: box-shadow 0.3s ease;
 }
@@ -1283,7 +1283,7 @@
 	display: block !important;
 	width: 100% !important;
 	margin-bottom: 1.25rem !important;
-	padding: 0 !important;
+	/* padding: 0 !important; */
 }
 
 .woocommerce-checkout .form-row::after {

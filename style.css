@@ -1542,6 +1542,10 @@ button#back-to-top{
 .shop-header-banner{
     background: linear-gradient(135deg, #4B0FA3 0%, #7B2FF7 55%, #A020F0 100%) !important;
 }
+.entry-header .entry-title {
+    text-align: center;
+}
+
 .entry-header{
     padding: 2% 0 ;
     background: linear-gradient(135deg, #4B0FA3 0%, #7B2FF7 55%, #A020F0 100%) !important;

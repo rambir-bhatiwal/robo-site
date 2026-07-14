@@ -63,7 +63,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 					<p class="text-muted small mb-3"><?php esc_html_e( 'Enter your promo code to get a discount on your order.', 'robo' ); ?></p>
 					<div class="input-group gap-2 d-flex">
 						<input type="text" id="robo_coupon_code" class="form-control rounded" placeholder="<?php esc_attr_e( 'Promo code', 'robo' ); ?>" style="height: 46px;" />
-						<button type="button" id="robo_apply_coupon" class="btn btn-primary px-4 fw-bold rounded" style="height: 46px;"><?php esc_html_e( 'Apply', 'robo' ); ?></button>
+						<button type="button" id="robo_apply_coupon" class="btn btn-primary px-4 fw-bold rounded" style="height: 46px;padding: 0 1rem !important;"><?php esc_html_e( 'Apply', 'robo' ); ?></button>
 					</div>
 					<div id="robo_coupon_message" class="mt-2 small" style="display: none;"></div>
 				</div>
@@ -98,12 +98,12 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 				</div>
 
 				<!-- Card 2: Payment Method -->
-				<div style="padding: 0px !important;" class="card border-0 shadow-sm mb-4 woocommerce-checkout-payment-card">
+				<div class="card border-0 shadow-sm mb-4 woocommerce-checkout-payment-card">
 					<h4 class="fw-bold text-dark mb-4" style="font-size: 1.15rem;">
 						<i class="bi bi-credit-card-2-front-fill me-2 text-primary"></i>
 						<span><?php esc_html_e( 'Payment Method', 'woocommerce' ); ?></span>
 					</h4>
-					<div class="woocommerce-checkout-payment">
+					<div class="woocommerce-payment-fields-wrapper">
 						<?php woocommerce_checkout_payment(); ?>
 					</div>
 				</div>
