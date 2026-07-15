@@ -169,12 +169,12 @@ function robo_woocommerce_add_to_cart_class( $html, $product, $args = array() ) 
 		return $html;
 	}
 
-	$btn_class = 'btn btn-primary d-flex align-items-center justify-content-center gap-2 w-100 py-2 px-3 fw-bold rounded transition-all add_to_cart_button';
+	$btn_class = 'btn btn-primary robo-btn w-100 add_to_cart_button';
 	
 	if ( $product->is_type( 'variable' ) ) {
-		$btn_class = 'btn btn-outline-primary d-flex align-items-center justify-content-center gap-2 w-100 py-2 px-3 fw-bold rounded transition-all';
+		$btn_class = 'btn btn-outline-primary robo-btn w-100';
 	} elseif ( $product->is_type( 'grouped' ) || $product->is_type( 'external' ) ) {
-		$btn_class = 'btn btn-outline-secondary d-flex align-items-center justify-content-center gap-2 w-100 py-2 px-3 fw-bold rounded transition-all';
+		$btn_class = 'btn btn-outline-secondary robo-btn w-100';
 	}
 
 	if ( $product->is_purchasable() && $product->is_in_stock() ) {
@@ -182,7 +182,7 @@ function robo_woocommerce_add_to_cart_class( $html, $product, $args = array() ) 
 			$btn_class .= ' no-ajax';
 		}
 	} else {
-		$btn_class = 'btn btn-secondary disabled d-flex align-items-center justify-content-center gap-2 w-100 py-2 px-3 fw-bold rounded';
+		$btn_class = 'btn btn-secondary disabled robo-btn w-100';
 	}
 
 	$html = str_replace( 'class="button', 'class="' . esc_attr( $btn_class ), $html );
@@ -197,7 +197,7 @@ add_filter( 'woocommerce_loop_add_to_cart_link', 'robo_woocommerce_add_to_cart_c
 function robo_woocommerce_product_search_form( $form ) {
 	$form = '<form role="search" method="get" class="woocommerce-product-search input-group mb-0" action="' . esc_url( home_url( '/' ) ) . '">
 		<input type="search" id="woocommerce-product-search-field-search" class="search-field form-control" placeholder="' . esc_attr__( 'Search products&hellip;', 'robo' ) . '" value="' . get_search_query() . '" name="s" />
-		<button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center px-3" value="' . esc_attr__( 'Search', 'robo' ) . '">
+		<button type="submit" class="btn btn-primary robo-btn d-flex align-items-center justify-content-center" value="' . esc_attr__( 'Search', 'robo' ) . '">
 			<i class="bi bi-search"></i>
 		</button>
 		<input type="hidden" name="post_type" value="product" />
@@ -432,7 +432,7 @@ function robo_add_buy_now_button_to_form() {
 	if ( ! $product->is_purchasable() || ! $product->is_in_stock() ) {
 		return;
 	}
-	echo '<button type="submit" name="robo_buy_now" class="btn btn-warning btn-lg fw-bold px-4 py-3 rounded buy-now-btn transition-all d-inline-flex align-items-center justify-content-center gap-2" value="1"><i class="bi bi-lightning-fill"></i> ' . esc_html__( 'Buy Now', 'robo' ) . '</button>';
+	echo '<button type="submit" name="robo_buy_now" class="btn btn-warning robo-btn buy-now-btn transition-all d-inline-flex align-items-center justify-content-center gap-2" value="1"><i class="bi bi-lightning-fill"></i> ' . esc_html__( 'Buy Now', 'robo' ) . '</button>';
 }
 add_action( 'woocommerce_after_add_to_cart_button', 'robo_add_buy_now_button_to_form', 10 );
 

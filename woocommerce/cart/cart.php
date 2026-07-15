@@ -21,7 +21,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 			<div class="card border-0 shadow-sm overflow-hidden mb-4">
 				<div class="card-header bg-white border-bottom py-3 px-4">
-					<h5 class="mb-0 fw-bold text-dark text-uppercase tracking-wider" style="font-size: 0.85rem; letter-spacing: 0.5px;"><?php esc_html_e( 'Shopping Cart Items', 'woocommerce' ); ?></h5>
+					<h5 class="mb-0 fw-bold text-white text-uppercase tracking-wider" style="font-size: 0.85rem; letter-spacing: 0.5px;"><?php esc_html_e( 'Shopping Cart Items', 'woocommerce' ); ?></h5>
 				</div>
 				<div class="card-body p-0">
 					<div class="table-responsive">
@@ -162,17 +162,17 @@ do_action( 'woocommerce_before_cart' ); ?>
 				<div class="card-footer bg-white border-top p-4">
 					<div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
 						<div class="d-flex gap-2">
-							<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="btn btn-outline-secondary fw-bold px-4 py-2.5 rounded hover-scale">
+							<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="btn btn-outline-secondary robo-btn hover-scale">
 								<i class="bi bi-arrow-left me-2"></i><?php esc_html_e( 'Continue Shopping', 'robo' ); ?>
 							</a>
-							<button type="submit" class="btn btn-outline-danger fw-bold px-4 py-2.5 rounded hover-scale" name="clear_cart" value="1">
+							<button type="submit" class="btn btn-outline-danger robo-btn hover-scale" name="clear_cart" value="1">
 								<i class="bi bi-trash3 me-2"></i><?php esc_html_e( 'Clear Cart', 'robo' ); ?>
 							</button>
 						</div>
 						<div class="text-end">
 							<?php do_action( 'woocommerce_cart_actions' ); ?>
 							<?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
-							<button type="submit" class="btn btn-secondary fw-bold px-4 py-2.5 rounded hover-scale" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>" disabled aria-disabled="true">
+							<button type="submit" class="btn btn-secondary robo-btn hover-scale" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>" disabled aria-disabled="true">
 								<i class="bi bi-arrow-clockwise me-2"></i><?php esc_html_e( 'Update Cart', 'woocommerce' ); ?>
 							</button>
 						</div>
@@ -193,7 +193,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 							<input type="text" name="coupon_code" class="form-control py-2.5 px-3" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Enter coupon code', 'woocommerce' ); ?>" />
 						</div>
 						<div class="col-sm-6 col-md-4">
-							<button type="submit" class="btn btn-outline-primary fw-bold w-100 py-2.5 px-4 rounded hover-scale" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply Coupon', 'woocommerce' ); ?></button>
+							<button type="submit" class="btn btn-outline-primary robo-btn w-100 hover-scale" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply Coupon', 'woocommerce' ); ?></button>
 						</div>
 					</div>
 					<?php do_action( 'woocommerce_cart_coupon' ); ?>

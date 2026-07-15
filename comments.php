@@ -124,7 +124,7 @@ if ( post_password_required() ) {
 									  '</div>',
 			'class_form'           => 'row g-3 needs-validation mt-3',
 			'submit_button'        => '<button name="%1$s" type="submit" id="%2$s" class="%3$s">%4$s</button>',
-			'class_submit'         => 'btn btn-primary px-4 py-3 fw-bold rounded-3 shadow-sm',
+			'class_submit'         => 'btn btn-primary robo-btn shadow-sm',
 			'submit_field'         => '<div class="col-12 mt-4">%1$s %2$s</div>',
 			'title_reply'          => esc_html__( 'Leave a Reply', 'robo' ),
 			'title_reply_to'       => esc_html__( 'Leave a Reply to %s', 'robo' ),

@@ -81,7 +81,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 							<div class="mb-3">
 								<textarea class="form-control bg-dark bg-opacity-20 border-white border-opacity-10 text-white shadow-none py-2 px-3" rows="3" placeholder="<?php esc_attr_e( 'Tell us about your project...', 'robo' ); ?>" required></textarea>
 							</div>
-							<button type="submit" class="btn btn-primary w-100 py-3 fw-bold"><?php esc_html_e( 'Submit Request', 'robo' ); ?></button>
+							<button type="submit" class="btn btn-primary robo-btn w-100"><?php esc_html_e( 'Submit Request', 'robo' ); ?></button>
 						</form>
 					</div>
 				</div>

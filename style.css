@@ -125,14 +125,6 @@ max-width:420px;
 
 background:#FFC107;
 
-padding:16px 40px;
-
-border-radius:50px;
-
-font-weight:700;
-
-font-size:18px;
-
 }
 
 /* RIGHT */
@@ -994,12 +986,10 @@ color:#2563eb!important;
 /*==================================================
                 BUTTON
 ===================================================*/
+/* Custom buttons styled in design system */
 .product-actions .btn:hover{
 	color:#fff;
     border:none;
-    border-radius:50px;
-    font-size:18px;
-    font-weight:700;
     transition:all .35s ease;
     box-shadow:0 12px 30px rgba(255,77,48,.35);
 	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%);
@@ -1007,10 +997,6 @@ color:#2563eb!important;
 .btn-primary{
 	 color:#fff;
     border:none;
-    padding:16px 42px;
-    border-radius:50px;
-    font-size:18px;
-    font-weight:700;
     transition:all .35s ease;
     box-shadow:0 12px 30px rgba(255,77,48,.35);
 	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%);
@@ -1020,24 +1006,8 @@ color:#2563eb!important;
 background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%);
     color:#fff;
     border:none;
-    padding:16px 42px;
-    border-radius:50px;
-    font-size:18px;
-    font-weight:700;
-    transition:all .35s ease;
-    box-shadow:0 12px 30px rgba(255,77,48,.35);
-
-border:none;
-
-border-radius:12px;
-
-padding:14px 35px;
-
-font-weight:700;
-
-transition:.4s;
-
-box-shadow:0 15px 35px rgba(37,99,235,.25);
+    transition:.4s;
+    box-shadow:0 15px 35px rgba(37,99,235,.25);
 
 }
 
@@ -1477,7 +1447,6 @@ margin-top:40px;
 /* Buttons */
 
 .pricing-card .btn{
-    border-radius:10px;
     transition:.35s;
 }
 
@@ -1487,14 +1456,6 @@ margin-top:40px;
 color:#fff !important;
 
 border:none;
-
-font-size:20px;
-
-font-weight:700;
-
-padding:18px 45px;
-
-border-radius:14px;
 
 transition:.35s ease;
 
@@ -1661,9 +1622,6 @@ height:5px;
 
 /* Buttons */
 .pricing-card .btn{
-    border-radius:12px;
-    padding:16px;
-    font-weight:700;
 }
 
 .pricing-card .btn-outline-primary{
@@ -1964,7 +1922,6 @@ transform:none;
 .woocommerce-EditAccountForm button.button,
 .woocommerce-MyAccount-content button.button {
 	display: inline-block !important;
-	font-weight: 700 !important;
 	line-height: 1.5 !important;
 	color: #fff !important;
 	text-align: center !important;
@@ -1974,9 +1931,6 @@ transform:none;
 	user-select: none !important;
 	background-color: var(--bs-primary) !important;
 	border: 1px solid var(--bs-primary) !important;
-	padding: 0.625rem 1.5rem !important;
-	font-size: 0.9rem !important;
-	border-radius: 8px !important;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
 }
 
@@ -2102,10 +2056,6 @@ input[type="password"] {
 .woocommerce-EditAccountForm button.button.btn-primary {
 	color: #fff !important;
 	border: none !important;
-	padding: 16px 42px !important;
-	border-radius: 50px !important;
-	font-size: 18px !important;
-	font-weight: 700 !important;
 	transition: all .35s ease !important;
 	box-shadow: 0 12px 30px rgba(255,77,48,.35) !important;
 	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%) !important;
@@ -2121,6 +2071,22 @@ input[type="password"] {
 	background: linear-gradient(135deg, #FF7A00 0%, #FF4D30 100%) !important;
 	color: #fff !important;
 	box-shadow: 0 4px 15px rgba(255,77,48,.4) !important;
+}
+
+/* ==========================================================================
+   Robo Theme - Reusable Sizing & Border Radius Button Design
+   ========================================================================== */
+.robo-btn,
+.pagination .page-item .page-link {
+	border-radius: 8px !important;
+	padding: 12px 28px !important;
+	font-size: 0.95rem !important;
+	font-weight: 700 !important;
+	min-height: 48px !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	line-height: 1.5 !important;
 }
 
 /* end css of design update */

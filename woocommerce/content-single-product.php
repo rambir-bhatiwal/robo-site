@@ -240,7 +240,7 @@ $average_rating = $product->get_average_rating();
 								<?php echo do_shortcode( '[yith_wcwl_add_to_wishlist]' ); ?>
 							</div>
 						<?php else : ?>
-							<button type="button" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded flex-grow-1 d-inline-flex align-items-center justify-content-center gap-2 single-add-to-wishlist-btn" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
+							<button type="button" class="btn btn-outline-secondary robo-btn flex-grow-1 d-inline-flex align-items-center justify-content-center gap-2 single-add-to-wishlist-btn" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
 								<i class="bi bi-heart"></i> <?php esc_html_e( 'Add to Wishlist', 'robo' ); ?>
 							</button>
 						<?php endif; ?>
@@ -251,7 +251,7 @@ $average_rating = $product->get_average_rating();
 								<?php echo do_shortcode( '[yith_woocompare_button]' ); ?>
 							</div>
 						<?php else : ?>
-							<button type="button" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded flex-grow-1 d-inline-flex align-items-center justify-content-center gap-2 single-add-to-compare-btn" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
+							<button type="button" class="btn btn-outline-secondary robo-btn flex-grow-1 d-inline-flex align-items-center justify-content-center gap-2 single-add-to-compare-btn" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
 								<i class="bi bi-shuffle"></i> <?php esc_html_e( 'Add to Compare', 'robo' ); ?>
 							</button>
 						<?php endif; ?>
@@ -263,7 +263,7 @@ $average_rating = $product->get_average_rating();
 							<h6 class="card-title fw-bold text-dark mb-3"><i class="bi bi-geo-alt-fill text-primary me-2"></i><?php esc_html_e( 'Delivery Options', 'robo' ); ?></h6>
 							<div class="input-group mb-2 check-delivery-zip">
 								<input type="text" class="form-control form-control-sm border-light-subtle" placeholder="<?php esc_attr_e( 'Enter Zip Code', 'robo' ); ?>" id="deliveryZipInput" maxlength="6">
-								<button class="btn btn-primary btn-sm px-3" type="button" id="deliveryZipCheckBtn"><?php esc_html_e( 'Check', 'robo' ); ?></button>
+								<button class="btn btn-primary robo-btn" type="button" id="deliveryZipCheckBtn"><?php esc_html_e( 'Check', 'robo' ); ?></button>
 							</div>
 							<div id="deliveryZipFeedback" class="small fw-semibold mb-2 d-none"></div>
 							<ul class="list-unstyled mb-0 d-flex flex-column gap-2 text-muted small mt-2 pt-2 border-top border-light">
@@ -399,7 +399,7 @@ $average_rating = $product->get_average_rating();
 									</div>
 									
 									<!-- Add Bundle button -->
-									<button type="button" class="btn btn-warning w-100 fw-bold py-2.5 px-3 rounded shadow-sm fbt-add-to-cart-btn">
+									<button type="button" class="btn btn-warning robo-btn w-100 shadow-sm fbt-add-to-cart-btn">
 										<i class="bi bi-cart-plus-fill me-2"></i><?php esc_html_e( 'Add Bundle to Cart', 'robo' ); ?>
 									</button>
 								</div>

@@ -99,7 +99,7 @@ do_action( 'woocommerce_before_main_content' );
 					<!-- Left Side: Result Count & Mobile Filter Trigger -->
 					<div class="col d-flex align-items-center gap-3">
 						<!-- Mobile Filter Button (Visible only on <768px) -->
-						<button class="btn btn-outline-primary d-md-none d-inline-flex align-items-center gap-2 px-3 py-2 fw-semibold" type="button" data-bs-toggle="offcanvas" data-bs-target="#shopSidebarOffcanvas" aria-controls="shopSidebarOffcanvas">
+						<button class="btn btn-outline-primary robo-btn d-md-none d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#shopSidebarOffcanvas" aria-controls="shopSidebarOffcanvas">
 							<i class="bi bi-funnel fs-6"></i> <?php esc_html_e( 'Filters', 'robo' ); ?>
 						</button>
 						

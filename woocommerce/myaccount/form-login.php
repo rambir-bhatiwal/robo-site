@@ -82,7 +82,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 							<div class="mb-2">
 								<?php wp_nonce_field( 'woocommerce-login', 'woocommerce-login-nonce' ); ?>
-								<button type="submit" class="btn btn-primary w-100 py-2.5 fw-bold shadow-sm" name="login" value="<?php esc_attr_e( 'Log in', 'woocommerce' ); ?>"><?php esc_html_e( 'Log in', 'woocommerce' ); ?></button>
+								<button type="submit" class="btn btn-primary robo-btn w-100 shadow-sm" name="login" value="<?php esc_attr_e( 'Log in', 'woocommerce' ); ?>"><?php esc_html_e( 'Log in', 'woocommerce' ); ?></button>
 							</div>
 
 							<?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
@@ -153,7 +153,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 							<div class="mb-2">
 								<?php wp_nonce_field( 'woocommerce-register', 'woocommerce-register-nonce' ); ?>
-								<button type="submit" class="btn btn-primary w-100 py-2.5 fw-bold shadow-sm" name="register" value="<?php esc_attr_e( 'Register', 'woocommerce' ); ?>"><?php esc_html_e( 'Register', 'woocommerce' ); ?></button>
+								<button type="submit" class="btn btn-primary robo-btn w-100 shadow-sm" name="register" value="<?php esc_attr_e( 'Register', 'woocommerce' ); ?>"><?php esc_html_e( 'Register', 'woocommerce' ); ?></button>
 							</div>
 
 							<p class="text-center text-muted small mt-3 mb-0">

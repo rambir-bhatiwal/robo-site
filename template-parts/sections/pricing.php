@@ -141,8 +141,8 @@ $pricing_plans = array(
                             </ul>
 
                             <!-- Button -->
-                            <a href="<?php echo esc_url( home_url( '/pricing/' ) ); ?>"
-                               class="btn w-100 py-3 fw-bold <?php echo esc_attr( $plan['btn_class'] ); ?>">
+                             <a href="<?php echo esc_url( home_url( '/pricing/' ) ); ?>"
+                                class="btn w-100 robo-btn <?php echo esc_attr( $plan['btn_class'] ); ?>">
 
                                 <?php echo esc_html( $plan['btn_text'] ); ?>
 

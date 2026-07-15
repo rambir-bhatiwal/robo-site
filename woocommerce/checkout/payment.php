@@ -50,7 +50,7 @@ if ( ! wp_doing_ajax() ) {
 		<div class="place-order-button-wrapper mt-3">
 			<?php
 			$order_button_text = apply_filters( 'woocommerce_order_button_text', $order_button_text );
-			echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold text-uppercase rounded transition-all shadow-sm d-flex align-items-center justify-content-center gap-2" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '"><i class="bi bi-shield-lock-fill"></i> ' . esc_html( $order_button_text ) . '</button>' ); // @codingStandardsIgnoreLine
+			echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="btn btn-primary robo-btn w-100 text-uppercase transition-all shadow-sm d-flex align-items-center justify-content-center gap-2" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '"><i class="bi bi-shield-lock-fill"></i> ' . esc_html( $order_button_text ) . '</button>' ); // @codingStandardsIgnoreLine
 			?>
 		</div>
 

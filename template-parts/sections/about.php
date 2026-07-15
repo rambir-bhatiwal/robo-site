@@ -85,7 +85,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 				<?php
 				$shop_url = class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
 				?>
-				<a href="<?php echo esc_url( $shop_url ); ?>" class="btn btn-primary px-4 py-2 fw-bold"><?php esc_html_e( 'Browse Our Shop', 'robo' ); ?></a>
+				<a href="<?php echo esc_url( $shop_url ); ?>" class="btn btn-primary robo-btn"><?php esc_html_e( 'Browse Our Shop', 'robo' ); ?></a>
 			</div>
 		</div>
 	</div>

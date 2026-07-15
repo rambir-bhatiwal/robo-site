@@ -39,7 +39,7 @@ do_action( 'woocommerce_before_lost_password_form' );
 
 				<div class="mb-2">
 					<input type="hidden" name="wc_reset_password" value="true" />
-					<button type="submit" class="btn btn-primary w-100 py-2.5 fw-bold shadow-sm" value="<?php esc_attr_e( 'Reset password', 'woocommerce' ); ?>"><?php esc_html_e( 'Reset password', 'woocommerce' ); ?></button>
+					<button type="submit" class="btn btn-primary robo-btn w-100 shadow-sm" value="<?php esc_attr_e( 'Reset password', 'woocommerce' ); ?>"><?php esc_html_e( 'Reset password', 'woocommerce' ); ?></button>
 				</div>
 
 				<?php wp_nonce_field( 'lost_password', 'woocommerce-lost-password-nonce' ); ?>
