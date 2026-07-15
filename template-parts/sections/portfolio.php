@@ -71,7 +71,7 @@ $portfolio_items = array(
 							<a href="<?php echo esc_url( home_url( '/portfolio/' ) ); ?>" class="btn btn-outline-light btn-sm align-self-start fw-medium"><?php esc_html_e( 'View Details', 'robo' ); ?></a>
 						</div>
 						<!-- Non-hover fallback content -->
-						<div class="position-absolute bottom-0 start-0 p-4 w-100 bg-gradient-dark-transparent z-1">
+						<div class="portfolio-fallback position-absolute bottom-0 start-0 p-4 w-100 bg-gradient-dark-transparent z-1">
 							<span class="text-white-50 small text-uppercase tracking-wider fw-bold mb-1 d-block"><?php echo esc_html( $item['category'] ); ?></span>
 							<h3 class="h5 fw-bold text-white mb-0"><?php echo esc_html( $item['title'] ); ?></h3>
 						</div>
