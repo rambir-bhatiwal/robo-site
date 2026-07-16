@@ -46,7 +46,7 @@ if ( ! wc_ship_to_billing_address_only() && wc_shipping_enabled() ) {
 			<div class="col-12 col-md-6">
 				<div class="card border border-light-subtle h-100 shadow-sm">
 					<div class="card-header bg-light py-3 border-bottom d-flex align-items-center justify-content-between">
-						<h5 class="mb-0 fw-bold text-dark fs-6">
+						<h5 class="mb-0 fw-bold text-white fs-6">
 							<i class="bi <?php echo 'billing' === $name ? 'bi-file-earmark-text' : 'bi-truck'; ?> text-primary me-2"></i>
 							<?php echo esc_html( $address_title ); ?>
 						</h5>

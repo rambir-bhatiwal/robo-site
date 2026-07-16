@@ -151,3 +151,25 @@ if ( ! function_exists( 'robo_date_format' ) ) {
 		return get_the_date();
 	}
 }
+
+if ( ! function_exists( 'robo_get_product_search_form' ) ) {
+	/**
+	 * Safely retrieve or display the product search form.
+	 * Falls back to standard search form if WooCommerce is not active.
+	 *
+	 * @param bool $echo Whether to echo the form or return it.
+	 * @return string Search form HTML.
+	 */
+	function robo_get_product_search_form( $echo = false ) {
+		if ( class_exists( 'WooCommerce' ) && function_exists( 'get_product_search_form' ) ) {
+			return get_product_search_form( $echo );
+		}
+
+		if ( $echo ) {
+			get_search_form();
+		} else {
+			return get_search_form( false );
+		}
+	}
+}
+

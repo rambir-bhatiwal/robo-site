@@ -1872,8 +1872,15 @@ transform:none;
 
 .woocommerce-MyAccount-navigation .list-group-item:not(.active):hover {
 	background-color: var(--bs-light) !important;
-	color: var(--bs-primary) !important;
+	color: #FF4D30 !important;
 	padding-left: 1.75rem !important; /* Slide-in hover effect */
+}
+
+.woocommerce-MyAccount-navigation .list-group-item.active {
+	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%) !important;
+	color: #ffffff !important;
+	font-weight: 700 !important;
+	box-shadow: 0 4px 15px rgba(255, 77, 48, 0.25) !important;
 }
 
 /* Style default forms (Address edit, Account edit) inside My Account card */
@@ -2155,5 +2162,27 @@ input[type="password"] {
 	transform: translateY(0) !important;
 }
 
+/* WooCommerce Login/Register Tabs */
+#authTabs {
+	background-color: #f8f9fa !important;
+	border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+#authTabs .nav-link {
+	color: #495057 !important;
+	background: transparent !important;
+	transition: all 0.35s ease !important;
+	border: none !important;
+}
+
+#authTabs .nav-link:hover {
+	color: #FF4D30 !important;
+}
+
+#authTabs .nav-link.active {
+	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%) !important;
+	color: #ffffff !important;
+	box-shadow: 0 8px 20px rgba(255, 77, 48, 0.25) !important;
+}
 
 /* end css of design update */
