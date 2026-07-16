@@ -2083,10 +2083,77 @@ input[type="password"] {
 	font-size: 0.95rem !important;
 	font-weight: 700 !important;
 	min-height: 48px !important;
-	display: inline-flex !important;
+	display: inline-flex;
 	align-items: center !important;
 	justify-content: center !important;
 	line-height: 1.5 !important;
 }
+
+/* WordPress Block Editor Search Block overrides */
+.wp-block-search {
+	margin-bottom: 24px !important;
+	border: none !important;
+	box-shadow: none !important;
+	width: 100% !important;
+}
+
+.wp-block-search .wp-block-search__inside-wrapper {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 18px !important; /* Spacing: 15-20px */
+	border: none !important;
+	padding: 0 !important;
+	width: 100% !important;
+}
+
+.wp-block-search .wp-block-search__input {
+	width: 100% !important;
+	max-width: 100% !important;
+	min-width: 0 !important;
+	height: 50px !important;
+	border-radius: 10px !important;
+	border: 1.5px solid #e2e8f0 !important;
+	padding: 10px 16px !important;
+	font-size: 0.95rem !important;
+	background-color: #ffffff !important;
+	color: #334155 !important;
+	transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.wp-block-search .wp-block-search__input:focus {
+	border-color: #FF4D30 !important;
+	box-shadow: 0 0 0 3px rgba(255, 77, 48, 0.25) !important;
+	outline: 0 !important;
+}
+
+.wp-block-search .wp-block-search__button {
+	width: 100% !important;
+	height: 50px !important;
+	border-radius: 10px !important;
+	border: none !important;
+	margin-left: 0 !important;
+	margin-top: 0 !important;
+	font-size: 0.95rem !important;
+	font-weight: 700 !important;
+	color: #ffffff !important;
+	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%) !important;
+	box-shadow: 0 12px 25px rgba(255, 77, 48, 0.25) !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	transition: all 0.35s ease !important;
+	cursor: pointer !important;
+}
+
+.wp-block-search .wp-block-search__button:hover {
+	background: linear-gradient(135deg, #FF7A00 0%, #FF4D30 100%) !important;
+	box-shadow: 0 4px 15px rgba(255, 77, 48, 0.4) !important;
+	transform: translateY(-1px) !important;
+}
+
+.wp-block-search .wp-block-search__button:active {
+	transform: translateY(0) !important;
+}
+
 
 /* end css of design update */

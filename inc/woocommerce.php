@@ -195,16 +195,33 @@ add_filter( 'woocommerce_loop_add_to_cart_link', 'robo_woocommerce_add_to_cart_c
  * Customize WooCommerce Product Search Form.
  */
 function robo_woocommerce_product_search_form( $form ) {
-	$form = '<form role="search" method="get" class="woocommerce-product-search input-group mb-0" action="' . esc_url( home_url( '/' ) ) . '">
-		<input type="search" id="woocommerce-product-search-field-search" class="search-field form-control" placeholder="' . esc_attr__( 'Search products&hellip;', 'robo' ) . '" value="' . get_search_query() . '" name="s" />
-		<button type="submit" class="btn btn-primary robo-btn d-flex align-items-center justify-content-center" value="' . esc_attr__( 'Search', 'robo' ) . '">
-			<i class="bi bi-search"></i>
+	$form = '<form role="search" method="get" class="woocommerce-product-search mb-0" action="' . esc_url( home_url( '/' ) ) . '">
+		<label class="form-label fw-bold" for="woocommerce-product-search-field-search">' . esc_html__( 'Search Products', 'robo' ) . '</label>
+		<div class="search-field-wrapper mb-3">
+			<input type="search" id="woocommerce-product-search-field-search" class="search-field form-control" placeholder="' . esc_attr__( 'Search products&hellip;', 'robo' ) . '" value="' . get_search_query() . '" name="s" />
+		</div>
+		<button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2" value="' . esc_attr__( 'Search', 'robo' ) . '">
+			<i class="bi bi-search"></i> ' . esc_html__( 'Search', 'robo' ) . '
 		</button>
 		<input type="hidden" name="post_type" value="product" />
 	</form>';
 	return $form;
 }
 add_filter( 'get_product_search_form', 'robo_woocommerce_product_search_form' );
+
+function robo_general_search_form( $form ) {
+	$form = '<form role="search" method="get" class="search-form mb-0" action="' . esc_url( home_url( '/' ) ) . '">
+		<label class="form-label fw-bold" for="search-field">' . esc_html__( 'Search', 'robo' ) . '</label>
+		<div class="search-field-wrapper mb-3">
+			<input type="search" id="search-field" class="search-field form-control" placeholder="' . esc_attr__( 'Search&hellip;', 'robo' ) . '" value="' . get_search_query() . '" name="s" />
+		</div>
+		<button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2" value="' . esc_attr__( 'Search', 'robo' ) . '">
+			<i class="bi bi-search"></i> ' . esc_html__( 'Search', 'robo' ) . '
+		</button>
+	</form>';
+	return $form;
+}
+add_filter( 'get_search_form', 'robo_general_search_form' );
 
 /**
  * Generate product badges (Sale %, New, Hot).

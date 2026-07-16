@@ -43,6 +43,14 @@
 	content: none !important;
 }
 
+/* Fix product grid row negative margins overriding WooCommerce default margins */
+.woocommerce-page .products-container.row,
+.woocommerce .products-container.row {
+	margin-left: calc(-0.5 * var(--bs-gutter-x)) !important;
+	margin-right: calc(-0.5 * var(--bs-gutter-x)) !important;
+	width: auto !important;
+}
+
 /* Prevent WooCommerce default layout CSS from shrinking page wrappers and columns */
 .woocommerce #content,
 .woocommerce-page #content,
@@ -60,14 +68,18 @@
 	float: none !important;
 }
 
-.woocommerce #primary.col-lg-9,
-.woocommerce-page #primary.col-lg-9 {
-	width: 75% !important;
+@media (min-width: 992px) {
+	.woocommerce #primary.col-lg-9,
+	.woocommerce-page #primary.col-lg-9 {
+		width: 75% !important;
+	}
 }
 
-.woocommerce #primary.col-md-8,
-.woocommerce-page #primary.col-md-8 {
-	width: 66.66666667% !important;
+@media (min-width: 768px) and (max-width: 991.98px) {
+	.woocommerce #primary.col-md-8,
+	.woocommerce-page #primary.col-md-8 {
+		width: 66.66666667% !important;
+	}
 }
 
 @media (max-width: 767.98px) {
@@ -130,15 +142,17 @@
 	box-shadow: 0 2px 8px rgba(0,0,0,0.015);
 }
 
-.widget-area .widget-title {
-	font-size: 0.95rem;
-	font-weight: 750;
-	text-transform: uppercase;
-	letter-spacing: 0.5px;
-	color: #212529;
-	border-bottom: 2px solid #e9ecef;
-	padding-bottom: 0.75rem;
-	margin-bottom: 1.25rem;
+.widget-area .widget-title,
+.widget-area .widget .wp-block-heading {
+	font-size: 0.95rem !important;
+	font-weight: 750 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.5px !important;
+	color: #0f172a !important;
+	border-bottom: 2px solid #e9ecef !important;
+	padding-bottom: 0.75rem !important;
+	margin-bottom: 1.25rem !important;
+	margin-top: 0 !important;
 }
 
 /* List style resets in Widgets */
@@ -163,15 +177,26 @@
 	padding-bottom: 0;
 }
 
-.widget-area .widget ul li a {
-	color: #4f5d77;
-	text-decoration: none;
-	transition: all 0.2s ease-in-out;
+.widget-area .widget ul li a,
+.wc-block-product-filter-checkbox-list__label,
+.wc-block-product-filter-checkbox-list__text,
+.wc-block-product-filter-removable-chips__label {
+	color: #475569 !important;
+	font-family: var(--robo-font-sans) !important;
+	font-size: 0.9rem !important;
+	font-weight: 500 !important;
+	text-decoration: none !important;
+	transition: all 0.2s ease-in-out !important;
 }
 
 .widget-area .widget ul li a:hover {
-	color: #0d6efd;
+	color: var(--robo-primary-color) !important;
 	padding-left: 4px;
+}
+
+.wc-block-product-filter-checkbox-list__label:hover,
+.wc-block-product-filter-checkbox-list__label:hover .wc-block-product-filter-checkbox-list__text {
+	color: var(--robo-primary-color) !important;
 }
 
 .widget-area .widget ul li .count {
@@ -181,6 +206,81 @@
 	font-weight: 600;
 	padding: 0.25rem 0.5rem;
 	border-radius: 20px;
+}
+
+/* Gutenberg block filter items spacing */
+.wc-block-product-filters {
+	padding: 0 !important;
+}
+.wc-block-product-filters > div,
+.wc-block-product-filters > section {
+	margin-bottom: 1.5rem !important;
+}
+.wc-block-product-filters > div:last-child {
+	margin-bottom: 0 !important;
+}
+
+/* Checkbox and radio inputs styling in block filters */
+.wc-block-product-filter-checkbox-list__input {
+	border-radius: 4px !important;
+	border: 1.5px solid #cbd5e1 !important;
+	transition: all 0.2s ease-in-out !important;
+}
+.wc-block-product-filter-checkbox-list__input:checked {
+	background-color: var(--robo-primary-color) !important;
+	border-color: var(--robo-primary-color) !important;
+}
+.wc-block-product-filter-checkbox-list__input:focus {
+	border-color: var(--robo-primary-color) !important;
+	box-shadow: 0 0 0 3px rgba(var(--robo-primary-color-rgb), 0.15) !important;
+}
+
+/* Gutenberg price filter slider */
+.wc-block-product-filter-price-slider .range-bar {
+	background-color: var(--robo-primary-color) !important;
+}
+.wc-block-product-filter-price-slider__range input[type="range"] {
+	accent-color: var(--robo-primary-color) !important;
+}
+
+/* Removable chips styling */
+.wc-block-product-filter-removable-chips__item {
+	background-color: #f8fafc !important;
+	border: 1px solid #e2e8f0 !important;
+	border-radius: 6px !important;
+	padding: 0.35rem 0.6rem !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	gap: 6px !important;
+}
+.wc-block-product-filter-removable-chips__remove {
+	color: #64748b !important;
+	transition: color 0.2s ease !important;
+}
+.wc-block-product-filter-removable-chips__remove:hover {
+	color: var(--robo-primary-color) !important;
+}
+
+/* Apply / Filter Buttons styling */
+.wc-block-product-filters__apply,
+.widget_price_filter .price_slider_amount .button {
+	background-color: var(--robo-primary-color) !important;
+	color: #ffffff !important;
+	border: 0 !important;
+	padding: 0.5rem 1.25rem !important;
+	font-size: 0.85rem !important;
+	font-weight: 700 !important;
+	text-transform: uppercase !important;
+	border-radius: 6px !important;
+	letter-spacing: 0.5px !important;
+	transition: all 0.2s ease-in-out !important;
+	width: auto !important;
+}
+
+.wc-block-product-filters__apply:hover,
+.widget_price_filter .price_slider_amount .button:hover {
+	background-color: #0f172a !important;
+	color: #ffffff !important;
 }
 
 /* ==========================================================================
@@ -195,7 +295,7 @@
 }
 
 .widget_price_filter .price_slider_wrapper .ui-slider-range {
-	background-color: #0d6efd;
+	background-color: var(--robo-primary-color) !important;
 	position: absolute;
 	height: 100%;
 	border-radius: 3px;
@@ -203,7 +303,7 @@
 
 .widget_price_filter .price_slider_wrapper .ui-slider-handle {
 	background-color: #fff;
-	border: 2px solid #0d6efd;
+	border: 2px solid var(--robo-primary-color) !important;
 	width: 16px;
 	height: 16px;
 	border-radius: 50%;
@@ -229,22 +329,6 @@
 	font-weight: 600;
 	flex-wrap: wrap;
 	gap: 10px;
-}
-
-.widget_price_filter .price_slider_amount .button {
-	background-color: #212529;
-	color: #fff;
-	border: 0;
-	padding: 0.4rem 1.2rem;
-	font-size: 0.8rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	border-radius: 4px;
-	transition: all 0.2s ease;
-}
-
-.widget_price_filter .price_slider_amount .button:hover {
-	background-color: #0d6efd;
 }
 
 /* ==========================================================================

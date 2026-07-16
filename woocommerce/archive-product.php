@@ -84,6 +84,13 @@ do_action( 'woocommerce_before_main_content' );
 						</section>
 					<?php endif; ?>
 				</aside>
+
+				<!-- Custom Apply Filters Button -->
+				<!-- <div class="apply-filters-wrapper mt-3 mb-4 d-none" id="robo-apply-filters-container">
+					<button type="button" class="btn btn-primary w-100 robo-btn py-3 fw-bold d-flex align-items-center justify-content-center gap-2" id="robo-apply-filters-btn">
+						<i class="bi bi-check-circle-fill"></i> <?php esc_html_e( 'Apply Filters', 'robo' ); ?>
+					</button>
+				</div> -->
 			</div>
 		</div>
 	</div>
