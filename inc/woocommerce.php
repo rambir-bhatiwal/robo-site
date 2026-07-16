@@ -139,7 +139,7 @@ function robo_woocommerce_wrapper_start() {
 		return;
 	}
 	$container_class = get_theme_mod( 'robo_container_width', 'container' );
-	echo '<div class="robo-woocommerce-wrapper py-5 bg-light-subtle">';
+	echo '<div class="robo-woocommerce-wrapper py-1 bg-light-subtle">';
 	echo '<div class="' . esc_attr( $container_class ) . '">';
 }
 add_action( 'woocommerce_before_main_content', 'robo_woocommerce_wrapper_start', 10 );
