@@ -36,13 +36,6 @@ foreach ( $social_links as $key => $url ) {
 						<?php echo esc_html( robo_get_company_info( 'phone_number' ) ); ?>
 					</a>
 				</span>
-				<!-- Location -->
-				<span class="text-muted small d-flex align-items-center gap-1">
-					<i class="bi bi-geo-alt-fill text-primary"></i>
-					<a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary">
-						<?php echo esc_html( robo_get_company_info( 'address' ) ); ?>
-					</a>
-				</span>
 				<!-- Email -->
 				<span class="text-muted small d-flex align-items-center gap-1">
 					<i class="bi bi-envelope-fill text-primary"></i>
@@ -50,6 +43,14 @@ foreach ( $social_links as $key => $url ) {
 						<?php echo esc_html( robo_get_company_info( 'support_email' ) ); ?>
 					</a>
 				</span>
+				<!-- Location -->
+				<span class="text-muted small d-flex align-items-center gap-1">
+					<i class="bi bi-geo-alt-fill text-primary"></i>
+					<a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary">
+						<?php echo esc_html( robo_get_company_info( 'address' ) ); ?>
+					</a>
+				</span>
+				
 			</div>
 			<!-- Right Side: Social Media -->
 			<div class="col-md-4 text-center text-md-end d-flex align-items-center justify-content-center justify-content-md-end">
