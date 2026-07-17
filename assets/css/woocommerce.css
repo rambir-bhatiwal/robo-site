@@ -1938,3 +1938,126 @@ form.checkout_coupon {
 	border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
+/* ==========================================================================
+   WooCommerce Shop Page Pagination Override (Bootstrap 5 markup)
+   ========================================================================== */
+.woocommerce-shop .pagination {
+	/* display: inline-flex !important; */
+	gap: 6px !important;
+	border: 0 !important;
+}
+
+.woocommerce-shop .pagination .page-item {
+	margin: 0 !important;
+	border: 0 !important;
+}
+
+.woocommerce-shop .pagination .page-link {
+	color: #FF4D30 !important; /* Site primary color */
+	background-color: #ffffff !important;
+	border: 1px solid #dee2e6 !important; /* Existing border */
+	padding: 0.5rem 0.85rem !important;
+	border-radius: 6px !important; /* Match website buttons */
+	transition: var(--robo-transition-smooth) !important; /* Theme transition */
+	text-decoration: none !important;
+	display: inline-block !important;
+	min-width: 38px !important;
+	/* text-align: center !important; */
+}
+
+.woocommerce-shop .pagination .page-item.active .page-link {
+	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%) !important;
+	color: #ffffff !important;
+	border: none !important; /* No border */
+}
+
+.woocommerce-shop .pagination .page-link:hover,
+.woocommerce-shop .pagination .page-link:focus {
+	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%) !important;
+	color: #ffffff !important;
+	border-color: transparent !important;
+	box-shadow: 0 0 0 0.2rem rgba(255, 77, 48, 0.25) !important;
+}
+
+/* ==========================================================================
+   Cart Page Gradient Buttons Override (Matches Homepage Design Language)
+   ========================================================================== */
+.woocommerce-cart .wc-proceed-to-checkout a.checkout-button,
+.woocommerce-cart button[name="apply_coupon"] {
+	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%) !important;
+	color: #ffffff !important;
+	border: 1px solid transparent !important;
+	font-weight: 700 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.5px !important;
+	border-radius: 6px !important;
+	transition: var(--robo-transition-smooth) !important;
+	box-shadow: 0 4px 15px rgba(255, 77, 48, 0.25) !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+}
+
+.woocommerce-cart .wc-proceed-to-checkout a.checkout-button:hover,
+.woocommerce-cart .wc-proceed-to-checkout a.checkout-button:focus,
+.woocommerce-cart button[name="apply_coupon"]:hover,
+.woocommerce-cart button[name="apply_coupon"]:focus {
+	background: linear-gradient(135deg, #FF7A00 0%, #FF4D30 100%) !important;
+	color: #ffffff !important;
+	border-color: transparent !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 8px 20px rgba(255, 77, 48, 0.35) !important;
+}
+
+/* ==========================================================================
+   Cart Page Secondary Buttons Purple Color overrides (#9001fb)
+   ========================================================================== */
+.woocommerce-cart .card-footer a.btn-outline-secondary {
+	color: #9001fb !important;
+	border-color: #9001fb !important;
+	background-color: transparent !important;
+	font-weight: 600 !important;
+	transition: var(--robo-transition-smooth) !important;
+}
+
+.woocommerce-cart .card-footer a.btn-outline-secondary:hover,
+.woocommerce-cart .card-footer a.btn-outline-secondary:focus {
+	background-color: #9001fb !important;
+	color: #ffffff !important;
+	border-color: #9001fb !important;
+	box-shadow: 0 4px 15px rgba(144, 1, 251, 0.25) !important;
+	transform: translateY(-1px) !important;
+}
+
+.woocommerce-cart button[name="update_cart"] {
+	background-color: #9001fb !important;
+	border-color: #9001fb !important;
+	color: #ffffff !important;
+	font-weight: 600 !important;
+	transition: var(--robo-transition-smooth) !important;
+	box-shadow: 0 4px 15px rgba(144, 1, 251, 0.25) !important;
+}
+
+.woocommerce-cart button[name="update_cart"]:hover,
+.woocommerce-cart button[name="update_cart"]:focus {
+	background-color: #7200c7 !important;
+	border-color: #7200c7 !important;
+	color: #ffffff !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 8px 20px rgba(144, 1, 251, 0.35) !important;
+}
+
+.woocommerce-cart button[name="update_cart"]:disabled,
+.woocommerce-cart button[name="update_cart"][disabled] {
+	background-color: #e9ecef !important;
+	border-color: #dee2e6 !important;
+	color: #6c757d !important;
+	box-shadow: none !important;
+	transform: none !important;
+	cursor: not-allowed !important;
+	opacity: 0.65 !important;
+}
+
+
+
+

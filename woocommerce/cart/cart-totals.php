@@ -16,8 +16,8 @@ defined( 'ABSPATH' ) || exit;
 	
 	<?php do_action( 'woocommerce_before_cart_totals' ); ?>
 
-	<div class="card-header bg-white border-bottom py-3">
-		<h5 class="mb-0 fw-bold text-dark text-uppercase tracking-wider" style="font-size: 0.85rem; letter-spacing: 0.5px;"><?php esc_html_e( 'Order Summary', 'woocommerce' ); ?></h5>
+	<div class="card-header border-bottom py-3">
+		<h5 class="mb-0 fw-bold text-white text-uppercase tracking-wider" style="font-size: 0.85rem; letter-spacing: 0.5px;"><?php esc_html_e( 'Order Summary', 'woocommerce' ); ?></h5>
 	</div>
 
 	<div class="card-body p-4">

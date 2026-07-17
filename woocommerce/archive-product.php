@@ -170,7 +170,7 @@ do_action( 'woocommerce_before_main_content' );
 
 			<!-- Bootstrap Pagination -->
 			<div class="row mt-4">
-				<div class="col-12">
+				<div class="col-12 text-center">
 					<?php
 					/**
 					 * Hook: woocommerce_after_shop_loop.
