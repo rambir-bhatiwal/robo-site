@@ -195,6 +195,26 @@ function robo_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
+		'robo_hero_image',
+		array(
+			// 'default'           => 'https://app.roboscaler.com/wp-content/uploads/2026/07/513ac378-2fee-4500-8756-c9fb74781012.png',
+			'default'           => 'https://roboscaler.com/wp-content/uploads/2026/07/ChatGPT-Image-Mar-13-2026-02_28_53-PM-3-1024x683.png',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'robo_hero_image',
+			array(
+				'label'       => esc_html__( 'Hero Main/Featured Image', 'robo' ),
+				'description' => esc_html__( 'The main featured image shown on the right side of the hero section.', 'robo' ),
+				'section'     => 'robo_hero_section',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
 		'robo_hero_title',
 		array(
 			'default'           => esc_html__( 'Build Smarter Digital Experiences with Robo', 'robo' ),

@@ -9,7 +9,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$bg_image      = get_theme_mod( 'robo_hero_bg_image' );
+// $bg_image      = get_theme_mod( 'robo_hero_bg_image' );
+// if ( empty( $bg_image ) ) {
+// 	$bg_image = get_header_image();
+// }
+// $hero_image    = get_theme_mod( 'robo_hero_image', 'https://app.roboscaler.com/wp-content/uploads/2026/07/513ac378-2fee-4500-8756-c9fb74781012.png' );
+$hero_image   =  get_header_image();
+if ( empty( $hero_image ) ) {
+	$hero_image = 'https://app.roboscaler.com/wp-content/uploads/2026/07/513ac378-2fee-4500-8756-c9fb74781012.png';
+}
+// $hero_image = "https://roboscaler.com/wp-content/uploads/2026/07/ChatGPT-Image-Mar-13-2026-02_28_53-PM-3-1024x683.png";
+
 $title         = get_theme_mod( 'robo_hero_title', esc_html__( 'Build Smarter Digital Experiences with Robo', 'robo' ) );
 $subtitle      = get_theme_mod( 'robo_hero_subtitle', esc_html__( 'Robo is a 100% custom-designed WordPress theme using Bootstrap 5 to launch elegant, clean websites fast.', 'robo' ) );
 $btn1_text     = get_theme_mod( 'robo_hero_btn1_text', esc_html__( 'Get Started', 'robo' ) );
@@ -30,7 +40,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 
 
 
-<section id="hero" class="hero-section">
+<section id="hero" class="hero-section" <?php echo $hero_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 
 <div class="<?php echo esc_attr($container_class); ?>">
 
@@ -79,7 +89,7 @@ Explore Robots →
 <div class="particle p5"></div>
 
 <img
-src="https://app.roboscaler.com/wp-content/uploads/2026/07/513ac378-2fee-4500-8756-c9fb74781012.png"
+src="<?php echo esc_url( $hero_image ); ?>"
 class="robot-img"
 alt="Mini Sumo Robot">
 
