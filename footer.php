@@ -36,7 +36,7 @@ foreach ( $social_links as $key => $url ) {
 
 		<!-- Footer Bottom Bar -->
 		<div class="footer-bottom border-top border-secondary border-opacity-10 pt-4 mt-4">
-			<div class="<?php echo esc_attr( $container_class ); ?>">
+			<div class="container">
 				<div class="row align-items-center">
 					
 					<!-- Copyright -->

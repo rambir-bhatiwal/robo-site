@@ -25,7 +25,7 @@ foreach ( $social_links as $key => $url ) {
 }
 ?>
 <div class="topbar bg-light py-2 border-bottom">
-	<div class="<?php echo esc_attr( $container_class ); ?>">
+	<div class="container <?php //echo // esc_attr( $container_class ); ?>">
 		<div class="row align-items-center">
 			<!-- Left Side: Contact Info -->
 			<div class="col-md-8 d-flex align-items-center flex-wrap justify-content-center justify-content-md-start gap-3 mb-2 mb-md-0">
