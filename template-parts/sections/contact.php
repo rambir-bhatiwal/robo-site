@@ -43,7 +43,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 								</div>
 								<div>
 									<h4 class="h6 text-white-50 fw-bold mb-1"><?php esc_html_e( 'Engineering Lab', 'robo' ); ?></h4>
-									<p class="mb-0 small text-white"><?php esc_html_e( '100 Robotics Way, Austin, TX 78701', 'robo' ); ?></p>
+									<p class="mb-0 small text-white"><?php echo esc_html( robo_get_company_info( 'address' ) ); ?></p>
 								</div>
 							</div>
 
@@ -53,7 +53,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 								</div>
 								<div>
 									<h4 class="h6 text-white-50 fw-bold mb-1"><?php esc_html_e( 'Call Us Directly', 'robo' ); ?></h4>
-									<p class="mb-0 small text-white"><?php esc_html_e( '+1 (555) 867-5309', 'robo' ); ?></p>
+									<p class="mb-0 small text-white"><?php echo esc_html( robo_get_company_info( 'phone_number' ) ); ?></p>
 								</div>
 							</div>
 
@@ -63,7 +63,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 								</div>
 								<div>
 									<h4 class="h6 text-white-50 fw-bold mb-1"><?php esc_html_e( 'Email Support', 'robo' ); ?></h4>
-									<p class="mb-0 small text-white"><?php esc_html_e( 'support@example.com', 'robo' ); ?></p>
+									<p class="mb-0 small text-white"><?php echo esc_html( robo_get_company_info( 'support_email' ) ); ?></p>
 								</div>
 							</div>
 						</div>
@@ -73,14 +73,11 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 					<div class="mt-5 border-top border-secondary border-opacity-25 pt-4">
 						<h5 class="h6 fw-bold text-white mb-3"><?php esc_html_e( 'Follow Us', 'robo' ); ?></h5>
 						<div class="d-flex gap-3">
-							<a href="#" class="btn btn-outline-light btn-sm rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" aria-label="Facebook">
-								<?php echo robo_get_svg( 'facebook' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<a href="<?php echo esc_url( robo_get_company_info( 'instagram_url' ) ); ?>" class="btn btn-outline-light btn-sm rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+								<?php echo robo_get_svg( 'instagram' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</a>
-							<a href="#" class="btn btn-outline-light btn-sm rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" aria-label="Twitter">
-								<?php echo robo_get_svg( 'twitter' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-							</a>
-							<a href="#" class="btn btn-outline-light btn-sm rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" aria-label="LinkedIn">
-								<?php echo robo_get_svg( 'linkedin' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<a href="<?php echo esc_url( robo_get_company_info( 'youtube_url' ) ); ?>" class="btn btn-outline-light btn-sm rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+								<?php echo robo_get_svg( 'youtube' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</a>
 						</div>
 					</div>

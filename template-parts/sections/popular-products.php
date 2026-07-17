@@ -27,7 +27,7 @@ $query = new WP_Query( $args );
 if ( $query->have_posts() ) :
 ?>
 
-<section class="popular-products py-5">
+<section class="popular-products py-5" id="popular-products">
 
 	<div class="container">
 

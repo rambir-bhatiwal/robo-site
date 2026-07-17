@@ -118,7 +118,7 @@ $login_menu_item = sprintf(
 				</div> -->
 
 				<!-- Call Action -->
-				<!-- <a href="tel:+15558675309" class="btn btn-outline-primary w-100 w-lg-auto d-flex align-items-center justify-content-center gap-2">
+				<!-- <a href="<?php echo esc_url( 'tel:' . str_replace( ' ', '', robo_get_company_info( 'phone_number' ) ) ); ?>" class="btn btn-outline-primary w-100 w-lg-auto d-flex align-items-center justify-content-center gap-2">
 					<?php // echo robo_get_svg( 'phone' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<span><?php // esc_html_e( 'Call Now', 'robo' ); ?></span>
 				</a> -->

@@ -36,8 +36,8 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 						</div>
 						<h6 class="fw-bold text-dark mb-2"><?php esc_html_e( 'Our Laboratory', 'robo' ); ?></h6>
 						<p class="text-muted small mb-0">
-							<a href="https://maps.google.com/?q=100+Robotics+Way,+Austin,+TX+78701" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">
-								<?php esc_html_e( '100 Robotics Way, Austin, TX 78701', 'robo' ); ?>
+							<a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">
+								<?php echo esc_html( robo_get_company_info( 'address' ) ); ?>
 							</a>
 						</p>
 					</div>
@@ -50,8 +50,8 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 						</div>
 						<h6 class="fw-bold text-dark mb-2"><?php esc_html_e( 'Call Us', 'robo' ); ?></h6>
 						<p class="text-muted small mb-0">
-							<a href="tel:+15558675309" class="text-decoration-none text-muted">
-								<?php esc_html_e( '+1 (555) 867-5309', 'robo' ); ?>
+							<a href="<?php echo esc_url( 'tel:' . str_replace( ' ', '', robo_get_company_info( 'phone_number' ) ) ); ?>" class="text-decoration-none text-muted">
+								<?php echo esc_html( robo_get_company_info( 'phone_number' ) ); ?>
 							</a>
 						</p>
 					</div>
@@ -64,8 +64,8 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 						</div>
 						<h6 class="fw-bold text-dark mb-2"><?php esc_html_e( 'Email Support', 'robo' ); ?></h6>
 						<p class="text-muted small mb-0">
-							<a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@example.com" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">
-								<?php esc_html_e( 'support@example.com', 'robo' ); ?>
+							<a href="<?php echo esc_url( 'https://mail.google.com/mail/?view=cm&fs=1&to=' . robo_get_company_info( 'support_email' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted">
+								<?php echo esc_html( robo_get_company_info( 'support_email' ) ); ?>
 							</a>
 						</p>
 					</div>
@@ -243,7 +243,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 				<div class="position-relative z-1 py-3">
 					<h2 class="h1 fw-bold text-white mb-3"><?php esc_html_e( 'Looking for Bulk STEM School Discounts?', 'robo' ); ?></h2>
 					<p class="lead text-white-50 max-width-600 mx-auto mb-4"><?php esc_html_e( 'We offer customized quotes, educational rates, and balance billing for approved school districts.', 'robo' ); ?></p>
-					<a href="mailto:education@example.com" class="btn btn-warning btn-lg px-5 py-3 fw-bold rounded-pill shadow-sm transition-all" style="background: #FFC84A !important; border: none !important; color: #16244B !important;"><?php esc_html_e( 'Request School Quote', 'robo' ); ?></a>
+					<a href="<?php echo esc_url( 'mailto:' . robo_get_company_info( 'support_email' ) ); ?>" class="btn btn-warning btn-lg px-5 py-3 fw-bold rounded-pill shadow-sm transition-all" style="background: #FFC84A !important; border: none !important; color: #16244B !important;"><?php esc_html_e( 'Request School Quote', 'robo' ); ?></a>
 				</div>
 			</div>
 		</div>

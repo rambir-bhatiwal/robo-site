@@ -14,11 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 $copyright_text  = get_theme_mod( 'robo_copyright_text', '© ' . date( 'Y' ) . ' RoboScaler. All rights reserved.' );
 
-// Retrieve social links.
-$social_keys = array( 'facebook', 'twitter', 'instagram', 'linkedin', 'youtube' );
+$social_links = array(
+	'whatsapp'  => robo_get_company_info( 'whatsapp_url' ),
+	'instagram' => robo_get_company_info( 'instagram_url' ),
+	'youtube'   => robo_get_company_info( 'youtube_url' ),
+);
 $has_social  = false;
-foreach ( $social_keys as $key ) {
-	if ( get_theme_mod( "robo_social_{$key}" ) ) {
+foreach ( $social_links as $key => $url ) {
+	if ( ! empty( $url ) ) {
 		$has_social = true;
 		break;
 	}
@@ -70,14 +73,13 @@ foreach ( $social_keys as $key ) {
 						<?php if ( $has_social ) : ?>
 							<div class="footer-socials d-inline-flex gap-3">
 								<?php
-								foreach ( $social_keys as $key ) {
-									$url = get_theme_mod( "robo_social_{$key}" );
+								foreach ( $social_links as $key => $url ) {
 									if ( $url ) {
 										printf(
-											'<a href="%1$s" class="text-muted hover-primary" target="_blank" rel="noopener noreferrer" aria-label="%2$s">%3$s</a>',
+											'<a href="%1$s" class="text-muted hover-primary" target="_blank" rel="noopener noreferrer" aria-label="%2$s"><i class="bi bi-%3$s fs-5"></i></a>',
 											esc_url( $url ),
 											esc_attr( ucfirst( $key ) ),
-											robo_get_svg( $key, 'bi fs-5' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+											esc_attr( $key )
 										);
 									}
 								}

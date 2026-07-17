@@ -102,13 +102,22 @@ if ( 1 === $active_sidebars ) {
 						<?php esc_html_e( 'Engineering Lab', 'robo' ); ?>
 					</h5>
 					<p class="text-muted small mb-2 lh-lg">
-						<i class="bi bi-geo-alt-fill text-primary me-2"></i><a href="https://maps.google.com/?q=100+Robotics+Way,+Austin,+TX+78701" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php esc_html_e( '100 Robotics Way, Austin, TX 78701', 'robo' ); ?></a>
+						<i class="bi bi-geo-alt-fill text-primary me-2"></i><a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'address' ) ); ?></a>
 					</p>
 					<p class="text-muted small mb-2">
-						<i class="bi bi-envelope-fill text-primary me-2"></i><a href="https://mail.google.com/mail/?view=cm&fs=1&to=support@example.com" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php esc_html_e( 'support@example.com', 'robo' ); ?></a>
+						<i class="bi bi-envelope-fill text-primary me-2"></i><a href="<?php echo esc_url( 'https://mail.google.com/mail/?view=cm&fs=1&to=' . robo_get_company_info( 'support_email' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'support_email' ) ); ?></a>
+					</p>
+					<p class="text-muted small mb-2">
+						<i class="bi bi-telephone-fill text-primary me-2"></i><a href="<?php echo esc_url( 'tel:' . str_replace( ' ', '', robo_get_company_info( 'phone_number' ) ) ); ?>" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'phone_number' ) ); ?></a>
+					</p>
+					<p class="text-muted small mb-2">
+						<i class="bi bi-whatsapp text-primary me-2"></i><a href="<?php echo esc_url( robo_get_company_info( 'whatsapp_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php esc_html_e( 'WhatsApp', 'robo' ); ?></a>
+					</p>
+					<p class="text-muted small mb-2">
+						<i class="bi bi-instagram text-primary me-2"></i><a href="<?php echo esc_url( robo_get_company_info( 'instagram_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php esc_html_e( 'Instagram', 'robo' ); ?></a>
 					</p>
 					<p class="text-muted small mb-0">
-						<i class="bi bi-telephone-fill text-primary me-2"></i><a href="tel:+15558675309" class="text-decoration-none hover-primary"><?php esc_html_e( '+1 (555) 867-5309', 'robo' ); ?></a>
+						<i class="bi bi-youtube text-primary me-2"></i><a href="<?php echo esc_url( robo_get_company_info( 'youtube_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'youtube_name' ) ); ?></a>
 					</p>
 				</div>
 			<?php endif; ?>

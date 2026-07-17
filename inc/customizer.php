@@ -330,6 +330,45 @@ function robo_customize_register( $wp_customize ) {
 	}
 
 	// ----------------------------------------------------
+	// Section: Company Information
+	// ----------------------------------------------------
+	$wp_customize->add_section(
+		'robo_company_section',
+		array(
+			'title'    => esc_html__( 'Company Information', 'robo' ),
+			'panel'    => 'robo_options_panel',
+			'priority' => 35,
+		)
+	);
+
+	$company_fields = array(
+		'company_name'      => array( 'label' => esc_html__( 'Company Name', 'robo' ), 'default' => 'RoboScaler', 'type' => 'text' ),
+		'company_address'   => array( 'label' => esc_html__( 'Address', 'robo' ), 'default' => '100 Robotics Way, Austin, TX 78701', 'type' => 'text' ),
+		'company_maps_url'  => array( 'label' => esc_html__( 'Google Maps URL', 'robo' ), 'default' => 'https://maps.google.com/?q=100+Robotics+Way,+Austin,+TX+78701', 'type' => 'text' ),
+		'company_email'     => array( 'label' => esc_html__( 'Support Email', 'robo' ), 'default' => 'roboscaler@gmail.com', 'type' => 'text' ),
+		'company_email_gen' => array( 'label' => esc_html__( 'General Contact Email', 'robo' ), 'default' => 'roboscaler@gmail.com', 'type' => 'text' ),
+		'company_phone'     => array( 'label' => esc_html__( 'Phone Number', 'robo' ), 'default' => '+91 80768 87675', 'type' => 'text' ),
+	);
+
+	foreach ( $company_fields as $key => $field ) {
+		$wp_customize->add_setting(
+			"robo_{$key}",
+			array(
+				'default'           => $field['default'],
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_{$key}",
+			array(
+				'type'    => $field['type'],
+				'label'   => $field['label'],
+				'section' => 'robo_company_section',
+			)
+		);
+	}
+
+	// ----------------------------------------------------
 	// Section: Social Links
 	// ----------------------------------------------------
 	$wp_customize->add_section(
@@ -344,16 +383,26 @@ function robo_customize_register( $wp_customize ) {
 	$socials = array(
 		'facebook'  => esc_html__( 'Facebook URL', 'robo' ),
 		'twitter'   => esc_html__( 'Twitter/X URL', 'robo' ),
+		'whatsapp'  => esc_html__( 'WhatsApp URL', 'robo' ),
 		'instagram' => esc_html__( 'Instagram URL', 'robo' ),
 		'linkedin'  => esc_html__( 'LinkedIn URL', 'robo' ),
 		'youtube'   => esc_html__( 'YouTube URL', 'robo' ),
 	);
 
 	foreach ( $socials as $key => $label ) {
+		$default_val = '';
+		if ( 'whatsapp' === $key ) {
+			$default_val = 'https://wa.me/918076887675';
+		} elseif ( 'instagram' === $key ) {
+			$default_val = 'https://www.instagram.com/roboscaler?igsh=MXRvdTV5aHdqamFvMQ==';
+		} elseif ( 'youtube' === $key ) {
+			$default_val = 'https://youtube.com/@roboscaler?si=xkVvD4g4WzZ4YSpD';
+		}
+
 		$wp_customize->add_setting(
 			"robo_social_{$key}",
 			array(
-				'default'           => '',
+				'default'           => $default_val,
 				'sanitize_callback' => 'esc_url_raw',
 			)
 		);

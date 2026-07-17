@@ -2185,4 +2185,64 @@ input[type="password"] {
 	box-shadow: 0 8px 20px rgba(255, 77, 48, 0.25) !important;
 }
 
+/* Global primary color overrides to match button colors */
+.text-primary {
+	color: #FF4D30 !important;
+}
+
+.bg-primary-subtle {
+	background-color: rgba(255, 77, 48, 0.1) !important;
+}
+
+.hover-primary:hover,
+a.hover-primary:hover {
+	color: #FF4D30 !important;
+}
+
+/* Centralized Header and Footer Contact Icon Colors matching the primary button color */
+.topbar .text-primary,
+.site-footer .text-primary,
+.topbar a.hover-primary:hover,
+.site-footer a.hover-primary:hover {
+	color: #FF4D30 !important;
+}
+
+.topbar a i,
+.site-footer a i,
+.topbar .text-primary,
+.site-footer .text-primary {
+	transition: color 0.3s ease-in-out !important;
+}
+
+/* Contact Page Cards Icon Box Colors */
+.contact-info-cards .icon-box {
+	background-color: rgba(255, 77, 48, 0.1) !important;
+	color: #FF4D30 !important;
+}
+
+/* Contact Section Icon Backgrounds */
+.contact-section .bg-primary {
+	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%) !important;
+}
+
+/* Centralized Social Icon Color Overrides */
+.bi-whatsapp,
+.bi-instagram,
+.bi-youtube,
+.bi-facebook,
+.bi-twitter,
+.bi-linkedin,
+.topbar-socials i,
+.footer-socials i,
+.topbar-socials svg,
+.footer-socials svg,
+.contact-section a[aria-label="Instagram"] svg,
+.contact-section a[aria-label="YouTube"] svg,
+.contact-section a[aria-label="WhatsApp"] svg,
+.topbar-socials a:hover i,
+.footer-socials a:hover i {
+	color: #9001fb !important;
+	fill: #9001fb !important;
+}
+
 /* end css of design update */

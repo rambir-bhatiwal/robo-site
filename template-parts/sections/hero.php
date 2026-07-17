@@ -13,7 +13,7 @@ $bg_image      = get_theme_mod( 'robo_hero_bg_image' );
 $title         = get_theme_mod( 'robo_hero_title', esc_html__( 'Build Smarter Digital Experiences with Robo', 'robo' ) );
 $subtitle      = get_theme_mod( 'robo_hero_subtitle', esc_html__( 'Robo is a 100% custom-designed WordPress theme using Bootstrap 5 to launch elegant, clean websites fast.', 'robo' ) );
 $btn1_text     = get_theme_mod( 'robo_hero_btn1_text', esc_html__( 'Get Started', 'robo' ) );
-$btn1_url      = get_theme_mod( 'robo_hero_btn1_url', '#contact' );
+$btn1_url      = get_theme_mod( 'robo_hero_btn1_url', '#popular-products' );
 $btn2_text     = get_theme_mod( 'robo_hero_btn2_text', esc_html__( 'Learn More', 'robo' ) );
 $btn2_url      = get_theme_mod( 'robo_hero_btn2_url', '#about' );
 
