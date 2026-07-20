@@ -40,7 +40,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 					</div>
 				</form> -->
 
-				<?php echo do_shortcode( '[contact-form-7 id="df05ae6" title="Subscribe"]' ); // Replace 123 with your actual form ID ?>
+				<?php echo do_shortcode( '[contact-form-7 id="798141a" title="subscribe"]' ); // Replace 123 with your actual form ID ?>
 				
 				<p class="text-white-50 small mt-4 mb-0"><?php esc_html_e( 'We respect your privacy. Unsubscribe at any time.', 'robo' ); ?></p>
 			</div>
