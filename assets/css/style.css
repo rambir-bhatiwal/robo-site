@@ -27,8 +27,27 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
    Header & Navigation
    ---------------------------------------------------- */
 .site-header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
     background-color: var(--robo-header-bg) !important;
-    transition: var(--robo-transition-smooth);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.topbar {
+    overflow: hidden;
+}
+
+@media (max-width: 767.98px) {
+    .topbar {
+        font-size: 0.8rem;
+    }
+    .topbar .col-md-8 {
+        gap: 0.35rem 0.85rem !important;
+    }
 }
 
 .navbar-brand img {

@@ -12,22 +12,78 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToTopBtn = document.getElementById('back-to-top');
 
     /**
-     * 1. Sticky Header scroll behavior.
+     * 1. Fixed Header scroll behavior (GPU-accelerated slide up/down without layout shift or vibration).
      */
     const handleHeaderScroll = () => {
-        if (!header) return;
-        
-        if (window.scrollY > 50) {
-            header.classList.add('shadow', 'py-1');
-            header.classList.remove('shadow-sm', 'py-2');
-        } else {
-            header.classList.add('shadow-sm', 'py-2');
-            header.classList.remove('shadow', 'py-1');
-        }
+        const topbar = document.querySelector('.topbar');
+        if (!header || !topbar) return;
+
+        // Keep body padding-top matched to full header height so content never jumps
+        const updateHeaderPadding = () => {
+            const headerHeight = header.offsetHeight;
+            document.body.style.paddingTop = headerHeight + 'px';
+        };
+
+        updateHeaderPadding();
+        window.addEventListener('resize', updateHeaderPadding);
+
+        let lastScrollY = Math.max(0, window.scrollY);
+        let isHidden = false;
+        let ticking = false;
+
+        const updateHeader = () => {
+            const currentScrollY = Math.max(0, window.scrollY);
+            const scrollDelta = currentScrollY - lastScrollY;
+
+            // Check if mobile menu is currently expanded
+            const navbarCollapse = document.getElementById('primaryNavbar');
+            const isMobileMenuOpen = navbarCollapse && navbarCollapse.classList.contains('show');
+            const topbarHeight = topbar.offsetHeight || 40;
+
+            if (currentScrollY <= 20 || isMobileMenuOpen) {
+                // At top of page or mobile menu open -> slide header to 0
+                if (isHidden) {
+                    header.style.transform = 'translateY(0)';
+                    isHidden = false;
+                }
+            } else if (scrollDelta > 8 && currentScrollY > topbarHeight) {
+                // Scrolling DOWN past topbar height -> slide header UP by topbar height
+                if (!isHidden) {
+                    header.style.transform = `translateY(-${topbarHeight}px)`;
+                    isHidden = true;
+                }
+            } else if (scrollDelta < -8) {
+                // Scrolling UP -> slide header back DOWN
+                if (isHidden) {
+                    header.style.transform = 'translateY(0)';
+                    isHidden = false;
+                }
+            }
+
+            // Update header shadow state
+            if (currentScrollY > 50) {
+                header.classList.add('shadow');
+                header.classList.remove('shadow-sm');
+            } else {
+                header.classList.add('shadow-sm');
+                header.classList.remove('shadow');
+            }
+
+            lastScrollY = currentScrollY;
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateHeader);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        updateHeader();
     };
 
-    window.addEventListener('scroll', handleHeaderScroll);
-    handleHeaderScroll(); // Trigger immediately in case page is loaded scrolled.
+    handleHeaderScroll();
 
     /**
      * 2. Back To Top button visibility and action.

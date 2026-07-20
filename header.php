@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php esc_html_e( 'Skip to content', 'robo' ); ?>
 	</a>
 
-	<header id="masthead" class="site-header sticky-top bg-white border-bottom shadow-sm">
+	<header id="masthead" class="site-header fixed-top bg-white border-bottom shadow-sm">
 		<?php
 		// Load Topbar.
 		get_template_part( 'template-parts/header/topbar' );
