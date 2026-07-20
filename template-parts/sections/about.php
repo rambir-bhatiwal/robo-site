@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 ?>
-<section id="about" class="about-section">
+<section id="about" class="about-section overflow-hidden my-4">
 	<div class="<?php echo esc_attr( $container_class ); ?> py-4">
 		<div class="row align-items-center g-5">
 			

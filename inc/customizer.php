@@ -435,6 +435,70 @@ function robo_customize_register( $wp_customize ) {
 			)
 		);
 	}
+
+	// ----------------------------------------------------
+	// Section: About Us Page Settings
+	// ----------------------------------------------------
+	$wp_customize->add_section(
+		'robo_about_page_section',
+		array(
+			'title'       => esc_html__( 'About Us Page Settings', 'robo' ),
+			'description' => esc_html__( 'Upload images for the About Us page sections.', 'robo' ),
+			'panel'       => 'robo_options_panel',
+			'priority'    => 32,
+		)
+	);
+
+	$about_images = array(
+		'hero'       => array(
+			'label'   => esc_html__( 'Hero Section Image', 'robo' ),
+			'default' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80',
+		),
+		'intro'      => array(
+			'label'   => esc_html__( 'Welcome Introduction Image', 'robo' ),
+			'default' => 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+		),
+		'what_we_do' => array(
+			'label'   => esc_html__( 'What We Do Image', 'robo' ),
+			'default' => 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80',
+		),
+		'our_goal'   => array(
+			'label'   => esc_html__( 'Our Goal Image', 'robo' ),
+			'default' => 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&w=800&q=80',
+		),
+		'why_choose' => array(
+			'label'   => esc_html__( 'Why Choose Us Image', 'robo' ),
+			'default' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80',
+		),
+		'customers'  => array(
+			'label'   => esc_html__( 'Our Customers Image', 'robo' ),
+			'default' => 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+		),
+		'cta'        => array(
+			'label'   => esc_html__( 'Call To Action Image', 'robo' ),
+			'default' => 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+		),
+	);
+
+	foreach ( $about_images as $key => $img_info ) {
+		$wp_customize->add_setting(
+			"robo_about_{$key}_image",
+			array(
+				'default'           => $img_info['default'],
+				'sanitize_callback' => 'esc_url_raw',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Image_Control(
+				$wp_customize,
+				"robo_about_{$key}_image",
+				array(
+					'label'   => $img_info['label'],
+					'section' => 'robo_about_page_section',
+				)
+			)
+		);
+	}
 }
 add_action( 'customize_register', 'robo_customize_register' );
 

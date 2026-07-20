@@ -205,3 +205,29 @@ if ( ! function_exists( 'robo_get_company_info' ) ) {
 	}
 }
 
+if ( ! function_exists( 'robo_get_about_image' ) ) {
+	/**
+	 * Get About Page image from customizer dynamically.
+	 *
+	 * @param string $key Image key.
+	 * @return string Image URL.
+	 */
+	function robo_get_about_image( $key ) {
+		$defaults = array(
+			'hero'       => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80',
+			'intro'      => 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+			'what_we_do' => 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80',
+			'our_goal'   => 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&w=800&q=80',
+			'why_choose' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80',
+			'customers'  => 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+			'cta'        => 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+		);
+
+		$setting_name = "robo_about_{$key}_image";
+		$default_url  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+		return get_theme_mod( $setting_name, $default_url );
+	}
+}
+
+
