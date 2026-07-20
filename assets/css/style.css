@@ -503,3 +503,47 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     transform: translateY(-6px) !important;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08) !important;
 }
+
+/* ==========================================================================
+   Section Bottom Spacing (3.5rem)
+   ========================================================================== */
+section,
+[class*="-section"],
+.about-section,
+.services-section,
+.popular-products-section,
+.popular-products,
+.features-section,
+.portfolio-section,
+.team-section,
+.pricing-section,
+.contact-section,
+.counter-section,
+.faq-section,
+.latest-blog-section,
+.testimonials-section,
+.about-what-we-do,
+.about-why-choose,
+.about-our-goal,
+.about-our-customers,
+.about-welcome-section,
+.about-cta-section,
+.contact-info-cards,
+.form-hours-section,
+.map-section,
+.contact-faq,
+.contact-cta,
+.videos-hero,
+.contact-hero,
+.about-hero-section,
+.hero-section,
+.shop-header-banner,
+.breadcrumb-section,
+.breadcrumb-container {
+    margin-bottom: 3.5rem !important;
+}
+
+/* Remove space for newsletter section only */
+.newsletter-section {
+    margin-bottom: 0 !important;
+}
