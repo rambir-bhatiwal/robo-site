@@ -72,6 +72,10 @@ if ( ! function_exists( 'robo_format_meta_value' ) ) {
 <div id="primary" class="content-area py-5 bg-light-subtle">
 	<main id="main" class="site-main">
 		<div class="<?php echo esc_attr( $container_class ); ?>">
+			
+			<!-- Breadcrumbs -->
+			<?php get_template_part( 'template-parts/sections/breadcrumb' ); ?>
+
 			<?php
 			while ( have_posts() ) :
 				the_post();

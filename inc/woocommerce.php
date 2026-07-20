@@ -324,19 +324,7 @@ function robo_woocommerce_get_rating_html( $product ) {
 }
 
 function robo_woocommerce_breadcrumbs() {
-	if ( ! function_exists( 'woocommerce_breadcrumb' ) ) {
-		return;
-	}
-
-	woocommerce_breadcrumb(
-		array(
-			'delimiter'   => '',
-			'wrap_before' => '<nav aria-label="breadcrumb" class="bg-white p-3 rounded shadow-sm border border-light-subtle mb-4"><ol class="breadcrumb mb-0 align-items-center">',
-			'wrap_after'  => '</ol></nav>',
-			'before'      => '<li class="breadcrumb-item">',
-			'after'       => '</li>',
-		)
-	);
+	robo_breadcrumbs();
 }
 
 /**

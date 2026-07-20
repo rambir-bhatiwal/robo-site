@@ -25,6 +25,9 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 		</div>
 	</section>
 
+	<!-- Breadcrumbs -->
+	<?php get_template_part( 'template-parts/sections/breadcrumb' ); ?>
+
 	<!-- Contact Information Cards -->
 	<section class="contact-info-cards mb-5">
 		<div class="<?php echo esc_attr( $container_class ); ?>">

@@ -15,7 +15,11 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 ?>
 
 <div class="container-wrapper py-5">
-	<div class="<?php echo esc_attr( $container_class ); ?> py-5">
+	<div class="<?php echo esc_attr( $container_class ); ?>">
+		
+		<!-- Breadcrumbs -->
+		<?php robo_breadcrumbs(); ?>
+
 		<div class="row justify-content-center text-center">
 			<div class="col-lg-8">
 				

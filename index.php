@@ -21,6 +21,10 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 
 <div class="container-wrapper py-5">
 	<div class="<?php echo esc_attr( $container_class ); ?>">
+		
+		<!-- Breadcrumbs -->
+		<?php robo_breadcrumbs(); ?>
+
 		<div class="row">
 			
 			<!-- Main Content Column -->

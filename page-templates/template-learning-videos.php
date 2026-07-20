@@ -249,6 +249,9 @@ if ( empty( $videos ) ) {
 			</div>
 		</section>
 
+		<!-- Breadcrumbs -->
+		<?php get_template_part( 'template-parts/sections/breadcrumb' ); ?>
+
 		<!-- Main Content Area -->
 		<div class="<?php echo esc_attr( $container_class ); ?>">
 			<div class="row justify-content-center">

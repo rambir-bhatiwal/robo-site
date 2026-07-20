@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 get_template_part( 'template-parts/woocommerce-banner' );
+get_template_part( 'template-parts/sections/breadcrumb' );
 
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 
