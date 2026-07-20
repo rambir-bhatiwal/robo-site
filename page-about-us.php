@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 
-<div class="about-page-wrapper bg-light-subtle pb-3 overflow-hidden">
+<div class="about-page-wrapper bg-light-subtle  overflow-hidden">
 	<!-- Hero & Welcome Introduction -->
 	<?php get_template_part( 'template-parts/sections/about-hero' ); ?>
 

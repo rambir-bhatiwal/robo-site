@@ -59,8 +59,8 @@ if ( 1 === $active_sidebars ) {
 				
 				<!-- Column 1: About Brand -->
 				<div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-					<h5 class="fw-bold text-white mb-3 text-uppercase tracking-wider" style="font-size: 0.85rem; letter-spacing: 0.5px;">
-						<span class="text-primary">Robo</span>Scaler
+					<h5 class="fw-bold mb-3 text-uppercase tracking-wider" style="font-size: 0.85rem; letter-spacing: 0.5px; color: #9001fb !important;">
+						<span class="text-primary">Robo </span>Scaler
 					</h5>
 					<p class="text-muted small mb-4 lh-lg" style="max-width: 320px;">
 						Engineered for competition, designed for innovators. We supply high-performance mini sumo bots, drone kits, and high-discharge battery cells to STEM classrooms and professional arenas.
