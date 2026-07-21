@@ -44,11 +44,11 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 
 <div class="<?php echo esc_attr($container_class); ?>">
 
-<div class="row align-items-center min-vh-100">
+<div class="row align-items-center">
 
 <!-- LEFT -->
 
-<div class="col-lg-5">
+<div class="col-lg-5 hero-left-content">
 
 <span class="hero-badge">
 🤖 Robotics Kit
