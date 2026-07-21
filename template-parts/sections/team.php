@@ -46,13 +46,21 @@ $team_members = array(
 
 		<!-- Team Grid -->
 		<div class="row g-4">
-			<?php foreach ( $team_members as $member ) : ?>
+			<?php foreach ( $team_members as $idx => $member ) : 
+				$team_img = function_exists( 'robo_get_team_image' ) ? robo_get_team_image( $idx + 1 ) : '';
+			?>
 				<div class="col-lg-4 col-md-6">
 					<div class="team-card card h-100 border-0 shadow-sm overflow-hidden text-center p-4">
 						
-						<!-- Avatar Block (Placeholder shape) -->
-						<div class="mx-auto mb-4 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 120px; height: 120px; font-size: 2.2rem;">
-							<?php echo esc_html( $member['initial'] ); ?>
+						<!-- Avatar Block -->
+						<div class="mx-auto mb-4 overflow-hidden rounded-circle shadow-sm" style="width: 120px; height: 120px;">
+							<?php if ( ! empty( $team_img ) ) : ?>
+								<img src="<?php echo esc_url( $team_img ); ?>" alt="<?php echo esc_attr( $member['name'] ); ?>" class="w-100 h-100 object-fit-cover">
+							<?php else : ?>
+								<div class="w-100 h-100 bg-primary text-white d-flex align-items-center justify-content-center fw-bold" style="font-size: 2.2rem;">
+									<?php echo esc_html( $member['initial'] ); ?>
+								</div>
+							<?php endif; ?>
 						</div>
 
 						<h4 class="h5 fw-bold text-dark mb-1"><?php echo esc_html( $member['name'] ); ?></h4>

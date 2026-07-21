@@ -49,7 +49,9 @@ $testimonials = array(
 
 		<!-- Testimonials Grid -->
 		<div class="row g-4">
-			<?php foreach ( $testimonials as $test ) : ?>
+			<?php foreach ( $testimonials as $idx => $test ) : 
+				$test_img = function_exists( 'robo_get_testimonial_image' ) ? robo_get_testimonial_image( $idx + 1 ) : '';
+			?>
 				<div class="col-lg-4 col-md-6">
 					<div class="testimonial-card card h-100 border-0 shadow-sm p-4 bg-light text-start transition-all position-relative">
 						<!-- Quote Icon -->
@@ -68,8 +70,14 @@ $testimonials = array(
 						
 						<!-- Client Profile -->
 						<div class="d-flex align-items-center gap-3">
-							<div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 45px; height: 45px;">
-								<?php echo esc_html( $test['initial'] ); ?>
+							<div class="overflow-hidden rounded-circle shadow-sm flex-shrink-0" style="width: 45px; height: 45px;">
+								<?php if ( ! empty( $test_img ) ) : ?>
+									<img src="<?php echo esc_url( $test_img ); ?>" alt="<?php echo esc_attr( $test['name'] ); ?>" class="w-100 h-100 object-fit-cover">
+								<?php else : ?>
+									<div class="w-100 h-100 bg-primary text-white d-flex align-items-center justify-content-center fw-bold">
+										<?php echo esc_html( $test['initial'] ); ?>
+									</div>
+								<?php endif; ?>
 							</div>
 							<div>
 								<h5 class="h6 fw-bold text-dark mb-0"><?php echo esc_html( $test['name'] ); ?></h5>

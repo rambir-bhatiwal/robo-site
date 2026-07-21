@@ -449,34 +449,36 @@ function robo_customize_register( $wp_customize ) {
 		)
 	);
 
+	$std_desc = esc_html__( 'Replace with a REAL stock photograph of 8th–12th grade school students wearing proper school uniforms, working on robotics, STEM, electronics, coding, or science projects. Do NOT use adults, university students, business people, or AI-generated images.', 'robo' );
+
 	$about_images = array(
 		'hero'       => array(
 			'label'   => esc_html__( 'Hero Section Image', 'robo' ),
-			'default' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80',
+			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/539e0c5e-5c07-49a5-aa03-de3d6bb5cfdd-1.jpeg',
 		),
 		'intro'      => array(
 			'label'   => esc_html__( 'Welcome Introduction Image', 'robo' ),
-			'default' => 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/e24e5cbc-6dfd-4bf6-bba0-d90c71644b1a-e1784633711885.jpeg',
 		),
 		'what_we_do' => array(
 			'label'   => esc_html__( 'What We Do Image', 'robo' ),
-			'default' => 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80',
+			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/2eb16044-dd3d-44cc-978e-234df8077e6c.jpeg',
 		),
 		'our_goal'   => array(
 			'label'   => esc_html__( 'Our Goal Image', 'robo' ),
-			'default' => 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&w=800&q=80',
+			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/a3c7cae9-f159-4cae-940d-bc40ef1fea6c.jpeg',
 		),
 		'why_choose' => array(
 			'label'   => esc_html__( 'Why Choose Us Image', 'robo' ),
-			'default' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80',
+			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/9c6f88b5-a841-4a75-8890-596857c33304.jpeg',
 		),
 		'customers'  => array(
 			'label'   => esc_html__( 'Our Customers Image', 'robo' ),
-			'default' => 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/31ac61f5-c79d-4f80-a904-7fcfee04a94d.jpeg',
 		),
 		'cta'        => array(
 			'label'   => esc_html__( 'Call To Action Image', 'robo' ),
-			'default' => 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+			'default' => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1200&q=80',
 		),
 	);
 
@@ -493,8 +495,73 @@ function robo_customize_register( $wp_customize ) {
 				$wp_customize,
 				"robo_about_{$key}_image",
 				array(
-					'label'   => $img_info['label'],
-					'section' => 'robo_about_page_section',
+					'label'       => $img_info['label'],
+					'description' => $std_desc,
+					'section'     => 'robo_about_page_section',
+				)
+			)
+		);
+	}
+
+	// Auth Illustration Setting.
+	$wp_customize->add_setting(
+		'robo_auth_illustration_image',
+		array(
+			'default'           => get_template_directory_uri() . '/assets/images/robo_auth_illustration.jpg',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'robo_auth_illustration_image',
+			array(
+				'label'       => esc_html__( 'Auth / Login Page Illustration Image', 'robo' ),
+				'description' => $std_desc,
+				'section'     => 'robo_about_page_section',
+			)
+		)
+	);
+
+	// Team Member Images.
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$wp_customize->add_setting(
+			"robo_team_member_{$i}_image",
+			array(
+				'default'           => 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=300&q=80',
+				'sanitize_callback' => 'esc_url_raw',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Image_Control(
+				$wp_customize,
+				"robo_team_member_{$i}_image",
+				array(
+					'label'       => sprintf( esc_html__( 'Team Member %d Photo Avatar', 'robo' ), $i ),
+					'description' => $std_desc,
+					'section'     => 'robo_about_page_section',
+				)
+			)
+		);
+	}
+
+	// Testimonial User Images.
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$wp_customize->add_setting(
+			"robo_testimonial_{$i}_image",
+			array(
+				'default'           => 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=200&q=80',
+				'sanitize_callback' => 'esc_url_raw',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Image_Control(
+				$wp_customize,
+				"robo_testimonial_{$i}_image",
+				array(
+					'label'       => sprintf( esc_html__( 'Testimonial %d User Photo Avatar', 'robo' ), $i ),
+					'description' => $std_desc,
+					'section'     => 'robo_about_page_section',
 				)
 			)
 		);

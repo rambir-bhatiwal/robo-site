@@ -195,7 +195,8 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 				<!-- Robotics Illustration -->
 				<div class="auth-illustration-wrapper text-center my-auto rounded-3 overflow-hidden shadow-lg bg-black bg-opacity-20 border border-white border-opacity-10">
-					<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/robo_auth_illustration.jpg' ); ?>" class="img-fluid object-fit-cover w-100" style="max-height: 280px;" alt="<?php esc_attr_e( 'RoboScaler illustration', 'robo' ); ?>">
+					<?php $auth_img = get_theme_mod( 'robo_auth_illustration_image', get_template_directory_uri() . '/assets/images/robo_auth_illustration.jpg' ); ?>
+					<img src="<?php echo esc_url( $auth_img ); ?>" class="img-fluid object-fit-cover w-100" style="max-height: 280px;" alt="<?php esc_attr_e( 'RoboScaler illustration', 'robo' ); ?>">
 				</div>
 
 				<!-- Feature Highlights -->

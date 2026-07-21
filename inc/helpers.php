@@ -208,23 +208,68 @@ if ( ! function_exists( 'robo_get_company_info' ) ) {
 if ( ! function_exists( 'robo_get_about_image' ) ) {
 	/**
 	 * Get About Page image from customizer dynamically.
+	 * Replace with a REAL stock photograph of 8th–12th grade school students wearing proper school uniforms, working on robotics, STEM, electronics, coding, or science projects. Do NOT use adults, university students, business people, or AI-generated images.
 	 *
 	 * @param string $key Image key.
 	 * @return string Image URL.
 	 */
 	function robo_get_about_image( $key ) {
 		$defaults = array(
-			'hero'       => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80',
-			'intro'      => 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
-			'what_we_do' => 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80',
-			'our_goal'   => 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&w=800&q=80',
-			'why_choose' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80',
-			'customers'  => 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
-			'cta'        => 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+			'hero'       => 'https://app.roboscaler.com/wp-content/uploads/2026/07/539e0c5e-5c07-49a5-aa03-de3d6bb5cfdd-1.jpeg',
+			'intro'      => 'https://app.roboscaler.com/wp-content/uploads/2026/07/e24e5cbc-6dfd-4bf6-bba0-d90c71644b1a-e1784633711885.jpeg',
+			'what_we_do' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/2eb16044-dd3d-44cc-978e-234df8077e6c.jpeg',
+			'our_goal'   => 'https://app.roboscaler.com/wp-content/uploads/2026/07/a3c7cae9-f159-4cae-940d-bc40ef1fea6c.jpeg',
+			'why_choose' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/9c6f88b5-a841-4a75-8890-596857c33304.jpeg',
+			'customers'  => 'https://app.roboscaler.com/wp-content/uploads/2026/07/31ac61f5-c79d-4f80-a904-7fcfee04a94d.jpeg',
+			'cta'        => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1200&q=80',
 		);
 
 		$setting_name = "robo_about_{$key}_image";
 		$default_url  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+
+		return get_theme_mod( $setting_name, $default_url );
+	}
+}
+
+if ( ! function_exists( 'robo_get_team_image' ) ) {
+	/**
+	 * Get Team member photo avatar URL from customizer dynamically.
+	 * Replace with a REAL stock photo avatar of an 8th–12th grade school student wearing a proper school uniform. Do NOT use adults, university students, business people, or AI-generated images.
+	 *
+	 * @param int $index Team member index (1-based).
+	 * @return string Image URL.
+	 */
+	function robo_get_team_image( $index ) {
+		$defaults = array(
+			1 => 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=300&q=80',
+			2 => 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=300&q=80',
+			3 => 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=300&q=80',
+		);
+
+		$setting_name = "robo_team_member_{$index}_image";
+		$default_url  = isset( $defaults[ $index ] ) ? $defaults[ $index ] : '';
+
+		return get_theme_mod( $setting_name, $default_url );
+	}
+}
+
+if ( ! function_exists( 'robo_get_testimonial_image' ) ) {
+	/**
+	 * Get Testimonial user photo avatar URL from customizer dynamically.
+	 * Replace with a REAL stock photo avatar of an 8th–12th grade school student wearing a proper school uniform. Do NOT use adults, university students, business people, or AI-generated images.
+	 *
+	 * @param int $index Testimonial index (1-based).
+	 * @return string Image URL.
+	 */
+	function robo_get_testimonial_image( $index ) {
+		$defaults = array(
+			1 => 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=200&q=80',
+			2 => 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=200&q=80',
+			3 => 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=200&q=80',
+		);
+
+		$setting_name = "robo_testimonial_{$index}_image";
+		$default_url  = isset( $defaults[ $index ] ) ? $defaults[ $index ] : '';
 
 		return get_theme_mod( $setting_name, $default_url );
 	}
