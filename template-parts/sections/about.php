@@ -59,9 +59,12 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 			<!-- Right Content Column -->
 			<div class="col-lg-6">
 				<span class="text-primary text-uppercase fw-bold small tracking-wider mb-2 d-block"><?php esc_html_e( 'Who We Are', 'robo' ); ?></span>
-				<h2 class="h1 fw-bold text-dark mb-4"><?php esc_html_e( 'Pioneering STEM & Professional Combat Robotics', 'robo' ); ?></h2>
+				<!-- <h2 class="h1 fw-bold text-dark mb-4"><?php // esc_html_e( 'Pioneering STEM & Professional Combat Robotics', 'robo' ); ?></h2> -->
+				<h2 class="h1 fw-bold text-dark mb-4"><?php esc_html_e( 'STEM & Combat Robotics', 'robo' ); ?></h2>
 				<p class="text-muted fs-6 mb-4">
-					<?php esc_html_e( 'We design and sell high-performance robotics kits, custom electronic circuit boards, and battery solutions. From mini sumo robots and high-speed drones to combat trucks and replacement parts, our hardware is engineered for durability, speed, and precision control.', 'robo' ); ?>
+					<?php //esc_html_e( 'We make cool robotics kits and custom electronic parts for people who like robots, students and professionals. Our products are things like sumo robots, fast drones and combat robots. We also have replacement parts and special components for robots. Every robotics kit and part we make is built to be very strong and work well so people can use them for school, competitions and work. We want our robotics kits and parts to be the best they can be so people can count on them to work properly when they need them to. Our robotics kits and parts are made for people who like robotics, students and professionals. We want them to be happy, with what we make.', 'robo' );
+					// 
+					esc_html_e( 'We create robotics kits and custom electronic components for students, hobbyists, and professionals. Our range includes sumo robots, drones, combat robots, replacement parts, and specialized robotics components. Every product is designed for durability, reliable performance, and hands-on learning in schools, competitions, and real-world projects.', 'robo' ); ?>
 				</p>
 				
 				<!-- Checklist -->
@@ -69,15 +72,29 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 					<li class="d-flex align-items-start gap-2 mb-3">
 						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill text-primary mt-1" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
 						<div>
-							<h5 class="fw-bold text-dark mb-1"><?php esc_html_e( 'Competition-Grade Boards & Sensors', 'robo' ); ?></h5>
-							<p class="text-muted small mb-0"><?php esc_html_e( 'High-reliability ESP32/STM32 control boards, infrared distance sensors, and high-frequency motor drivers.', 'robo' ); ?></p>
+							<h5 class="fw-bold text-dark mb-1"><?php esc_html_e( 'High-Performance Robotics Solutions', 'robo' ); ?></h5>
+							<p class="text-muted small mb-0"><?php esc_html_e( 'Engineered for speed, durability, and precision.', 'robo' ); ?></p>
 						</div>
 					</li>
 					<li class="d-flex align-items-start gap-2 mb-3">
 						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill text-primary mt-1" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
 						<div>
-							<h5 class="fw-bold text-dark mb-1"><?php esc_html_e( 'High-Energy Density Batteries', 'robo' ); ?></h5>
-							<p class="text-muted small mb-0"><?php esc_html_e( 'LiPo battery cells with high C-ratings designed specifically to handle extreme current draws during combat matches.', 'robo' ); ?></p>
+							<h5 class="fw-bold text-dark mb-1"><?php esc_html_e( 'Custom Electronics & PCBs', 'robo' ); ?></h5>
+							<p class="text-muted small mb-0"><?php esc_html_e( 'Designed for reliable control and seamless integration.', 'robo' ); ?></p>
+						</div>
+					</li>
+					<li class="d-flex align-items-start gap-2 mb-3">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill text-primary mt-1" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+						<div>
+							<h5 class="fw-bold text-dark mb-1"><?php esc_html_e( 'Advanced Power Systems', 'robo' ); ?></h5>
+							<p class="text-muted small mb-0"><?php esc_html_e( 'High-quality battery solutions optimized for demanding robotics applications.', 'robo' ); ?></p>
+						</div>
+					</li>
+					<li class="d-flex align-items-start gap-2 mb-3">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill text-primary mt-1" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+						<div>
+							<h5 class="fw-bold text-dark mb-1"><?php esc_html_e( 'Supporting STEM & Innovation', 'robo' ); ?></h5>
+							<p class="text-muted small mb-0"><?php esc_html_e( 'Helping students, educators, and professionals bring robotics ideas to life.', 'robo' ); ?></p>
 						</div>
 					</li>
 				</ul>

@@ -15,7 +15,7 @@ get_header();
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 ?>
 
-<div class="contact-page-wrapper bg-light-subtle pb-5">
+<div class="contact-page-wrapper bg-light-subtle">
 	<!-- Hero Section -->
 	<section class="contact-hero bg-dark text-white py-5 text-center position-relative overflow-hidden mb-5">
 		<div class="position-absolute top-0 start-0 w-100 h-100 opacity-10 bg-grid" style="background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px;"></div>
@@ -241,7 +241,7 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 	</section>
 
 	<!-- CTA Section -->
-	<section class="contact-cta py-5">
+	<section class="contact-cta py-0">
 		<div class="<?php echo esc_attr( $container_class ); ?>">
 			<div class="card border-0 shadow-lg text-white p-5 text-center position-relative overflow-hidden rounded-4" style="background: linear-gradient(135deg, #0052FF 0%, #090F1d 100%) !important;">
 				<div class="position-absolute top-0 start-0 w-100 h-100 opacity-10 bg-grid" style="background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 15px 15px;"></div>
