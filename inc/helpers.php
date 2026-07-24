@@ -135,6 +135,11 @@ if ( ! function_exists( 'robo_get_svg' ) ) {
 			'instagram' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="' . esc_attr( $classes ) . '" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04 1.169.222 1.757.42 2.268a3.9 3.9 0 0 0 .923 1.417 3.9 3.9 0 0 0 1.417.923c.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.417-.923 3.9 3.9 0 0 0 .923-1.417c.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/></svg>',
 			'linkedin'  => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="' . esc_attr( $classes ) . '" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>',
 			'youtube'   => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="' . esc_attr( $classes ) . '" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.104 1.981-.011.103-.021.2-.032.298a1.4 1.4 0 0 1-.031.104 2.01 2.01 0 0 1-1.415 1.419c-1.12.301-5.282.332-6.11.335h-.09c-.822-.003-4.987-.033-6.11-.335a2.01 2.01 0 0 1-1.415-1.42A7.7 7.7 0 0 1 .05 8.847l-.008-.104-.022-.26-.008-.104A35 35 0 0 1 0 6.586v-.075c.001-.194.01-1.108.104-1.981.011-.103.021-.2.032-.298a1.4 1.4 0 0 1 .031-.104A2.01 2.01 0 0 1 1.583 2.3c1.12-.302 5.282-.335 6.11-.335M6.5 5.5v5l4.25-2.5z"/></svg>',
+			'github'    => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="' . esc_attr( $classes ) . '" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>',
+			'website'   => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="' . esc_attr( $classes ) . '" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a7.023 7.023 0 0 0-.656 2.5h2.49zM4.847 7.5c-.03.839-.047 1.679.006 2.5H1.018a7.03 7.03 0 0 0 .656 2.5h2.174c-.174-.782-.282-1.623-.312-2.5zm.352 3.5c.16.54.36 1.056.597 1.539.22.443.468.847.741 1.206A7.026 7.026 0 0 0 2.255 12h1.835c.243-.728.487-1.485.709-2.5zm2.301 3.923V12H5.145c.174.782.38 1.512.618 2.164.24.656.51 1.206.737 1.759zM8.5 1.077V4h2.355c-.237-.782-.443-1.512-.68-2.164C9.937 1.18 9.667.63 9.44.077A7.97 7.97 0 0 0 8.5 1.077zm3.41 2.923h1.835a7.025 7.025 0 0 0-3.072-2.472c.273.359.52.763.741 1.206.237.483.437.999.596 1.539zm.582 3.5h2.49a7.023 7.023 0 0 0-.656-2.5h-2.146c.174.782.282 1.623.312 2.5zm-.352 3.5c.03-.877.047-1.679-.006-2.5h3.829a7.03 7.03 0 0 0-.656-2.5h-2.174c.174.782.282 1.623.312 2.5zm-.352 3.5c-.16-.54-.36-1.056-.597-1.539a9.27 9.27 0 0 0-.741-1.206A7.026 7.026 0 0 0 13.745 12h-1.835c-.243.728-.487 1.485-.709 2.5zm-2.301 3.923V12h2.355c-.174.782-.38 1.512-.618 2.164-.24.656-.51 1.206-.737 1.759z"/></svg>',
+			'globe'     => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="' . esc_attr( $classes ) . '" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a7.023 7.023 0 0 0-.656 2.5h2.49zM4.847 7.5c-.03.839-.047 1.679.006 2.5H1.018a7.03 7.03 0 0 0 .656 2.5h2.174c-.174-.782-.282-1.623-.312-2.5zm.352 3.5c.16.54.36 1.056.597 1.539.22.443.468.847.741 1.206A7.026 7.026 0 0 0 2.255 12h1.835c.243-.728.487-1.485.709-2.5zm2.301 3.923V12H5.145c.174.782.38 1.512.618 2.164.24.656.51 1.206.737 1.759zM8.5 1.077V4h2.355c-.237-.782-.443-1.512-.68-2.164C9.937 1.18 9.667.63 9.44.077A7.97 7.97 0 0 0 8.5 1.077zm3.41 2.923h1.835a7.025 7.025 0 0 0-3.072-2.472c.273.359.52.763.741 1.206.237.483.437.999.596 1.539zm.582 3.5h2.49a7.023 7.023 0 0 0-.656-2.5h-2.146c.174.782.282 1.623.312 2.5zm-.352 3.5c.03-.877.047-1.679-.006-2.5h3.829a7.03 7.03 0 0 0-.656-2.5h-2.174c.174.782.282 1.623.312 2.5zm-.352 3.5c-.16-.54-.36-1.056-.597-1.539a9.27 9.27 0 0 0-.741-1.206A7.026 7.026 0 0 0 13.745 12h-1.835c-.243.728-.487 1.485-.709 2.5zm-2.301 3.923V12h2.355c-.174.782-.38 1.512-.618 2.164-.24.656-.51 1.206-.737 1.759z"/></svg>',
+			'email'     => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="' . esc_attr( $classes ) . '" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-5.64L8 9.583l-1.326-.795-5.64 5.64A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/></svg>',
+			'envelope'  => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="' . esc_attr( $classes ) . '" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-5.64L8 9.583l-1.326-.795-5.64 5.64A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/></svg>',
 			'arrow-up'  => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="' . esc_attr( $classes ) . '" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/></svg>',
 		);
 
@@ -231,25 +236,140 @@ if ( ! function_exists( 'robo_get_about_image' ) ) {
 	}
 }
 
+if ( ! function_exists( 'robo_get_team_member_data' ) ) {
+	/**
+	 * Get Team member details from Customizer dynamically.
+	 *
+	 * @param int $index Team member index (1-based).
+	 * @return array Team member details.
+	 */
+	function robo_get_team_member_data( $index ) {
+		$defaults = array(
+			1 => array(
+				'name'        => __( 'Alexander Vance', 'robo' ),
+				'designation' => __( 'Chief Robotics Engineer', 'robo' ),
+				'desc'        => __( 'Alexander focuses on mechanical design and sumo bot chassis optimization, ensuring all steel frames meet tournament requirements.', 'robo' ),
+				'image'       => 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=300&q=80',
+				'email'       => 'alexander@roboscaler.com',
+				'phone'       => '+1 (555) 019-2834',
+				'facebook'    => '',
+				'twitter'     => '',
+				'linkedin'    => '',
+				'instagram'   => '',
+				'youtube'     => '',
+				'github'      => '',
+				'website'     => '',
+			),
+			2 => array(
+				'name'        => __( 'Cassandra Sterling', 'robo' ),
+				'designation' => __( 'Lead Hardware Architect', 'robo' ),
+				'desc'        => __( 'Cassandra leads the PCB board design and electrical safety systems, specializing in lithium battery charge regulators.', 'robo' ),
+				'image'       => 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=300&q=80',
+				'email'       => 'cassandra@roboscaler.com',
+				'phone'       => '+1 (555) 019-2835',
+				'facebook'    => '',
+				'twitter'     => '',
+				'linkedin'    => '',
+				'instagram'   => '',
+				'youtube'     => '',
+				'github'      => '',
+				'website'     => '',
+			),
+			3 => array(
+				'name'        => __( 'Dominic Hawke', 'robo' ),
+				'designation' => __( 'Head of Embedded Systems', 'robo' ),
+				'desc'        => __( 'Dominic designs firmware architectures, specializing in IR sensor tracking arrays and brushless ESC motor drivers.', 'robo' ),
+				'image'       => 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=300&q=80',
+				'email'       => 'dominic@roboscaler.com',
+				'phone'       => '+1 (555) 019-2836',
+				'facebook'    => '',
+				'twitter'     => '',
+				'linkedin'    => '',
+				'instagram'   => '',
+				'youtube'     => '',
+				'github'      => '',
+				'website'     => '',
+			),
+		);
+
+		$fallback_default = array(
+			'name'        => sprintf( __( 'Team Member %d', 'robo' ), $index ),
+			'designation' => __( 'Team Specialist', 'robo' ),
+			'desc'        => __( 'Experienced team member passionate about robotics and innovative technology.', 'robo' ),
+			'image'       => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80',
+			'email'       => '',
+			'phone'       => '',
+			'facebook'    => '',
+			'instagram'   => '',
+			'linkedin'    => '',
+			'twitter'     => '',
+			'youtube'     => '',
+			'github'      => '',
+			'website'     => '',
+		);
+
+		$default_member = isset( $defaults[ $index ] ) ? $defaults[ $index ] : $fallback_default;
+
+		$fields = array( 'name', 'designation', 'desc', 'image', 'email', 'phone', 'facebook', 'instagram', 'linkedin', 'twitter', 'youtube', 'github', 'website' );
+
+		$member = array();
+		foreach ( $fields as $field ) {
+			// Backward compatibility check for role/designation setting keys
+			$setting_key = "robo_team_member_{$index}_{$field}";
+			$default_val = isset( $default_member[ $field ] ) ? $default_member[ $field ] : '';
+			
+			$val = get_theme_mod( $setting_key, $default_val );
+			if ( 'designation' === $field && empty( $val ) ) {
+				$val = get_theme_mod( "robo_team_member_{$index}_role", $default_val );
+			}
+
+			if ( 'image' === $field && empty( $val ) ) {
+				$val = ! empty( $default_member['image'] ) ? $default_member['image'] : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80';
+			}
+
+			$member[ $field ] = $val;
+		}
+
+		$name_parts = explode( ' ', trim( $member['name'] ) );
+		$initials   = '';
+		if ( ! empty( $name_parts[0] ) ) {
+			$initials .= strtoupper( substr( $name_parts[0], 0, 1 ) );
+		}
+		if ( count( $name_parts ) > 1 && ! empty( end( $name_parts ) ) ) {
+			$initials .= strtoupper( substr( end( $name_parts ), 0, 1 ) );
+		}
+		$member['initials'] = $initials ? $initials : 'TM';
+
+		return $member;
+	}
+}
+
+if ( ! function_exists( 'robo_get_team_members' ) ) {
+	/**
+	 * Get list of all team members data.
+	 *
+	 * @param int $count Number of members.
+	 * @return array Array of team member data arrays.
+	 */
+	function robo_get_team_members( $count = 3 ) {
+		$members = array();
+		for ( $i = 1; $i <= $count; $i++ ) {
+			$members[] = robo_get_team_member_data( $i );
+		}
+		return $members;
+	}
+}
+
 if ( ! function_exists( 'robo_get_team_image' ) ) {
 	/**
 	 * Get Team member photo avatar URL from customizer dynamically.
-	 * Replace with a REAL stock photo avatar of an 8th–12th grade school student wearing a proper school uniform. Do NOT use adults, university students, business people, or AI-generated images.
 	 *
 	 * @param int $index Team member index (1-based).
 	 * @return string Image URL.
 	 */
 	function robo_get_team_image( $index ) {
-		$defaults = array(
-			1 => 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=300&q=80',
-			2 => 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=300&q=80',
-			3 => 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=300&q=80',
-		);
-
-		$setting_name = "robo_team_member_{$index}_image";
-		$default_url  = isset( $defaults[ $index ] ) ? $defaults[ $index ] : '';
-
-		return get_theme_mod( $setting_name, $default_url );
+		$member_data = robo_get_team_member_data( $index );
+		return ! empty( $member_data['image'] ) ? $member_data['image'] : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80';
 	}
 }
 

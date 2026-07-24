@@ -523,12 +523,80 @@ function robo_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Team Member Images.
+	// ----------------------------------------------------
+	// Section: Team Section Settings
+	// ----------------------------------------------------
+	$wp_customize->add_section(
+		'robo_team_section',
+		array(
+			'title'       => esc_html__( 'Team Section Settings', 'robo' ),
+			'description' => esc_html__( 'Configure dynamic team section header, member details, images, contact info, and social links.', 'robo' ),
+			'panel'       => 'robo_options_panel',
+			'priority'    => 33,
+		)
+	);
+
+	// Team Section Header settings
+	$wp_customize->add_setting(
+		'robo_team_section_badge',
+		array(
+			'default'           => esc_html__( 'Our Experts', 'robo' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_team_section_badge',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Section Badge Text', 'robo' ),
+			'section' => 'robo_team_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_team_section_title',
+		array(
+			'default'           => esc_html__( 'Meet the Team', 'robo' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_team_section_title',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Section Title', 'robo' ),
+			'section' => 'robo_team_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_team_section_desc',
+		array(
+			'default'           => esc_html__( 'A collaborative group of creative thinkers, combat robotics engineers, and hardware specialists.', 'robo' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_team_section_desc',
+		array(
+			'type'    => 'textarea',
+			'label'   => esc_html__( 'Section Description', 'robo' ),
+			'section' => 'robo_team_section',
+		)
+	);
+
+	// Team Members Settings
 	for ( $i = 1; $i <= 3; $i++ ) {
+		$member_def = function_exists( 'robo_get_team_member_data' ) ? robo_get_team_member_data( $i ) : array();
+
+		// Profile Image
 		$wp_customize->add_setting(
 			"robo_team_member_{$i}_image",
 			array(
-				'default'           => 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=300&q=80',
+				'default'           => isset( $member_def['image'] ) ? $member_def['image'] : '',
 				'sanitize_callback' => 'esc_url_raw',
 			)
 		);
@@ -537,12 +605,125 @@ function robo_customize_register( $wp_customize ) {
 				$wp_customize,
 				"robo_team_member_{$i}_image",
 				array(
-					'label'       => sprintf( esc_html__( 'Team Member %d Photo Avatar', 'robo' ), $i ),
-					'description' => $std_desc,
-					'section'     => 'robo_about_page_section',
+					'label'   => sprintf( esc_html__( 'Member %d - Profile Image', 'robo' ), $i ),
+					'section' => 'robo_team_section',
 				)
 			)
 		);
+
+		// Full Name
+		$wp_customize->add_setting(
+			"robo_team_member_{$i}_name",
+			array(
+				'default'           => isset( $member_def['name'] ) ? $member_def['name'] : '',
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_team_member_{$i}_name",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Member %d - Full Name', 'robo' ), $i ),
+				'section' => 'robo_team_section',
+			)
+		);
+
+		// Designation
+		$wp_customize->add_setting(
+			"robo_team_member_{$i}_designation",
+			array(
+				'default'           => isset( $member_def['designation'] ) ? $member_def['designation'] : '',
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_team_member_{$i}_designation",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Member %d - Designation', 'robo' ), $i ),
+				'section' => 'robo_team_section',
+			)
+		);
+
+		// Short Description/Bio
+		$wp_customize->add_setting(
+			"robo_team_member_{$i}_desc",
+			array(
+				'default'           => isset( $member_def['desc'] ) ? $member_def['desc'] : '',
+				'sanitize_callback' => 'sanitize_textarea_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_team_member_{$i}_desc",
+			array(
+				'type'    => 'textarea',
+				'label'   => sprintf( esc_html__( 'Member %d - Short Description/Bio', 'robo' ), $i ),
+				'section' => 'robo_team_section',
+			)
+		);
+
+		// Email
+		$wp_customize->add_setting(
+			"robo_team_member_{$i}_email",
+			array(
+				'default'           => isset( $member_def['email'] ) ? $member_def['email'] : '',
+				'sanitize_callback' => 'sanitize_email',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_team_member_{$i}_email",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Member %d - Email (Optional)', 'robo' ), $i ),
+				'section' => 'robo_team_section',
+			)
+		);
+
+		// Phone
+		$wp_customize->add_setting(
+			"robo_team_member_{$i}_phone",
+			array(
+				'default'           => isset( $member_def['phone'] ) ? $member_def['phone'] : '',
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_team_member_{$i}_phone",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Member %d - Phone (Optional)', 'robo' ), $i ),
+				'section' => 'robo_team_section',
+			)
+		);
+
+		// Social URLs
+		$social_fields = array(
+			'facebook'  => esc_html__( 'Facebook URL', 'robo' ),
+			'instagram' => esc_html__( 'Instagram URL', 'robo' ),
+			'linkedin'  => esc_html__( 'LinkedIn URL', 'robo' ),
+			'twitter'   => esc_html__( 'Twitter (X) URL', 'robo' ),
+			'youtube'   => esc_html__( 'YouTube URL', 'robo' ),
+			'github'    => esc_html__( 'GitHub URL', 'robo' ),
+			'website'   => esc_html__( 'Website URL', 'robo' ),
+		);
+
+		foreach ( $social_fields as $s_key => $s_label ) {
+			$wp_customize->add_setting(
+				"robo_team_member_{$i}_{$s_key}",
+				array(
+					'default'           => isset( $member_def[ $s_key ] ) ? $member_def[ $s_key ] : '',
+					'sanitize_callback' => 'esc_url_raw',
+				)
+			);
+			$wp_customize->add_control(
+				"robo_team_member_{$i}_{$s_key}",
+				array(
+					'type'    => 'text',
+					'label'   => sprintf( esc_html__( 'Member %d - %s', 'robo' ), $i, $s_label ),
+					'section' => 'robo_team_section',
+				)
+			);
+		}
 	}
 
 	// Testimonial User Images.
