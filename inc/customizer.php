@@ -524,6 +524,306 @@ function robo_customize_register( $wp_customize ) {
 	);
 
 	// ----------------------------------------------------
+	// Section: Engineering Specifications Settings
+	// ----------------------------------------------------
+	$wp_customize->add_section(
+		'robo_features_section',
+		array(
+			'title'       => esc_html__( 'Engineering Specifications Settings', 'robo' ),
+			'description' => esc_html__( 'Configure dynamic heading, description, specifications list, icons, buttons, and right card details.', 'robo' ),
+			'panel'       => 'robo_options_panel',
+			'priority'    => 31,
+		)
+	);
+
+	// Section Badge
+	$wp_customize->add_setting(
+		'robo_features_badge',
+		array(
+			'default'           => esc_html__( 'Engineering Specifications', 'robo' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_features_badge',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Section Badge Text', 'robo' ),
+			'section' => 'robo_features_section',
+		)
+	);
+
+	// Section Title
+	$wp_customize->add_setting(
+		'robo_features_title',
+		array(
+			'default'           => esc_html__( 'Competition-Grade Robotics & Parts Shop', 'robo' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'transport'         => 'postMessage',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_features_title',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Section Title', 'robo' ),
+			'section' => 'robo_features_section',
+		)
+	);
+
+	// Section Description
+	$wp_customize->add_setting(
+		'robo_features_desc',
+		array(
+			'default'           => esc_html__( 'Our gear is designed to withstand intense conditions in combat arenas and drone flights. We provide pre-tested, high-reliability boards and parts that integrate flawlessly.', 'robo' ),
+			'sanitize_callback' => 'sanitize_textarea_field',
+			'transport'         => 'postMessage',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_features_desc',
+		array(
+			'type'    => 'textarea',
+			'label'   => esc_html__( 'Section Subtitle / Description', 'robo' ),
+			'section' => 'robo_features_section',
+		)
+	);
+
+	// Right Graphic Card - Title
+	$wp_customize->add_setting(
+		'robo_features_card_title',
+		array(
+			'default'           => esc_html__( 'Robotics Hardware Standards', 'robo' ),
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_features_card_title',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Right Card Title', 'robo' ),
+			'section' => 'robo_features_section',
+		)
+	);
+
+	// Right Graphic Card - Description
+	$wp_customize->add_setting(
+		'robo_features_card_desc',
+		array(
+			'default'           => esc_html__( 'We carry parts built to standard specifications. Our custom sumobot kits, motors, and batteries undergo strict quality control to guarantee performance in critical situations.', 'robo' ),
+			'sanitize_callback' => 'sanitize_textarea_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_features_card_desc',
+		array(
+			'type'    => 'textarea',
+			'label'   => esc_html__( 'Right Card Description', 'robo' ),
+			'section' => 'robo_features_section',
+		)
+	);
+
+	// Right Graphic Card - Stat 1 Value & Label
+	$wp_customize->add_setting(
+		'robo_features_card_stat1_val',
+		array(
+			'default'           => '100%',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_features_card_stat1_val',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Stat 1 Value', 'robo' ),
+			'section' => 'robo_features_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_features_card_stat1_lbl',
+		array(
+			'default'           => esc_html__( 'Combat Tested', 'robo' ),
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_features_card_stat1_lbl',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Stat 1 Label', 'robo' ),
+			'section' => 'robo_features_section',
+		)
+	);
+
+	// Right Graphic Card - Stat 2 Value & Label
+	$wp_customize->add_setting(
+		'robo_features_card_stat2_val',
+		array(
+			'default'           => 'A+ Grade',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_features_card_stat2_val',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Stat 2 Value', 'robo' ),
+			'section' => 'robo_features_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_features_card_stat2_lbl',
+		array(
+			'default'           => esc_html__( 'Battery Cells', 'robo' ),
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_features_card_stat2_lbl',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Stat 2 Label', 'robo' ),
+			'section' => 'robo_features_section',
+		)
+	);
+
+	// Specification Items Customizer Settings (Loop 1 to 6)
+	$spec_defaults = array(
+		1 => array(
+			'title' => esc_html__( 'High-Torque Motors', 'robo' ),
+			'desc'  => esc_html__( 'Micro-metal gearmotors and high-performance brushless motor solutions.', 'robo' ),
+			'icon'  => 'bi-gear-fill',
+		),
+		2 => array(
+			'title' => esc_html__( 'Robust Controller Boards', 'robo' ),
+			'desc'  => esc_html__( 'ESP32 development boards, dual motor drivers, and telemetry circuits.', 'robo' ),
+			'icon'  => 'bi-cpu',
+		),
+		3 => array(
+			'title' => esc_html__( 'LiPo Battery Power', 'robo' ),
+			'desc'  => esc_html__( 'High discharge C-rating lithium-polymer batteries for robot combat.', 'robo' ),
+			'icon'  => 'bi-lightning-charge-fill',
+		),
+		4 => array(
+			'title' => esc_html__( 'Precision Sensors', 'robo' ),
+			'desc'  => esc_html__( 'Infrared distance sensors, ultrasonic modules, and line trackers.', 'robo' ),
+			'icon'  => 'bi-radar',
+		),
+	);
+
+	for ( $i = 1; $i <= 6; $i++ ) {
+		$def_title = isset( $spec_defaults[ $i ]['title'] ) ? $spec_defaults[ $i ]['title'] : '';
+		$def_desc  = isset( $spec_defaults[ $i ]['desc'] ) ? $spec_defaults[ $i ]['desc'] : '';
+		$def_icon  = isset( $spec_defaults[ $i ]['icon'] ) ? $spec_defaults[ $i ]['icon'] : '';
+
+		// Item Icon
+		$wp_customize->add_setting(
+			"robo_spec_item_{$i}_icon",
+			array(
+				'default'           => $def_icon,
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_spec_item_{$i}_icon",
+			array(
+				'type'        => 'text',
+				'label'       => sprintf( esc_html__( 'Specification %d - Icon (Class/SVG/URL)', 'robo' ), $i ),
+				'description' => esc_html__( 'Enter a Font Awesome class (fa-solid fa-gear), Bootstrap Icon class (bi-gear-fill), SVG code, or Image URL.', 'robo' ),
+				'section'     => 'robo_features_section',
+			)
+		);
+
+		// Item Title
+		$wp_customize->add_setting(
+			"robo_spec_item_{$i}_title",
+			array(
+				'default'           => $def_title,
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_spec_item_{$i}_title",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Specification %d - Title', 'robo' ), $i ),
+				'section' => 'robo_features_section',
+			)
+		);
+
+		// Item Description
+		$wp_customize->add_setting(
+			"robo_spec_item_{$i}_desc",
+			array(
+				'default'           => $def_desc,
+				'sanitize_callback' => 'sanitize_textarea_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_spec_item_{$i}_desc",
+			array(
+				'type'    => 'textarea',
+				'label'   => sprintf( esc_html__( 'Specification %d - Description', 'robo' ), $i ),
+				'section' => 'robo_features_section',
+			)
+		);
+
+		// Item Optional Value/Number
+		$wp_customize->add_setting(
+			"robo_spec_item_{$i}_value",
+			array(
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_spec_item_{$i}_value",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Specification %d - Optional Number / Value', 'robo' ), $i ),
+				'section' => 'robo_features_section',
+			)
+		);
+
+		// Item Button Text
+		$wp_customize->add_setting(
+			"robo_spec_item_{$i}_btn_text",
+			array(
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_spec_item_{$i}_btn_text",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Specification %d - Button Text (Optional)', 'robo' ), $i ),
+				'section' => 'robo_features_section',
+			)
+		);
+
+		// Item Button URL
+		$wp_customize->add_setting(
+			"robo_spec_item_{$i}_btn_url",
+			array(
+				'default'           => '',
+				'sanitize_callback' => 'esc_url_raw',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_spec_item_{$i}_btn_url",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Specification %d - Button URL (Optional)', 'robo' ), $i ),
+				'section' => 'robo_features_section',
+			)
+		);
+	}
+
+	// ----------------------------------------------------
 	// Section: Team Section Settings
 	// ----------------------------------------------------
 	$wp_customize->add_section(

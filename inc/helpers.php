@@ -395,4 +395,153 @@ if ( ! function_exists( 'robo_get_testimonial_image' ) ) {
 	}
 }
 
+if ( ! function_exists( 'robo_render_spec_icon' ) ) {
+	/**
+	 * Render dynamic specification icon (Font Awesome class, Bootstrap Icon class, SVG markup, Image URL, or default SVG).
+	 *
+	 * @param string $icon Icon class, SVG string, or Image URL.
+	 * @param string $classes Additional CSS classes.
+	 * @return string Icon HTML markup.
+	 */
+	function robo_render_spec_icon( $icon = '', $classes = '' ) {
+		$icon = trim( (string) $icon );
 
+		// Default SVG icon markup.
+		$default_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-patch-check-fill ' . esc_attr( $classes ) . '" viewBox="0 0 16 16"><path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/></svg>';
+
+		if ( empty( $icon ) ) {
+			return $default_svg;
+		}
+
+		// 1. Custom SVG Markup
+		if ( false !== strpos( $icon, '<svg' ) ) {
+			$allowed_tags = array(
+				'svg'    => array(
+					'xmlns'       => array(),
+					'width'       => array(),
+					'height'      => array(),
+					'fill'        => array(),
+					'class'       => array(),
+					'viewbox'     => array(),
+					'style'       => array(),
+					'aria-hidden' => array(),
+					'role'        => array(),
+				),
+				'path'   => array(
+					'd'         => array(),
+					'fill'      => array(),
+					'fill-rule' => array(),
+				),
+				'g'      => array(
+					'fill' => array(),
+				),
+				'rect'   => array(
+					'x'      => array(),
+					'y'      => array(),
+					'width'  => array(),
+					'height' => array(),
+					'rx'     => array(),
+					'ry'     => array(),
+					'fill'   => array(),
+				),
+				'circle' => array(
+					'cx'   => array(),
+					'cy'   => array(),
+					'r'    => array(),
+					'fill' => array(),
+				),
+			);
+			return wp_kses( $icon, $allowed_tags );
+		}
+
+		// 2. Uploaded Image / URL
+		if ( filter_var( $icon, FILTER_VALIDATE_URL ) || preg_match( '/\.(png|jpg|jpeg|gif|svg|webp)($|\?)/i', $icon ) ) {
+			return sprintf(
+				'<img src="%s" alt="" class="%s" style="width:20px; height:20px; object-fit:contain;" />',
+				esc_url( $icon ),
+				esc_attr( $classes )
+			);
+		}
+
+		// 3. Icon class (Font Awesome or Bootstrap Icons)
+		$icon_class = $icon;
+		if ( 0 === strpos( $icon, 'bi-' ) && false === strpos( $icon, 'bi ' ) ) {
+			$icon_class = 'bi ' . $icon;
+		}
+
+		$combined_classes = trim( $icon_class . ' ' . $classes );
+
+		return sprintf( '<i class="%s"></i>', esc_attr( $combined_classes ) );
+	}
+}
+
+if ( ! function_exists( 'robo_get_specifications' ) ) {
+	/**
+	 * Get Engineering Specifications items from Customizer dynamically.
+	 *
+	 * @param int $max_items Maximum items allowed.
+	 * @return array Array of specification items.
+	 */
+	function robo_get_specifications( $max_items = 6 ) {
+		$defaults = array(
+			1 => array(
+				'title'       => __( 'High-Torque Motors', 'robo' ),
+				'description' => __( 'Micro-metal gearmotors and high-performance brushless motor solutions.', 'robo' ),
+				'icon'        => 'bi-gear-fill',
+				'value'       => '',
+				'button_text' => '',
+				'button_url'  => '',
+			),
+			2 => array(
+				'title'       => __( 'Robust Controller Boards', 'robo' ),
+				'description' => __( 'ESP32 development boards, dual motor drivers, and telemetry circuits.', 'robo' ),
+				'icon'        => 'bi-cpu',
+				'value'       => '',
+				'button_text' => '',
+				'button_url'  => '',
+			),
+			3 => array(
+				'title'       => __( 'LiPo Battery Power', 'robo' ),
+				'description' => __( 'High discharge C-rating lithium-polymer batteries for robot combat.', 'robo' ),
+				'icon'        => 'bi-lightning-charge-fill',
+				'value'       => '',
+				'button_text' => '',
+				'button_url'  => '',
+			),
+			4 => array(
+				'title'       => __( 'Precision Sensors', 'robo' ),
+				'description' => __( 'Infrared distance sensors, ultrasonic modules, and line trackers.', 'robo' ),
+				'icon'        => 'bi-radar',
+				'value'       => '',
+				'button_text' => '',
+				'button_url'  => '',
+			),
+		);
+
+		$items = array();
+
+		for ( $i = 1; $i <= $max_items; $i++ ) {
+			$default_item = isset( $defaults[ $i ] ) ? $defaults[ $i ] : array();
+
+			$title       = get_theme_mod( "robo_spec_item_{$i}_title", isset( $default_item['title'] ) ? $default_item['title'] : '' );
+			$description = get_theme_mod( "robo_spec_item_{$i}_desc", isset( $default_item['description'] ) ? $default_item['description'] : '' );
+			$icon        = get_theme_mod( "robo_spec_item_{$i}_icon", isset( $default_item['icon'] ) ? $default_item['icon'] : '' );
+			$value       = get_theme_mod( "robo_spec_item_{$i}_value", isset( $default_item['value'] ) ? $default_item['value'] : '' );
+			$button_text = get_theme_mod( "robo_spec_item_{$i}_btn_text", isset( $default_item['button_text'] ) ? $default_item['button_text'] : '' );
+			$button_url  = get_theme_mod( "robo_spec_item_{$i}_btn_url", isset( $default_item['button_url'] ) ? $default_item['button_url'] : '' );
+
+			if ( ! empty( $title ) || ! empty( $description ) ) {
+				$items[] = array(
+					'title'       => $title,
+					'description' => $description,
+					'icon'        => $icon,
+					'value'       => $value,
+					'button_text' => $button_text,
+					'button_url'  => $button_url,
+				);
+			}
+		}
+
+		return $items;
+	}
+}
