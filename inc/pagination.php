@@ -58,7 +58,7 @@ if ( ! function_exists( 'robo_pagination' ) ) {
 					}
 
 					// Standardize tag strings to use Bootstrap classes.
-					$link = str_replace( 'page-numbers', 'page-link', $link );
+					$link = str_replace( 'page-numbers', 'page-link page-numbers', $link );
 					
 					// If it is span (active or ellipsis).
 					if ( strpos( $link, '<span' ) !== false ) {

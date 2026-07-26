@@ -53,7 +53,7 @@ if ( is_array( $links ) ) {
 				}
 
 				// Standardize page-numbers class to Bootstrap's page-link.
-				$link = str_replace( 'page-numbers', 'page-link', $link );
+				$link = str_replace( 'page-numbers', 'page-link page-numbers', $link );
 				
 				// Handle span structures (ellipses).
 				if ( strpos( $link, '<span' ) !== false ) {

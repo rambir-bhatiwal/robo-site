@@ -2254,18 +2254,31 @@ a.hover-primary:hover {
 /* ==========================================================================
    WooCommerce Shop Page Pagination Override (Bootstrap 5 markup)
    ========================================================================== */
-.woocommerce-shop .pagination {
+.woocommerce-shop .pagination,
+.woocommerce-pagination .pagination {
 	display: inline-flex !important;
 	gap: 6px !important;
 	border: 0 !important;
 }
 
-.woocommerce-shop .pagination .page-item {
+.woocommerce-shop .pagination .page-item,
+.woocommerce-pagination .pagination .page-item {
 	margin: 0 !important;
 	border: 0 !important;
 }
 
-.woocommerce-shop .pagination .page-link {
+.woocommerce-pagination .page-link,
+.woocommerce-pagination .page-numbers,
+.woocommerce-pagination .prev,
+.woocommerce-pagination .next,
+.woocommerce-shop .pagination .page-link,
+.woocommerce-shop .pagination .page-numbers,
+.woocommerce-shop .pagination .prev,
+.woocommerce-shop .pagination .next,
+.pagination .page-link,
+.pagination .page-numbers,
+.pagination .prev,
+.pagination .next {
 	color: #FF4D30 !important; /* Site primary color */
 	background-color: #ffffff !important;
 	border: 1px solid #dee2e6 !important; /* Existing border */
@@ -2273,19 +2286,25 @@ a.hover-primary:hover {
 	border-radius: 6px !important; /* Match website buttons */
 	transition: var(--robo-transition-smooth) !important; /* Theme transition */
 	text-decoration: none !important;
-	display: inline-block !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	white-space: nowrap !important;
+	gap: 0.35rem !important;
 	min-width: 38px !important;
-	text-align: center !important;
 }
 
-.woocommerce-shop .pagination .page-item.active .page-link {
+.woocommerce-shop .pagination .page-item.active .page-link,
+.woocommerce-pagination .pagination .page-item.active .page-link {
 	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%) !important;
 	color: #ffffff !important;
 	border: none !important; /* No border */
 }
 
 .woocommerce-shop .pagination .page-link:hover,
-.woocommerce-shop .pagination .page-link:focus {
+.woocommerce-shop .pagination .page-link:focus,
+.woocommerce-pagination .pagination .page-link:hover,
+.woocommerce-pagination .pagination .page-link:focus {
 	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%) !important;
 	color: #ffffff !important;
 	border-color: transparent !important;
