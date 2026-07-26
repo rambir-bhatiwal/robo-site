@@ -1,9 +1,12 @@
 <?php
 /**
- * Pagination - Show numbered pages for outputs
+ * Pagination - Show numbered pagination for catalog pages
  *
+ * This template can be overridden by copying it to yourtheme/woocommerce/loop/pagination.php.
+ *
+ * @see     https://woocommerce.com/document/template-structure/
  * @package Robo
- * @version 3.3.0
+ * @version 9.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -39,7 +42,7 @@ $links = paginate_links(
 
 if ( is_array( $links ) ) {
 	?>
-	<nav aria-label="<?php esc_attr_e( 'Product Page navigation', 'robo' ); ?>" class="my-5">
+	<nav class="woocommerce-pagination my-5" aria-label="<?php esc_attr_e( 'Product Pagination', 'woocommerce' ); ?>">
 		<ul class="pagination justify-content-center">
 			<?php
 			foreach ( $links as $link ) {

@@ -2,21 +2,32 @@
 /**
  * The template for displaying product content within loops
  *
+ * This template can be overridden by copying it to yourtheme/woocommerce/content-product.php.
+ *
+ * @see     https://woocommerce.com/document/template-structure/
  * @package Robo
- * @version 3.6.0
+ * @version 9.4.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
 global $product;
 
-// Check if the product object exists and is visible.
-if ( empty( $product ) || ! $product->is_visible() ) {
+// Check if the product is a valid WooCommerce product and ensure its visibility before proceeding.
+if ( ! is_a( $product, WC_Product::class ) || ! $product->is_visible() ) {
 	return;
 }
 ?>
 <div class="col product-grid-item">
 	<div <?php wc_product_class( 'card h-100 border-0 shadow-sm overflow-hidden product-card position-relative transition-all bg-white', $product ); ?>>
+		<?php
+		/**
+		 * Hook: woocommerce_before_shop_loop_item.
+		 *
+		 * @hooked woocommerce_template_loop_product_link_open - 10
+		 */
+		do_action( 'woocommerce_before_shop_loop_item' );
+		?>
 		<div class="row g-0 h-100 product-card-row">
 			
 			<!-- Image Section -->

@@ -4,8 +4,9 @@
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/single-product/product-image.php.
  *
+ * @see     https://woocommerce.com/document/template-structure/
  * @package Robo
- * @version 1.0.0
+ * @version 10.5.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -124,4 +125,13 @@ if ( empty( $gallery_items ) ) {
 			<?php endforeach; ?>
 		</div>
 	<?php endif; ?>
+
+	<?php
+	/**
+	 * Hook: woocommerce_product_thumbnails.
+	 *
+	 * @hooked woocommerce_show_product_thumbnails - 20
+	 */
+	do_action( 'woocommerce_product_thumbnails' );
+	?>
 </div>

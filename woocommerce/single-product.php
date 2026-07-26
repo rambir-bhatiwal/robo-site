@@ -2,13 +2,26 @@
 /**
  * The Template for displaying all single products
  *
- * @package Robo
- * @version 1.0.0
+ * This template can be overridden by copying it to yourtheme/woocommerce/single-product.php.
+ *
+ * @see         https://woocommerce.com/document/template-structure/
+ * @package     Robo
+ * @version     1.6.4
  */
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 get_header( 'shop' );
+
+/**
+ * woocommerce_before_main_content hook.
+ *
+ * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
+ * @hooked woocommerce_breadcrumb - 20
+ */
+do_action( 'woocommerce_before_main_content' );
 
 // Manually open the WooCommerce layout wrapper with container
 echo '<div class="robo-woocommerce-wrapper py-4 bg-light-subtle">';
@@ -39,4 +52,19 @@ echo '<div class="container">';
 echo '</div>'; // .container
 echo '</div>'; // .robo-woocommerce-wrapper
 
+/**
+ * woocommerce_after_main_content hook.
+ *
+ * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+ */
+do_action( 'woocommerce_after_main_content' );
+
+/**
+ * woocommerce_sidebar hook.
+ *
+ * @hooked woocommerce_get_sidebar - 10
+ */
+do_action( 'woocommerce_sidebar' );
+
 get_footer( 'shop' );
+
