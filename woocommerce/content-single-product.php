@@ -330,8 +330,8 @@ $average_rating = $product->get_average_rating();
 		<?php if ( $show_fbt ) : ?>
 			<div class="col-12 mt-4 frequently-bought-together-col">
 				<div class="frequently-bought-together card border-light-subtle shadow-sm bg-white">
-					<div class="card-header bg-white py-3 border-bottom border-light-subtle">
-						<h4 class="h5 mb-0 fw-bold text-dark"><i class="bi bi-diagram-3-fill text-primary me-2"></i><?php esc_html_e( 'Frequently Bought Together', 'robo' ); ?></h4>
+					<div class="card-header bg-dark py-3 border-bottom border-secondary">
+						<h4 class="h5 mb-0 fw-bold text-white"><i class="bi bi-diagram-3-fill text-primary me-2"></i><?php esc_html_e( 'Frequently Bought Together', 'robo' ); ?></h4>
 					</div>
 					<div class="card-body p-4">
 						<div class="row align-items-center g-4">
