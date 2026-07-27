@@ -44,10 +44,10 @@ foreach ( $social_links as $key => $url ) {
 					</a>
 				</span>
 				<!-- Location -->
-				<span class="text-muted small d-flex align-items-center gap-1">
-					<i class="bi bi-geo-alt-fill text-primary"></i>
-					<a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary">
-						<?php echo esc_html( robo_get_company_info( 'address' ) ); ?>
+				<span class="text-muted small d-flex align-items-center gap-1 d-none d-md-inline">
+					<a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary d-flex align-items-center gap-1">
+						<i class="bi bi-geo-alt-fill text-primary"></i>
+						<span class="topbar-address-text d-none d-md-inline"><?php echo esc_html( robo_get_company_info( 'address' ) ); ?></span>
 					</a>
 				</span>
 				
@@ -56,6 +56,15 @@ foreach ( $social_links as $key => $url ) {
 			<div class="col-md-4 text-center text-md-end d-flex align-items-center justify-content-center justify-content-md-end">
 				<?php if ( $has_social ) : ?>
 					<div class="topbar-socials d-inline-flex gap-3 align-items-center">
+
+						<!-- start >> Location icon for mobile only -->
+						<span class="text-muted small d-flex align-items-center gap-1 d-inline d-md-none">
+							<a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary d-flex align-items-center gap-1">
+								<i class="bi bi-geo-alt-fill text-primary"></i>
+							</a>
+						</span>
+						<!-- End >> Location icon for mobile only -->
+
 						<?php
 						foreach ( $social_links as $key => $url ) {
 							if ( $url ) {
