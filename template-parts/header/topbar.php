@@ -60,7 +60,7 @@ foreach ( $social_links as $key => $url ) {
 						<!-- start >> Location icon for mobile only -->
 						<span class="text-muted small d-flex align-items-center gap-1 d-inline d-md-none">
 							<a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary d-flex align-items-center gap-1">
-								<i class="bi bi-geo-alt-fill text-primary"></i>
+								<i class="bi bi-geo-alt-fill"></i>
 							</a>
 						</span>
 						<!-- End >> Location icon for mobile only -->
