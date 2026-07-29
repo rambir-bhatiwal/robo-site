@@ -118,3 +118,43 @@ function robo_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'robo_content_width', 1140 );
 }
 add_action( 'after_setup_theme', 'robo_content_width', 0 );
+
+/**
+ * Prevent external HTTP requests to api.wordpress.org to eliminate connection warning messages.
+ */
+function robo_block_wordpress_org_http_requests( $pre, $parsed_args, $url ) {
+	if ( false !== strpos( $url, 'api.wordpress.org' ) ) {
+		return array(
+			'headers'  => array(),
+			'body'     => json_encode( array( 'themes' => array(), 'plugins' => array(), 'translations' => array() ) ),
+			'response' => array(
+				'code'    => 200,
+				'message' => 'OK',
+			),
+			'cookies'  => array(),
+			'filename' => null,
+		);
+	}
+	return $pre;
+}
+add_filter( 'pre_http_request', 'robo_block_wordpress_org_http_requests', 10, 3 );
+
+/**
+ * Remove WordPress core update check hooks and clear scheduled transients.
+ */
+function robo_disable_update_cron_actions() {
+	remove_action( 'wp_version_check', 'wp_version_check' );
+	remove_action( 'wp_update_plugins', 'wp_update_plugins' );
+	remove_action( 'wp_update_themes', 'wp_update_themes' );
+	remove_action( 'admin_init', '_maybe_update_themes' );
+	remove_action( 'admin_init', '_maybe_update_plugins' );
+	remove_action( 'admin_init', '_maybe_update_core' );
+
+	add_filter( 'pre_site_transient_update_themes', '__return_null' );
+	add_filter( 'pre_site_transient_update_plugins', '__return_null' );
+	add_filter( 'pre_site_transient_update_core', '__return_null' );
+}
+add_action( 'init', 'robo_disable_update_cron_actions' );
+add_action( 'admin_init', 'robo_disable_update_cron_actions' );
+
+

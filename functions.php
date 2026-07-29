@@ -48,3 +48,7 @@ require_once ROBO_THEME_DIR . '/inc/template-functions.php';
 if ( class_exists( 'WooCommerce' ) ) {
 	require_once ROBO_THEME_DIR . '/inc/woocommerce.php';
 }
+
+// Learning Resources CPT Module.
+require_once ROBO_THEME_DIR . '/inc/learning-resources/init.php';
+

@@ -1,0 +1,391 @@
+/**
+ * Frontend Styles for Learning Resources (Bootstrap 5 Compatible)
+ *
+ * @package Robo
+ */
+
+/* General Utility & Variables */
+:root {
+	--robo-lr-primary: #0d6efd;
+	--robo-lr-secondary: #6c757d;
+	--robo-lr-success: #198754;
+	--robo-lr-info: #0dcaf0;
+	--robo-lr-warning: #ffc107;
+	--robo-lr-danger: #dc3545;
+	--robo-lr-dark: #1e293b;
+	--robo-lr-light: #f8fafc;
+	--robo-lr-card-bg: #ffffff;
+	--robo-lr-border-radius: 12px;
+	--robo-lr-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card Styling */
+.robo-lr-card {
+	background: var(--robo-lr-card-bg);
+	border: 1px solid rgba(226, 232, 240, 0.8);
+	border-radius: var(--robo-lr-border-radius);
+	transition: var(--robo-lr-transition);
+	overflow: hidden;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.robo-lr-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+	border-color: rgba(13, 110, 253, 0.3);
+}
+
+.robo-lr-card-thumb-wrapper {
+	position: relative;
+	width: 100%;
+	padding-top: 56.25%; /* 16:9 aspect ratio */
+	background: #f1f5f9;
+	overflow: hidden;
+}
+
+.robo-lr-card-thumb {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: var(--robo-lr-transition);
+}
+
+.robo-lr-card:hover .robo-lr-card-thumb {
+	transform: scale(1.05);
+}
+
+.robo-lr-card-badges {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	z-index: 2;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.robo-lr-card-difficulty {
+	position: absolute;
+	bottom: 12px;
+	right: 12px;
+	z-index: 2;
+	background: rgba(15, 23, 42, 0.85);
+	backdrop-filter: blur(4px);
+	color: #fff;
+	font-size: 11px;
+	font-weight: 600;
+	padding: 3px 10px;
+	border-radius: 20px;
+	text-transform: capitalize;
+}
+
+.robo-lr-card-body {
+	padding: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.robo-lr-card-category {
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--robo-lr-primary);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 6px;
+}
+
+.robo-lr-card-title {
+	font-size: 1.15rem;
+	font-weight: 700;
+	line-height: 1.35;
+	margin-bottom: 8px;
+}
+
+.robo-lr-card-title a {
+	color: var(--robo-lr-dark);
+	text-decoration: none;
+	transition: var(--robo-lr-transition);
+}
+
+.robo-lr-card-title a:hover {
+	color: var(--robo-lr-primary);
+}
+
+.robo-lr-card-desc {
+	font-size: 0.9rem;
+	color: #64748b;
+	line-height: 1.5;
+	margin-bottom: 15px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.robo-lr-card-meta {
+	margin-top: auto;
+	padding-top: 12px;
+	border-top: 1px solid #f1f5f9;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 0.825rem;
+	color: #64748b;
+}
+
+/* Single Page Hero Banner */
+.robo-lr-single-hero {
+	background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+	color: #fff;
+	padding: 3.5rem 0 3rem 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	position: relative;
+	overflow: hidden;
+}
+
+.robo-lr-single-hero::before {
+	content: '';
+	position: absolute;
+	top: -50%;
+	right: -20%;
+	width: 600px;
+	height: 600px;
+	background: radial-gradient(circle, rgba(13, 110, 253, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+	pointer-events: none;
+}
+
+.robo-lr-single-hero .breadcrumb {
+	background: transparent;
+	margin-bottom: 1rem;
+	padding: 0;
+}
+
+.robo-lr-single-hero .breadcrumb-item,
+.robo-lr-single-hero .breadcrumb-item a {
+	color: #94a3b8;
+	font-size: 0.875rem;
+	text-decoration: none;
+}
+
+.robo-lr-single-hero .breadcrumb-item.active {
+	color: #e2e8f0;
+}
+
+.robo-lr-hero-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+	align-items: center;
+	margin-top: 1.5rem;
+	font-size: 0.9rem;
+	color: #cbd5e1;
+}
+
+.robo-lr-hero-meta-item {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+/* Section Box Components */
+.robo-lr-section-block {
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: var(--robo-lr-border-radius);
+	padding: 1.75rem;
+	margin-bottom: 2rem;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.robo-lr-section-title {
+	font-size: 1.35rem;
+	font-weight: 700;
+	color: var(--robo-lr-dark);
+	margin-bottom: 1.25rem;
+	padding-bottom: 0.75rem;
+	border-bottom: 2px solid #f1f5f9;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.robo-lr-section-title i {
+	color: var(--robo-lr-primary);
+}
+
+/* Outcomes & Requirements List */
+.robo-lr-check-list,
+.robo-lr-req-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 12px;
+}
+
+.robo-lr-check-list li,
+.robo-lr-req-list li {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 12px 14px;
+	background: #f8fafc;
+	border-radius: 8px;
+	border: 1px solid #e2e8f0;
+	font-size: 0.95rem;
+	color: #334155;
+}
+
+.robo-lr-check-list li i {
+	color: var(--robo-lr-success);
+	font-size: 1.1rem;
+	margin-top: 1px;
+}
+
+.robo-lr-req-list li i {
+	color: var(--robo-lr-primary);
+	font-size: 1.1rem;
+	margin-top: 1px;
+}
+
+/* Resource Link Cards (PDF, GitHub, Downloads, External) */
+.robo-lr-resource-card {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	padding: 1rem 1.25rem;
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	transition: var(--robo-lr-transition);
+}
+
+.robo-lr-resource-card:hover {
+	background: #ffffff;
+	border-color: var(--robo-lr-primary);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.robo-lr-resource-icon {
+	width: 46px;
+	height: 46px;
+	border-radius: 10px;
+	background: rgba(13, 110, 253, 0.1);
+	color: var(--robo-lr-primary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.35rem;
+	flex-shrink: 0;
+}
+
+.robo-lr-resource-info {
+	flex-grow: 1;
+}
+
+.robo-lr-resource-title {
+	font-weight: 600;
+	font-size: 1rem;
+	margin-bottom: 2px;
+	color: var(--robo-lr-dark);
+}
+
+.robo-lr-resource-desc {
+	font-size: 0.85rem;
+	color: #64748b;
+	margin: 0;
+}
+
+/* Action Buttons (Like & Bookmark) */
+.btn-action-like.liked {
+	background-color: #dc3545;
+	border-color: #dc3545;
+	color: #ffffff;
+}
+
+.btn-action-fav.bookmarked {
+	background-color: #ffc107;
+	border-color: #ffc107;
+	color: #000000;
+}
+
+/* Filter Bar Styling */
+.robo-lr-filter-bar {
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: var(--robo-lr-border-radius);
+	padding: 1.25rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+	margin-bottom: 2rem;
+}
+
+/* Toast Notice */
+.robo-lr-toast {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 9999;
+	background: #1e293b;
+	color: #fff;
+	padding: 12px 20px;
+	border-radius: 8px;
+	box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	opacity: 0;
+	transform: translateY(20px);
+	transition: all 0.3s ease;
+}
+
+.robo-lr-toast.show {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Horizontal Cards Specific Styles */
+.robo-lr-horizontal-card {
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	border: 1px solid #e2e8f0 !important;
+}
+
+.robo-lr-horizontal-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+	border-color: rgba(13, 110, 253, 0.3) !important;
+}
+
+.min-height-240 {
+	min-height: 240px;
+}
+
+.fs-11 {
+	font-size: 11px !important;
+}
+
+.fs-13 {
+	font-size: 13px !important;
+}
+
+.robo-lr-clamped-desc {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+@media (max-width: 767.98px) {
+	.robo-lr-hz-img-container {
+		height: 220px !important;
+		min-height: 220px !important;
+	}
+}
+
