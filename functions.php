@@ -48,3 +48,8 @@ require_once ROBO_THEME_DIR . '/inc/template-functions.php';
 if ( class_exists( 'WooCommerce' ) ) {
 	require_once ROBO_THEME_DIR . '/inc/woocommerce.php';
 }
+
+// Learning Management Resource System (Robo LMS)
+require_once ROBO_THEME_DIR . '/inc/lms/Init.php';
+\Robo\LMS\Init::get_instance();
+

@@ -1,0 +1,199 @@
+/**
+ * Robo LMS Admin MetaBox Styles
+ */
+
+.robo-lms-metabox-wrapper {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	margin: -6px -12px -12px -12px;
+	background: #f8fafc;
+	border-radius: 0 0 4px 4px;
+}
+
+/* Tabs Navigation */
+.robo-lms-tabs {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	background: #1e293b;
+	border-bottom: 1px solid #0f172a;
+}
+
+.robo-lms-tab-item {
+	padding: 12px 20px;
+	color: #94a3b8;
+	font-weight: 600;
+	font-size: 13px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	border-right: 1px solid #334155;
+	transition: all 0.2s ease;
+	user-select: none;
+}
+
+.robo-lms-tab-item:hover {
+	background: #334155;
+	color: #f8fafc;
+}
+
+.robo-lms-tab-item.active {
+	background: #2563eb;
+	color: #ffffff;
+}
+
+.robo-lms-tab-item .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+/* Tab Contents */
+.robo-lms-tab-contents {
+	padding: 20px;
+}
+
+.robo-lms-tab-content {
+	display: none;
+}
+
+.robo-lms-tab-content.active {
+	display: block;
+}
+
+/* Fields Layout */
+.robo-lms-field-group {
+	margin-bottom: 18px;
+}
+
+.robo-lms-field-row {
+	display: flex;
+	gap: 16px;
+	margin-bottom: 18px;
+}
+
+.robo-lms-field-col {
+	flex: 1;
+	min-width: 0;
+}
+
+.robo-lms-label {
+	display: block;
+	font-weight: 600;
+	font-size: 13px;
+	color: #1e293b;
+	margin-bottom: 6px;
+}
+
+.robo-lms-checkboxes {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	padding: 10px 14px;
+	background: #ffffff;
+	border: 1px solid #cbd5e1;
+	border-radius: 6px;
+}
+
+.robo-lms-checkbox-label {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	cursor: pointer;
+}
+
+/* Media Uploader */
+.robo-lms-media-uploader {
+	background: #ffffff;
+	border: 1px solid #cbd5e1;
+	border-radius: 6px;
+	padding: 12px;
+}
+
+.robo-lms-media-preview {
+	margin-bottom: 8px;
+}
+
+.robo-lms-media-preview img {
+	max-width: 100px;
+	max-height: 100px;
+	object-fit: cover;
+	border-radius: 4px;
+	border: 1px solid #e2e8f0;
+	display: block;
+}
+
+/* Repeaters */
+.robo-lms-repeater-rows {
+	margin-bottom: 16px;
+}
+
+.robo-lms-repeater-row {
+	background: #ffffff;
+	border: 1px solid #cbd5e1;
+	border-radius: 6px;
+	margin-bottom: 12px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+	transition: border-color 0.2s;
+}
+
+.robo-lms-repeater-row:hover {
+	border-color: #94a3b8;
+}
+
+.robo-lms-row-header {
+	background: #f1f5f9;
+	padding: 10px 14px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid #e2e8f0;
+	border-radius: 5px 5px 0 0;
+}
+
+.robo-lms-drag-handle {
+	cursor: move;
+	color: #64748b;
+}
+
+.robo-lms-drag-handle:hover {
+	color: #1e293b;
+}
+
+.robo-lms-row-title {
+	font-size: 13px;
+	color: #1e293b;
+	flex-grow: 1;
+	margin-left: 10px;
+}
+
+.robo-lms-row-actions {
+	display: flex;
+	gap: 4px;
+}
+
+.robo-lms-row-body {
+	padding: 16px;
+}
+
+/* Select2 / Multi Select Box */
+.robo-lms-multi-select-box select {
+	min-height: 120px;
+	padding: 6px;
+}
+
+@media (max-width: 782px) {
+	.robo-lms-field-row {
+		flex-direction: column;
+		gap: 12px;
+	}
+	.robo-lms-tabs {
+		flex-direction: column;
+	}
+	.robo-lms-tab-item {
+		border-right: none;
+		border-bottom: 1px solid #334155;
+	}
+}

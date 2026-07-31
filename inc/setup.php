@@ -118,3 +118,15 @@ function robo_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'robo_content_width', 1140 );
 }
 add_action( 'after_setup_theme', 'robo_content_width', 0 );
+
+/**
+ * Flush rewrite rules on theme activation.
+ */
+function robo_rewrite_flush() {
+	if ( class_exists( '\Robo\LMS\Init' ) ) {
+		\Robo\LMS\Init::get_instance()->init_components();
+	}
+	flush_rewrite_rules();
+}
+add_action( 'after_switch_theme', 'robo_rewrite_flush' );
+
