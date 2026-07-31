@@ -17,8 +17,8 @@ get_header();
 // List of homepage sections to render.
 $homepage_sections = array(
 	'hero',
-	'about',
-	'services',
+	// 'about',
+	// 'services',
 	'popular-products',
 	'features',
 	'portfolio',
