@@ -47,7 +47,7 @@ class TemplateLoader {
 		wp_enqueue_style(
 			'robo-lms-frontend-style',
 			ROBO_THEME_URI . '/assets/css/lms-frontend.css',
-			array( 'bootstrap' ),
+			array( 'dashicons', 'bootstrap' ),
 			ROBO_THEME_VERSION
 		);
 

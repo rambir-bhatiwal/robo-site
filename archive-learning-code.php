@@ -41,9 +41,9 @@ get_header();
 					<?php endwhile; ?>
 				</div>
 			<?php else : ?>
-				<div class="alert alert-info text-center py-5 shadow-sm rounded-4 position-relative overflow-hidden my-4" role="alert">
-					<span class="dashicons dashicons-search display-1 text-secondary mb-3"></span>
-					<h4 class="fw-bold mb-2"><?php esc_html_e( 'No Source Code Found', 'robo' ); ?></h4>
+				<div class="card border-0 shadow-sm rounded-4 text-center py-5 px-4 my-4 bg-white robo-lms-no-results-card">
+					<div class="robo-lms-no-results-icon"><span class="dashicons dashicons-search"></span></div>
+					<h4 class="fw-bold mb-2 text-dark"><?php esc_html_e( 'No Source Code Found', 'robo' ); ?></h4>
 					<p class="mb-0 text-muted"><?php esc_html_e( 'Try adjusting your search terms or filter criteria.', 'robo' ); ?></p>
 				</div>
 			<?php endif; ?>

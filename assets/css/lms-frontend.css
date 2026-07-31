@@ -2,6 +2,58 @@
  * Robo LMS Frontend Styles
  */
 
+/* Primary Button & Accent Color Override to #9001fb */
+.btn-primary {
+	background-color: #9001fb !important;
+	border-color: #9001fb !important;
+	color: #ffffff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+	background-color: #7800d4 !important;
+	border-color: #7800d4 !important;
+	color: #ffffff !important;
+	box-shadow: 0 4px 12px rgba(144, 1, 251, 0.35) !important;
+}
+
+.btn-outline-primary {
+	color: #9001fb !important;
+	border-color: #9001fb !important;
+	background-color: transparent !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active,
+.btn-outline-primary.active {
+	background-color: #9001fb !important;
+	border-color: #9001fb !important;
+	color: #ffffff !important;
+	box-shadow: 0 4px 12px rgba(144, 1, 251, 0.25) !important;
+}
+
+.text-primary {
+	color: #9001fb !important;
+}
+
+.badge.bg-primary {
+	background-color: #9001fb !important;
+	color: #ffffff !important;
+}
+
+.badge.bg-primary.bg-opacity-10,
+.badge.bg-primary-subtle {
+	background-color: rgba(144, 1, 251, 0.1) !important;
+	color: #9001fb !important;
+}
+
+.hover-primary:hover {
+	color: #9001fb !important;
+}
+
 /* General LMS Utilities */
 .line-clamp-2 {
 	display: -webkit-box;
@@ -13,6 +65,13 @@
 .line-clamp-3 {
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.line-clamp-4 {
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
@@ -51,6 +110,56 @@
 	font-size: 0.75rem;
 }
 
+/* Dashicons icon and text vertical alignment inside badges & buttons */
+.badge .dashicons,
+.btn .dashicons,
+.badge i.dashicons,
+.btn i.dashicons,
+.badge span.dashicons,
+.btn span.dashicons {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+	font-size: 1.1em;
+	width: auto;
+	height: auto;
+	line-height: 1;
+}
+
+/* No Results Found Icon & Card Alignment Fix */
+.robo-lms-no-results-card {
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 1rem;
+	padding: 3rem 1.5rem;
+	text-align: center;
+	margin: 1.5rem 0;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.robo-lms-no-results-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 72px;
+	height: 72px;
+	border-radius: 50%;
+	background-color: #f1f5f9;
+	color: #64748b;
+	margin: 0 auto 1.25rem auto;
+}
+
+.robo-lms-no-results-icon .dashicons {
+	font-size: 32px !important;
+	width: 32px !important;
+	height: 32px !important;
+	line-height: 1 !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+}
+
 /* Hero Breadcrumb override */
 .robo-lms-hero-breadcrumb nav {
 	background: rgba(255, 255, 255, 0.1) !important;
@@ -78,3 +187,126 @@
 	background: #ffffff;
 	border: 1px solid #e2e8f0;
 }
+
+/* Learning Video Card Structural-Driven Architecture */
+.robo-lms-video-card {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.robo-lms-video-card .video-card-row {
+	display: flex;
+	flex-wrap: wrap;
+	height: 100%;
+}
+
+.robo-lms-video-card .video-thumb-col {
+	display: flex;
+	align-items: stretch;
+}
+
+.robo-lms-video-card .video-thumb-wrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	background-color: #0f172a;
+}
+
+.robo-lms-video-card .video-thumb-wrapper img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover !important;
+}
+
+.robo-lms-video-card .video-card-body {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.robo-lms-video-card .video-card-title {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	min-height: 2.8rem;
+}
+
+.robo-lms-video-card .video-card-desc {
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	min-height: 5rem;
+}
+
+.robo-lms-video-card .video-card-buttons {
+	margin-top: auto;
+}
+
+@media (min-width: 992px) {
+	.robo-lms-video-card .video-card-row {
+		min-height: 320px;
+	}
+}
+
+@media (max-width: 991.98px) {
+	.robo-lms-video-card .video-thumb-wrapper {
+		height: 220px !important;
+		min-height: 220px !important;
+	}
+	.robo-lms-video-card .video-thumb-wrapper img {
+		position: relative !important;
+	}
+	.robo-lms-video-card .video-card-title {
+		min-height: auto;
+	}
+/* Standard Robo LMS Card Structure-Driven Architecture */
+.robo-lms-card {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
+.robo-lms-card .card-body {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.robo-lms-card .card-title {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	min-height: 2.8rem;
+}
+
+.robo-lms-card .card-text {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	min-height: 4.5rem;
+}
+
+.robo-lms-card .mt-auto {
+	margin-top: auto !important;
+}
+
+@media (max-width: 991.98px) {
+	.robo-lms-card .card-title {
+		min-height: auto;
+	}
+	.robo-lms-card .card-text {
+		min-height: auto;
+	}
+}
+

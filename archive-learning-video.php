@@ -19,8 +19,8 @@ get_header();
 		<!-- Archive Page Header -->
 		<div class="row justify-content-center text-center mb-5">
 			<div class="col-lg-8">
-				<span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill fw-bold text-uppercase mb-3 fs-7">
-					<span class="dashicons dashicons-video-alt3 me-1"></span><?php esc_html_e( 'Video Library', 'robo' ); ?>
+				<span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill fw-bold text-uppercase mb-3 fs-7 d-inline-flex align-items-center gap-1">
+					<span class="dashicons dashicons-video-alt3"></span><?php esc_html_e( 'Video Library', 'robo' ); ?>
 				</span>
 				<h1 class="display-4 fw-bold text-dark mb-3"><?php esc_html_e( 'Learning Videos', 'robo' ); ?></h1>
 				<p class="lead text-muted mb-0"><?php esc_html_e( 'Watch high-quality step-by-step video courses, video tutorials, workshop demonstrations, and robotics walk-throughs.', 'robo' ); ?></p>
@@ -35,15 +35,15 @@ get_header();
 			<?php if ( have_posts() ) : ?>
 				<div class="row g-4">
 					<?php while ( have_posts() ) : the_post(); ?>
-						<div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+						<div class="col-12">
 							<?php Render::archive_card( get_the_ID() ); ?>
 						</div>
 					<?php endwhile; ?>
 				</div>
 			<?php else : ?>
-				<div class="alert alert-info text-center py-5 shadow-sm rounded-4 position-relative overflow-hidden my-4" role="alert">
-					<span class="dashicons dashicons-search display-1 text-secondary mb-3"></span>
-					<h4 class="fw-bold mb-2"><?php esc_html_e( 'No Learning Videos Found', 'robo' ); ?></h4>
+				<div class="card border-0 shadow-sm rounded-4 text-center py-5 px-4 my-4 bg-white robo-lms-no-results-card">
+					<div class="robo-lms-no-results-icon"><span class="dashicons dashicons-search"></span></div>
+					<h4 class="fw-bold mb-2 text-dark"><?php esc_html_e( 'No Learning Videos Found', 'robo' ); ?></h4>
 					<p class="mb-0 text-muted"><?php esc_html_e( 'Try adjusting your search terms or filter criteria.', 'robo' ); ?></p>
 				</div>
 			<?php endif; ?>

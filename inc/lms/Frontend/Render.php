@@ -152,14 +152,14 @@ class Render {
 
 			<!-- Overview Info Badges & Metadata Grid -->
 			<div class="row g-3 p-3 bg-light rounded-4 border border-light-subtle">
-				<div class="col-6 col-md-3">
+				<div class="col-12 col-sm-6 col-lg-3">
 					<div class="p-2">
 						<small class="text-muted text-uppercase fw-bold fs-7 d-block mb-1"><?php esc_html_e( 'Difficulty', 'robo' ); ?></small>
 						<span class="badge bg-primary px-3 py-2 rounded-pill fw-semibold"><?php echo esc_html( $diff_label ); ?></span>
 					</div>
 				</div>
 
-				<div class="col-6 col-md-3">
+				<div class="col-12 col-sm-6 col-lg-3">
 					<div class="p-2">
 						<small class="text-muted text-uppercase fw-bold fs-7 d-block mb-1"><?php esc_html_e( 'Total PDFs', 'robo' ); ?></small>
 						<span class="fw-bold text-dark fs-6 d-inline-flex align-items-center gap-1">
@@ -168,7 +168,7 @@ class Render {
 					</div>
 				</div>
 
-				<div class="col-6 col-md-3">
+				<div class="col-12 col-sm-6 col-lg-3">
 					<div class="p-2">
 						<small class="text-muted text-uppercase fw-bold fs-7 d-block mb-1"><?php esc_html_e( 'Category', 'robo' ); ?></small>
 						<?php
@@ -179,12 +179,12 @@ class Render {
 								<?php echo esc_html( $cats[0]->name ); ?>
 							</a>
 						<?php else : ?>
-							<span class="text-muted"><?php esc_html_e( 'General', 'robo' ); ?></span>
+							<span class="fw-semibold text-dark fs-6"><?php esc_html_e( 'General', 'robo' ); ?></span>
 						<?php endif; ?>
 					</div>
 				</div>
 
-				<div class="col-6 col-md-3">
+				<div class="col-12 col-sm-6 col-lg-3">
 					<div class="p-2">
 						<small class="text-muted text-uppercase fw-bold fs-7 d-block mb-1"><?php esc_html_e( 'Last Updated', 'robo' ); ?></small>
 						<span class="fw-medium text-dark fs-6 d-inline-flex align-items-center gap-1">
@@ -225,18 +225,18 @@ class Render {
 
 		$last_update = get_the_modified_date( '', $post_id );
 		?>
-		<section class="robo-lms-section mb-5" aria-label="<?php esc_attr_e( 'PDF Resources', 'robo' ); ?>">
-			<div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
-				<h2 class="h3 fw-bold mb-0 text-dark d-flex align-items-center gap-2">
-					<span class="dashicons dashicons-media-document text-primary fs-3"></span>
+		<section class="robo-lms-section mb-4" aria-label="<?php esc_attr_e( 'PDF Resources', 'robo' ); ?>">
+			<div class=" p-4 d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+				<h2 class="h4 fw-bold mb-0 text-dark d-flex align-items-center gap-2">
+					<span class="dashicons dashicons-media-document text-primary fs-4"></span>
 					<?php esc_html_e( 'PDF Documentation & Downloads', 'robo' ); ?>
 				</h2>
-				<span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold fs-7">
+				<span class="badge bg-primary bg-opacity-10 text-primary px-3 py-1.5 rounded-pill fw-bold fs-7">
 					<?php echo esc_html( sprintf( _n( '%d PDF Available', '%d PDFs Available', count( $items ), 'robo' ), count( $items ) ) ); ?>
 				</span>
 			</div>
 
-			<div class="row g-4">
+			<div class="row g-3">
 				<?php foreach ( $items as $item ) : ?>
 					<?php
 					$title       = ! empty( $item['title'] ) ? $item['title'] : __( 'PDF Resource', 'robo' );
@@ -316,9 +316,9 @@ class Render {
 									<?php endif; ?>
 
 									<!-- Metadata list -->
-									<div class="d-flex flex-wrap align-items-center gap-4 text-muted small mb-4">
-										<span><i class="dashicons dashicons-media-document me-1"></i><strong><?php esc_html_e( 'Format:', 'robo' ); ?></strong> PDF</span>
-										<span><i class="dashicons dashicons-calendar-alt me-1"></i><strong><?php esc_html_e( 'Updated:', 'robo' ); ?></strong> <?php echo esc_html( $last_update ); ?></span>
+									<div class="d-flex flex-wrap align-items-center gap-4 text-muted small mb-3">
+										<span class="d-inline-flex align-items-center gap-1"><span class="dashicons dashicons-media-document"></span><strong><?php esc_html_e( 'Format:', 'robo' ); ?></strong> PDF</span>
+										<span class="d-inline-flex align-items-center gap-1"><span class="dashicons dashicons-calendar-alt"></span><strong><?php esc_html_e( 'Updated:', 'robo' ); ?></strong> <?php echo esc_html( $last_update ); ?></span>
 									</div>
 
 									<!-- Action Buttons: STRICTLY USE UPLOADED PDF FILE URL ($file_url) -->
@@ -370,7 +370,39 @@ class Render {
 			return;
 		}
 
-		self::render_related_cpt_grid( __( 'Related Videos', 'robo' ), 'dashicons-video-alt3', 'text-danger', $rel_videos );
+		$query = new \WP_Query(
+			array(
+				'post_type'      => 'learning-video',
+				'post__in'       => $rel_videos,
+				'posts_per_page' => count( $rel_videos ),
+				'orderby'        => 'post__in',
+			)
+		);
+
+		if ( ! $query->have_posts() ) {
+			return;
+		}
+
+		?>
+		<section class="robo-lms-section mb-4" aria-label="<?php esc_attr_e( 'Related Videos', 'robo' ); ?>">
+			<h3 class="h4 fw-bold mb-3 pb-2 border-bottom d-flex align-items-center gap-2 text-dark">
+				<span class="dashicons dashicons-video-alt3 text-danger fs-4"></span>
+				<?php esc_html_e( 'Related Videos', 'robo' ); ?>
+			</h3>
+
+			<div class="row g-3">
+				<?php
+				while ( $query->have_posts() ) :
+					$query->the_post();
+					?>
+					<div class="col-12 mb-3">
+						<?php self::archive_card( get_the_ID() ); ?>
+					</div>
+				<?php endwhile; ?>
+				<?php wp_reset_postdata(); ?>
+			</div>
+		</section>
+		<?php
 	}
 
 	/**
@@ -384,7 +416,76 @@ class Render {
 			return;
 		}
 
-		self::render_related_cpt_grid( __( 'Related Source Code', 'robo' ), 'dashicons-editor-code', 'text-success', $rel_code );
+		$query = new \WP_Query(
+			array(
+				'post_type'      => 'learning-code',
+				'post__in'       => $rel_code,
+				'posts_per_page' => count( $rel_code ),
+				'orderby'        => 'post__in',
+			)
+		);
+
+		if ( ! $query->have_posts() ) {
+			return;
+		}
+
+		?>
+		<section class="robo-lms-section mb-4" aria-label="<?php esc_attr_e( 'Related Source Code', 'robo' ); ?>">
+			<h3 class="h4 fw-bold mb-3 pb-2 border-bottom d-flex align-items-center gap-2 text-dark">
+				<span class="dashicons dashicons-editor-code text-success fs-4"></span>
+				<?php esc_html_e( 'Related Source Code', 'robo' ); ?>
+			</h3>
+
+			<div class="row g-3">
+				<?php
+				while ( $query->have_posts() ) :
+					$query->the_post();
+					$c_id       = get_the_ID();
+					$c_title    = get_the_title( $c_id );
+					$c_url      = get_permalink( $c_id );
+					$c_desc     = get_post_meta( $c_id, '_robo_lms_short_description', true );
+					if ( empty( $c_desc ) ) {
+						$c_desc = wp_trim_words( get_the_excerpt( $c_id ), 20 );
+					}
+					$c_thumb_id = get_post_meta( $c_id, '_robo_lms_thumbnail_id', true );
+					$c_img      = $c_thumb_id ? wp_get_attachment_image_url( $c_thumb_id, 'medium_large' ) : get_the_post_thumbnail_url( $c_id, 'medium_large' );
+					?>
+					<div class="col-md-6 col-lg-4">
+						<div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden hover-lift bg-white robo-lms-card">
+							<?php if ( $c_img ) : ?>
+								<a href="<?php echo esc_url( $c_url ); ?>">
+									<img src="<?php echo esc_url( $c_img ); ?>" class="card-img-top object-fit-cover w-100" style="height: 180px;" alt="<?php echo esc_attr( $c_title ); ?>" loading="lazy" />
+								</a>
+							<?php else : ?>
+								<a href="<?php echo esc_url( $c_url ); ?>" class="bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center w-100 text-decoration-none" style="height: 180px;">
+									<span class="dashicons dashicons-editor-code display-3"></span>
+								</a>
+							<?php endif; ?>
+							<div class="card-body d-flex flex-column p-3">
+								<h6 class="card-title fw-bold mb-2">
+									<a href="<?php echo esc_url( $c_url ); ?>" class="text-dark text-decoration-none hover-primary line-clamp-2">
+										<?php echo esc_html( $c_title ); ?>
+									</a>
+								</h6>
+								<p class="card-text text-muted small mb-3 line-clamp-3">
+									<?php echo esc_html( $c_desc ); ?>
+								</p>
+								<div class="mt-auto pt-2 d-flex align-items-center justify-content-between border-top">
+									<span class="badge bg-success bg-opacity-10 text-success fs-7 fw-bold d-inline-flex align-items-center gap-1">
+										<span class="dashicons dashicons-editor-code"></span> <?php esc_html_e( 'Code', 'robo' ); ?>
+									</span>
+									<a href="<?php echo esc_url( $c_url ); ?>" class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold d-inline-flex align-items-center gap-1">
+										<?php esc_html_e( 'View Code', 'robo' ); ?> <span class="dashicons dashicons-arrow-right-alt"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php endwhile; ?>
+				<?php wp_reset_postdata(); ?>
+			</div>
+		</section>
+		<?php
 	}
 
 	/**
@@ -503,7 +604,20 @@ class Render {
 			return;
 		}
 
-		$post_type  = $post_obj->post_type;
+		$post_type   = $post_obj->post_type;
+		$layout_view = isset( $_POST['layout_view'] ) ? sanitize_key( $_POST['layout_view'] ) : 'grid';
+
+		if ( 'learning-video' === $post_type ) {
+			self::video_card( $post_id );
+			return;
+		} elseif ( 'learning-pdf' === $post_type && 'list' === $layout_view ) {
+			self::pdf_card( $post_id );
+			return;
+		} elseif ( 'learning-code' === $post_type && 'list' === $layout_view ) {
+			self::code_card( $post_id );
+			return;
+		}
+
 		$post_url   = get_permalink( $post_id );
 
 		// Extra safety check: if $post_url is empty, invalid, or contains /wp-content/uploads/
@@ -536,7 +650,7 @@ class Render {
 			$cpt_name        = __( 'Video', 'robo' );
 		}
 		?>
-		<div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden robo-lms-card hover-lift transition-all">
+		<div class="w-100 card h-100 border-0 shadow-sm rounded-4 overflow-hidden robo-lms-card hover-lift transition-all">
 			<div class="position-relative bg-dark bg-gradient text-white overflow-hidden" style="min-height: 200px;">
 				<?php if ( $img_url ) : ?>
 					<a href="<?php echo esc_url( $post_url ); ?>">
@@ -610,6 +724,182 @@ class Render {
 					<a href="<?php echo esc_url( $post_url ); ?>" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-semibold d-inline-flex align-items-center gap-1">
 						<?php esc_html_e( 'View Details', 'robo' ); ?> <span class="dashicons dashicons-arrow-right-alt"></span>
 					</a>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render horizontal 2-column layout card for Learning Videos.
+	 *
+	 * @param int $post_id Post ID.
+	 */
+	public static function video_card( int $post_id ): void {
+		$post_obj = get_post( $post_id );
+		if ( ! $post_obj || 'attachment' === $post_obj->post_type ) {
+			return;
+		}
+
+		$post_url = get_permalink( $post_id );
+		if ( empty( $post_url ) || str_contains( $post_url, '/wp-content/uploads/' ) ) {
+			$post_url = get_post_type_archive_link( 'learning-video' );
+		}
+
+		$short_desc  = get_post_meta( $post_id, '_robo_lms_short_description', true );
+		$difficulty  = get_post_meta( $post_id, '_robo_lms_difficulty', true );
+		$duration    = get_post_meta( $post_id, '_robo_lms_estimated_duration', true );
+		$is_featured = get_post_meta( $post_id, '_robo_lms_is_featured', true );
+		$thumb_id    = get_post_meta( $post_id, '_robo_lms_thumbnail_id', true );
+
+		$img_url = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'medium_large' ) : get_the_post_thumbnail_url( $post_id, 'medium_large' );
+
+		$diff_options = Helper::get_difficulty_options();
+		$diff_label   = $diff_options[ $difficulty ] ?? '';
+
+		$rel_code  = Helper::sanitize_post_ids( get_post_meta( $post_id, '_robo_lms_related_code', true ) );
+		$rel_pdfs  = Helper::sanitize_post_ids( get_post_meta( $post_id, '_robo_lms_related_pdfs', true ) );
+		$rel_prods = Helper::sanitize_post_ids( get_post_meta( $post_id, '_robo_lms_related_products', true ) );
+
+		$cats = get_the_terms( $post_id, 'learning-category' );
+		?>
+		<div class="card border-0 shadow-sm rounded-4 overflow-hidden robo-lms-card robo-lms-video-card hover-lift transition-all bg-white mb-4 h-100">
+			<div class="row g-0 video-card-row align-items-stretch">
+				<!-- Left Column: Fixed Image Container (Desktop col-lg-4, Mobile/Tablet col-12) -->
+				<div class="col-lg-4 col-12 video-thumb-col">
+					<div class="video-thumb-wrapper">
+						<?php if ( $img_url ) : ?>
+							<a href="<?php echo esc_url( $post_url ); ?>" class="d-block w-100 h-100">
+								<img src="<?php echo esc_url( $img_url ); ?>" class="card-img-top opacity-90 transition-zoom" alt="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" loading="lazy" />
+							</a>
+						<?php else : ?>
+							<a href="<?php echo esc_url( $post_url ); ?>" class="d-flex align-items-center justify-content-center w-100 h-100 p-5 text-secondary text-decoration-none">
+								<span class="dashicons dashicons-video-alt3 display-3"></span>
+							</a>
+						<?php endif; ?>
+
+						<!-- Badges Overlay -->
+						<div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-1 z-1">
+							<span class="badge bg-danger text-white px-2.5 py-1.5 rounded-pill shadow-sm fs-7 fw-semibold d-inline-flex align-items-center gap-1">
+								<span class="dashicons dashicons-video-alt3"></span><?php esc_html_e( 'Video', 'robo' ); ?>
+							</span>
+							<?php if ( '1' === $is_featured ) : ?>
+								<span class="badge bg-warning text-dark px-2.5 py-1.5 rounded-pill shadow-sm fs-7 fw-bold">
+									★ <?php esc_html_e( 'Featured', 'robo' ); ?>
+								</span>
+							<?php endif; ?>
+						</div>
+
+						<?php if ( $duration || $diff_label ) : ?>
+							<div class="position-absolute bottom-0 end-0 m-3 d-flex gap-1 z-1">
+								<?php if ( $duration ) : ?>
+									<span class="badge bg-dark bg-opacity-75 text-white backdrop-blur px-2.5 py-1.5 rounded-pill border border-light border-opacity-25 fs-7 d-inline-flex align-items-center gap-1">
+										<span class="dashicons dashicons-clock"></span><?php echo esc_html( $duration ); ?>
+									</span>
+								<?php endif; ?>
+								<?php if ( $diff_label ) : ?>
+									<span class="badge bg-dark bg-opacity-75 text-white backdrop-blur px-2.5 py-1.5 rounded-pill border border-light border-opacity-25 fs-7">
+										<?php echo esc_html( $diff_label ); ?>
+									</span>
+								<?php endif; ?>
+							</div>
+						<?php endif; ?>
+					</div>
+				</div>
+
+				<!-- Right Column: Structured Content Area (Desktop col-lg-8, Mobile/Tablet col-12) -->
+				<div class="col-lg-8 col-12 video-content-col">
+					<div class="card-body video-card-body p-4 p-xl-4">
+						<!-- Fixed Header Area -->
+						<div class="video-card-header">
+							<?php if ( ! empty( $cats ) && ! is_wp_error( $cats ) ) : ?>
+								<div class="mb-1">
+									<span class="text-uppercase tracking-wider fw-bold text-danger fs-7">
+										<?php echo esc_html( $cats[0]->name ); ?>
+									</span>
+								</div>
+							<?php endif; ?>
+
+							<!-- Fixed Title Area (Clamped to 2 lines, Reserved min-height) -->
+							<h4 class="card-title video-card-title fw-bold">
+								<a href="<?php echo esc_url( $post_url ); ?>" class="text-decoration-none text-dark hover-primary">
+									<?php echo esc_html( get_the_title( $post_id ) ); ?>
+								</a>
+							</h4>
+						</div>
+
+						<!-- Fixed Description Area (Clamped to 4 lines, Reserved min-height) -->
+						<div class="video-card-desc text-muted fs-6">
+							<?php
+							if ( $short_desc ) {
+								echo esc_html( $short_desc );
+							} else {
+								echo esc_html( wp_trim_words( get_the_excerpt( $post_id ), 35 ) );
+							}
+							?>
+						</div>
+
+						<!-- Fixed Button Area (Anchored to bottom via margin-top: auto) -->
+						<div class="video-card-buttons pt-3 border-top d-flex flex-column gap-2">
+							<!-- Primary Action: Watch Video -->
+							<div class="d-flex flex-wrap align-items-center gap-2">
+								<a href="<?php echo esc_url( $post_url ); ?>" class="btn btn-danger rounded-pill px-4 py-2 fw-semibold shadow-sm d-inline-flex align-items-center gap-2">
+									<span class="dashicons dashicons-controls-play"></span> <?php esc_html_e( 'Watch Video', 'robo' ); ?>
+								</a>
+							</div>
+
+							<!-- Related Code Buttons -->
+							<?php if ( ! empty( $rel_code ) ) : ?>
+								<div class="d-flex flex-wrap align-items-center gap-2 mt-1">
+									<small class="text-muted fw-bold fs-7 text-uppercase me-1"><?php esc_html_e( 'Code:', 'robo' ); ?></small>
+									<?php foreach ( $rel_code as $code_id ) : 
+										$code_title = get_the_title( $code_id );
+										$code_url   = get_permalink( $code_id );
+										if ( $code_title && $code_url ) : ?>
+											<a href="<?php echo esc_url( $code_url ); ?>" class="btn btn-outline-success btn-sm rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1">
+												<span class="dashicons dashicons-editor-code"></span> <?php echo sprintf( esc_html__( 'Code: %s', 'robo' ), esc_html( $code_title ) ); ?>
+											</a>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</div>
+							<?php endif; ?>
+
+							<!-- Related PDF Buttons -->
+							<?php if ( ! empty( $rel_pdfs ) ) : ?>
+								<div class="d-flex flex-wrap align-items-center gap-2 mt-1">
+									<small class="text-muted fw-bold fs-7 text-uppercase me-1"><?php esc_html_e( 'PDF:', 'robo' ); ?></small>
+									<?php foreach ( $rel_pdfs as $pdf_id ) : 
+										$pdf_title = get_the_title( $pdf_id );
+										$pdf_url   = get_permalink( $pdf_id );
+										if ( $pdf_title && $pdf_url ) : ?>
+											<a href="<?php echo esc_url( $pdf_url ); ?>" class="btn btn-outline-primary btn-sm rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1">
+												<span class="dashicons dashicons-media-document"></span> <?php echo sprintf( esc_html__( 'PDF: %s', 'robo' ), esc_html( $pdf_title ) ); ?>
+											</a>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</div>
+							<?php endif; ?>
+
+							<!-- Related Product Buttons -->
+							<?php if ( ! empty( $rel_prods ) && class_exists( 'WooCommerce' ) ) : ?>
+								<div class="d-flex flex-wrap align-items-center gap-2 mt-1">
+									<small class="text-muted fw-bold fs-7 text-uppercase me-1"><?php esc_html_e( 'Kit:', 'robo' ); ?></small>
+									<?php foreach ( $rel_prods as $prod_id ) : 
+										if ( 'product' !== get_post_type( $prod_id ) ) {
+											continue;
+										}
+										$prod_title = get_the_title( $prod_id );
+										$prod_url   = get_permalink( $prod_id );
+										if ( $prod_title && $prod_url ) : ?>
+											<a href="<?php echo esc_url( $prod_url ); ?>" class="btn btn-outline-warning text-dark btn-sm rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1">
+												<span class="dashicons dashicons-cart"></span> <?php echo sprintf( esc_html__( 'Buy Kit: %s', 'robo' ), esc_html( $prod_title ) ); ?>
+											</a>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</div>
+							<?php endif; ?>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -739,42 +1029,44 @@ class Render {
 					<?php
 					$title       = $item['title'] ?? __( 'Source Code Resource', 'robo' );
 					$desc        = $item['description'] ?? '';
-					$repo_url    = $item['repo_url'] ?? '';
-					$file_id     = isset( $item['file_id'] ) ? absint( $item['file_id'] ) : 0;
-					$file_url    = isset( $item['file_url'] ) ? trim( $item['file_url'] ) : '';
-					if ( empty( $file_url ) && $file_id ) {
-						$file_url = wp_get_attachment_url( $file_id );
-					}
+					$preview_id  = isset( $item['preview_id'] ) ? absint( $item['preview_id'] ) : 0;
 					$preview_url = $item['preview_url'] ?? '';
+					if ( empty( $preview_url ) && $preview_id ) {
+						$preview_url = wp_get_attachment_image_url( $preview_id, 'medium' );
+					}
 					$lang        = $item['language'] ?? 'other';
 					$lang_label  = $lang_options[ $lang ] ?? strtoupper( $lang );
 					?>
-					<div class="col-md-6">
+					<div class="col-md-12">
 						<div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-white p-4">
-							<div class="d-flex align-items-center justify-content-between mb-2">
-								<span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2.5 py-1.5 rounded-pill fs-7 fw-bold">
-									<?php echo esc_html( $lang_label ); ?>
-								</span>
-								<?php if ( $preview_url ) : ?>
-									<img src="<?php echo esc_url( $preview_url ); ?>" alt="Preview" class="rounded-circle object-fit-cover" style="width: 40px; height: 40px;" loading="lazy" />
-								<?php endif; ?>
-							</div>
+							<div class="d-flex align-items-center gap-3">
+								<!-- Left Side Square Image / Icon Box -->
+								<div class="flex-shrink-0">
+									<?php if ( $preview_url ) : ?>
+										<div class="rounded-3 overflow-hidden shadow-sm border border-light-subtle" style="width: 80px; height: 80px;">
+											<img src="<?php echo esc_url( $preview_url ); ?>" alt="<?php echo esc_attr( $title ); ?>" class="w-100 h-100 object-fit-cover" loading="lazy" />
+										</div>
+									<?php else : ?>
+										<div class="bg-success bg-opacity-10 text-success rounded-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+											<span class="dashicons dashicons-editor-code fs-2"></span>
+										</div>
+									<?php endif; ?>
+								</div>
 
-							<h5 class="fw-bold mb-2 text-dark"><?php echo esc_html( $title ); ?></h5>
-							<?php if ( $desc ) : ?>
-								<p class="text-muted small mb-3"><?php echo esc_html( $desc ); ?></p>
-							<?php endif; ?>
-
-							<div class="d-flex flex-wrap align-items-center gap-2 mt-auto pt-3 border-top">
-								<?php if ( $repo_url ) : ?>
-									<?php echo Helper::render_repo_button( $repo_url ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-								<?php endif; ?>
-
-								<?php if ( ! empty( $file_url ) ) : ?>
-									<a href="<?php echo esc_url( $file_url ); ?>" download class="btn btn-outline-success btn-sm rounded-pill d-inline-flex align-items-center gap-1">
-										<span class="dashicons dashicons-archive"></span> <?php esc_html_e( 'Download ZIP', 'robo' ); ?>
-									</a>
-								<?php endif; ?>
+								<!-- Right Side Title & Description (No buttons) -->
+								<div class="flex-grow-1 min-w-0">
+									<div class="d-flex align-items-center justify-content-between gap-2 mb-1">
+										<h5 class="fw-bold mb-0 text-dark"><?php echo esc_html( $title ); ?></h5>
+										<?php if ( $lang_label ) : ?>
+											<span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2.5 py-1.5 rounded-pill fs-7 fw-bold">
+												<?php echo esc_html( $lang_label ); ?>
+											</span>
+										<?php endif; ?>
+									</div>
+									<?php if ( $desc ) : ?>
+										<p class="text-secondary fs-6 mb-0 lh-base line-clamp-2"><?php echo esc_html( $desc ); ?></p>
+									<?php endif; ?>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -869,18 +1161,20 @@ class Render {
 			return;
 		}
 
+		$section_mb = is_singular() ? 'mb-4' : 'my-5';
+		$col_class  = is_singular() ? 'col-12 col-md-6 d-flex align-items-stretch' : 'col-md-6 col-lg-4 d-flex align-items-stretch';
 		?>
-		<div class="robo-lms-section my-5">
-			<h3 class="fw-bold mb-4 pb-2 border-bottom d-flex align-items-center gap-2 text-dark">
-				<span class="dashicons <?php echo esc_attr( $icon ); ?> <?php echo esc_attr( $color_class ); ?> fs-3"></span>
+		<div class="robo-lms-section <?php echo esc_attr( $section_mb ); ?>">
+			<h3 class="h4 fw-bold mb-3 pb-2 border-bottom d-flex align-items-center gap-2 text-dark">
+				<span class="dashicons <?php echo esc_attr( $icon ); ?> <?php echo esc_attr( $color_class ); ?> fs-4"></span>
 				<?php echo esc_html( $title ); ?>
 			</h3>
 
-			<div class="row g-4">
+			<div class="row g-3">
 				<?php
 				while ( $query->have_posts() ) {
 					$query->the_post();
-					echo '<div class="col-md-6 col-lg-4 d-flex align-items-stretch">';
+					echo '<div class="' . esc_attr( $col_class ) . '">';
 					self::archive_card( get_the_ID() );
 					echo '</div>';
 				}

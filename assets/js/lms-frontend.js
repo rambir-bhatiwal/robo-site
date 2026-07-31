@@ -13,6 +13,17 @@
 		if ($filterForm.length && $gridContainer.length) {
 			var currentCPT = $('.robo-lms-filter-bar').data('cpt') || 'learning-pdf';
 
+			// Get active layout view (Default to 'grid')
+			var activeView = localStorage.getItem('robo_lms_view_' + currentCPT) || 'grid';
+
+			// Sync initial active button UI
+			function updateViewButtonUI(view) {
+				$('.robo-lms-view-btn').removeClass('active btn-primary text-white').addClass('text-muted');
+				$('.robo-lms-view-btn[data-view="' + view + '"]').addClass('active btn-primary text-white').removeClass('text-muted');
+			}
+
+			updateViewButtonUI(activeView);
+
 			// AJAX Filter Submission
 			function fetchFilteredPosts(paged) {
 				paged = paged || 1;
@@ -26,6 +37,7 @@
 					tag: $filterForm.find('select[name="lms_tag"]').val(),
 					difficulty: $filterForm.find('select[name="lms_difficulty"]').val(),
 					sort: $filterForm.find('select[name="lms_sort"]').val(),
+					layout_view: activeView,
 					paged: paged
 				};
 
@@ -48,6 +60,23 @@
 						$gridContainer.css('opacity', '1');
 					}
 				});
+			}
+
+			// Layout View Switcher Button Click
+			$(document).on('click', '.robo-lms-view-btn', function(e) {
+				e.preventDefault();
+				var newView = $(this).data('view') || 'grid';
+				if (newView !== activeView) {
+					activeView = newView;
+					localStorage.setItem('robo_lms_view_' + currentCPT, activeView);
+					updateViewButtonUI(activeView);
+					fetchFilteredPosts(1);
+				}
+			});
+
+			// Initial fetch if user had saved 'list' view preference
+			if (activeView === 'list') {
+				fetchFilteredPosts(1);
 			}
 
 			// Form submit event

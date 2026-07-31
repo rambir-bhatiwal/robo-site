@@ -14,6 +14,9 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 	 * Enqueue styles and scripts.
 	 */
 	function robo_scripts() {
+		// Enqueue WordPress Dashicons for icon display (logged in and logged out users).
+		wp_enqueue_style( 'dashicons' );
+
 		// Enqueue Bootstrap CSS.
 		wp_enqueue_style(
 			'bootstrap',

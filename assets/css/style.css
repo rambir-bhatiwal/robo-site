@@ -7,8 +7,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
+    --bs-primary: #9001fb;
+    --bs-primary-rgb: 144, 1, 251;
     --robo-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --robo-transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Primary Button & Accent Color Override to #9001fb */
+.btn-primary {
+    background-color: #9001fb !important;
+    border-color: #9001fb !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+    background-color: #7800d4 !important;
+    border-color: #7800d4 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(144, 1, 251, 0.35) !important;
+}
+
+.btn-outline-primary {
+    color: #9001fb !important;
+    border-color: #9001fb !important;
+    background-color: transparent !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active,
+.btn-outline-primary.active {
+    background-color: #9001fb !important;
+    border-color: #9001fb !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(144, 1, 251, 0.25) !important;
+}
+
+.text-primary {
+    color: #9001fb !important;
+}
+
+.badge.bg-primary {
+    background-color: #9001fb !important;
+    color: #ffffff !important;
+}
+
+.badge.bg-primary.bg-opacity-10,
+.badge.bg-primary-subtle {
+    background-color: rgba(144, 1, 251, 0.1) !important;
+    color: #9001fb !important;
+}
+
+.hover-primary:hover {
+    color: #9001fb !important;
 }
 
 body {

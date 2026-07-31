@@ -114,9 +114,9 @@ class Ajax {
 			}
 			echo '</div>';
 		} else {
-			echo '<div class="alert alert-info text-center py-5 shadow-sm rounded-4 position-relative overflow-hidden my-4" role="alert">';
-			echo '<span class="dashicons dashicons-search display-1 text-secondary mb-3"></span>';
-			echo '<h4 class="fw-bold mb-2">' . esc_html__( 'No Resources Found', 'robo' ) . '</h4>';
+			echo '<div class="card border-0 shadow-sm rounded-4 text-center py-5 px-4 my-4 bg-white robo-lms-no-results-card">';
+			echo '<div class="robo-lms-no-results-icon"><span class="dashicons dashicons-search"></span></div>';
+			echo '<h4 class="fw-bold mb-2 text-dark">' . esc_html__( 'No Resources Found', 'robo' ) . '</h4>';
 			echo '<p class="mb-0 text-muted">' . esc_html__( 'Try adjusting your search terms or filter criteria.', 'robo' ) . '</p>';
 			echo '</div>';
 		}
