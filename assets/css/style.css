@@ -601,3 +601,17 @@ section,
 .newsletter-section {
     margin-bottom: 0 !important;
 }
+
+/* 404 Page Actions Sizing & Alignment */
+.error-404-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.error-404-actions .form-control {
+    height: 100%;
+}

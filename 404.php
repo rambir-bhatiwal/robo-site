@@ -35,12 +35,21 @@ $container_class = get_theme_mod( 'robo_container_width', 'container' );
 				</p>
 
 				<!-- Actions -->
-				<div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-5">
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn btn-primary btn-lg px-4 py-3 fw-bold shadow-sm">
-						<?php esc_html_e( 'Return to Homepage', 'robo' ); ?>
-					</a>
-					<div class="w-100 max-w-sm mx-auto mx-sm-0 text-start">
-						<?php get_search_form(); ?>
+				<div class="row justify-content-center align-items-center g-3 mb-5 max-width-700 mx-auto error-404-actions">
+					<div class="col-12 col-sm-auto">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center justify-content-center gap-2 hover-lift transition-all" style="height: 48px;">
+							<i class="bi bi-house-door-fill"></i> <?php esc_html_e( 'Return to Homepage', 'robo' ); ?>
+						</a>
+					</div>
+					<div class="col-12 col-sm-auto flex-grow-1 text-start" style="max-width: 380px;">
+						<form role="search" method="get" class="search-form mb-0" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+							<div class="input-group shadow-sm rounded-pill overflow-hidden border border-light-subtle bg-white" style="height: 48px;">
+								<input type="search" class="form-control border-0 px-3 py-2 shadow-none" placeholder="<?php esc_attr_e( 'Search website&hellip;', 'robo' ); ?>" value="<?php echo get_search_query(); ?>" name="s" aria-label="<?php esc_attr_e( 'Search', 'robo' ); ?>" />
+								<button type="submit" class="btn btn-primary px-3.5 border-0 d-flex align-items-center justify-content-center" aria-label="<?php esc_attr_e( 'Search', 'robo' ); ?>">
+									<i class="bi bi-search"></i>
+								</button>
+							</div>
+						</form>
 					</div>
 				</div>
 
