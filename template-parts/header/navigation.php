@@ -48,8 +48,12 @@ $desktop_search_html = ob_get_clean();
 $search_menu_item = sprintf(
 	'<li class="menu-item nav-item position-relative robo-search-nav-item d-none d-lg-flex align-items-center ms-lg-2">
 		<button type="button" class="nav-link border-0 bg-transparent p-1 d-inline-flex align-items-center justify-content-center robo-search-toggle-btn text-dark hover-primary" aria-label="%s" aria-expanded="false">
-			<i class="bi bi-search fs-5 search-open-icon"></i>
-			<i class="bi bi-x-lg fs-5 search-close-icon d-none"></i>
+			<span class="search-open-icon d-inline-flex align-items-center justify-content-center">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+			</span>
+			<span class="search-close-icon d-none align-items-center justify-content-center">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+			</span>
 		</button>
 		<div class="robo-desktop-expandable-search position-absolute top-50 translate-middle-y">
 			%s

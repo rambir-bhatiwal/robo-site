@@ -2137,7 +2137,7 @@ form.checkout_coupon {
 }
 
 .robo-search-nav-item.is-expanded .search-close-icon {
-	display: inline-block !important;
+	display: inline-flex !important;
 }
 
 

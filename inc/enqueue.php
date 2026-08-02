@@ -17,6 +17,15 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 		// Enqueue WordPress Dashicons for icon display (logged in and logged out users).
 		wp_enqueue_style( 'dashicons' );
 
+		// Enqueue Bootstrap Icons globally (eliminates icon load delay on navigation bar and components).
+		wp_enqueue_style(
+			'bootstrap-icons',
+			'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css',
+			array(),
+			'1.11.3',
+			'all'
+		);
+
 		// Enqueue Bootstrap CSS.
 		wp_enqueue_style(
 			'bootstrap',
@@ -80,3 +89,18 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'robo_scripts' );
+
+/**
+ * Add resource hints for CDN icon font preconnecting.
+ */
+function robo_resource_hints( $urls, $relation_type ) {
+	if ( 'preconnect' === $relation_type || 'dns-prefetch' === $relation_type ) {
+		$urls[] = array(
+			'href'        => 'https://cdn.jsdelivr.net',
+			'crossorigin' => 'anonymous',
+		);
+	}
+	return $urls;
+}
+add_filter( 'wp_resource_hints', 'robo_resource_hints', 10, 2 );
+
