@@ -9,6 +9,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Fix for WordPress.org secure connection warning (wp_version_check / http_request_failed).
+ * Resolves SSL certificate verification issues and cURL IPv6 timeouts when contacting WordPress.org APIs.
+ */
+if ( ! function_exists( 'robo_fix_wp_org_http_connection' ) ) {
+	function robo_fix_wp_org_http_connection( $args, $url ) {
+		if ( false !== strpos( $url, 'wordpress.org' ) ) {
+			$args['sslverify'] = false;
+		}
+		return $args;
+	}
+	add_filter( 'http_request_args', 'robo_fix_wp_org_http_connection', 10, 2 );
+}
+
+// Force IPv4 for cURL requests to prevent IPv6 connection timeouts in Docker/servers
+add_action( 'http_api_curl', function( $handle ) {
+	curl_setopt( $handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
+} );
+
+
 if ( ! function_exists( 'robo_get_reading_time' ) ) {
 	/**
 	 * Calculate estimated reading time for a post.
@@ -545,3 +565,130 @@ if ( ! function_exists( 'robo_get_specifications' ) ) {
 		return $items;
 	}
 }
+
+/**
+ * AJAX Live Search Callback for products, posts, pages, and LMS resources.
+ */
+if ( ! function_exists( 'robo_product_live_search_callback' ) ) {
+	function robo_product_live_search_callback() {
+		$query = isset( $_GET['query'] ) ? sanitize_text_field( wp_unslash( $_GET['query'] ) ) : '';
+
+		if ( strlen( $query ) < 2 ) {
+			wp_send_json_success( array( 'products' => array(), 'view_all_url' => home_url( '/?s=' . urlencode( $query ) ) ) );
+		}
+
+		$results = array();
+
+		// 1. If WooCommerce exists, query products first
+		if ( class_exists( 'WooCommerce' ) ) {
+			$args = array(
+				'post_type'      => 'product',
+				'post_status'    => 'publish',
+				'posts_per_page' => 5,
+				's'              => $query,
+			);
+
+			$search_query = new WP_Query( $args );
+
+			if ( $search_query->have_posts() ) {
+				while ( $search_query->have_posts() ) {
+					$search_query->the_post();
+					$product = wc_get_product( get_the_ID() );
+
+					if ( ! $product ) {
+						continue;
+					}
+
+					$image_id  = $product->get_image_id();
+					$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'thumbnail' ) : wc_placeholder_img_src( 'thumbnail' );
+
+					$stock_label = esc_html__( 'In Stock', 'robo' );
+					$stock_class = 'bg-success-subtle text-success';
+					if ( ! $product->is_in_stock() ) {
+						$stock_label = esc_html__( 'Out of Stock', 'robo' );
+						$stock_class = 'bg-danger-subtle text-danger';
+					}
+
+					$terms    = get_the_terms( get_the_ID(), 'product_cat' );
+					$category = ( ! empty( $terms ) && ! is_wp_error( $terms ) ) ? $terms[0]->name : esc_html__( 'Product', 'robo' );
+
+					$results[] = array(
+						'id'          => get_the_ID(),
+						'title'       => get_the_title(),
+						'url'         => get_permalink(),
+						'image'       => $image_url,
+						'price'       => $product->get_price_html(),
+						'category'    => $category,
+						'stock_label' => $stock_label,
+						'stock_class' => $stock_class,
+					);
+				}
+				wp_reset_postdata();
+			}
+		}
+
+		// 2. If no products found or WooCommerce not active, search posts, pages & CPTs
+		if ( empty( $results ) ) {
+			$post_types = array( 'post', 'page' );
+			if ( post_type_exists( 'learning_code' ) ) {
+				$post_types[] = 'learning_code';
+			}
+			if ( post_type_exists( 'learning_pdf' ) ) {
+				$post_types[] = 'learning_pdf';
+			}
+			if ( post_type_exists( 'learning_video' ) ) {
+				$post_types[] = 'learning_video';
+			}
+
+			$args = array(
+				'post_type'      => $post_types,
+				'post_status'    => 'publish',
+				'posts_per_page' => 5,
+				's'              => $query,
+			);
+
+			$search_query = new WP_Query( $args );
+
+			if ( $search_query->have_posts() ) {
+				while ( $search_query->have_posts() ) {
+					$search_query->the_post();
+					$image_url = get_the_post_thumbnail_url( get_the_ID(), 'thumbnail' );
+					if ( ! $image_url ) {
+						$image_url = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="%236c757d" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>';
+					}
+
+					$post_type_obj = get_post_type_object( get_post_type() );
+					$category      = $post_type_obj ? $post_type_obj->labels->singular_name : esc_html__( 'Article', 'robo' );
+
+					$results[] = array(
+						'id'          => get_the_ID(),
+						'title'       => get_the_title(),
+						'url'         => get_permalink(),
+						'image'       => $image_url,
+						'price'       => '',
+						'category'    => $category,
+						'stock_label' => '',
+						'stock_class' => '',
+					);
+				}
+				wp_reset_postdata();
+			}
+		}
+
+		$view_all_args = array( 's' => $query );
+		if ( class_exists( 'WooCommerce' ) ) {
+			$view_all_args['post_type'] = 'product';
+		}
+		$view_all_url = add_query_arg( $view_all_args, home_url( '/' ) );
+
+		wp_send_json_success(
+			array(
+				'products'     => $results,
+				'view_all_url' => $view_all_url,
+			)
+		);
+	}
+}
+add_action( 'wp_ajax_robo_product_live_search', 'robo_product_live_search_callback' );
+add_action( 'wp_ajax_nopriv_robo_product_live_search', 'robo_product_live_search_callback' );
+
