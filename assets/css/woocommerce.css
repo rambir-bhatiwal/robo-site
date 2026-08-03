@@ -2228,6 +2228,92 @@ form.checkout_coupon {
 	padding-bottom: 1rem;
 }
 
+/* ==========================================================================
+   Amazon / Flipkart / Meesho Style eCommerce Cart Notification Badge
+   ========================================================================== */
+
+.robo-cart-link {
+	position: relative !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	text-decoration: none !important;
+	line-height: 1 !important;
+	color: inherit !important;
+	padding: 6px !important;
+	border-radius: 50% !important;
+	transition: color 0.2s ease-in-out !important;
+}
+
+.robo-cart-icon {
+	position: relative !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 22px !important;
+	height: 22px !important;
+}
+
+.robo-cart-badge {
+	position: absolute !important;
+	top: -5px !important;
+	right: -7px !important;
+	height: 19px !important;
+	min-width: 19px !important;
+	padding: 0 4px !important;
+	background-color: #FF3B30 !important;
+	color: #FFFFFF !important;
+	font-size: 11px !important;
+	font-weight: 700 !important;
+	font-family: inherit !important;
+	line-height: 1 !important;
+	border-radius: 999px !important; /* Perfect circle for single/double digits, pill for 99+ */
+	border: 2px solid #FFFFFF !important;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) !important;
+	
+	/* Perfect centering using Flexbox */
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	text-align: center !important;
+	
+	/* Interaction & layout stability */
+	pointer-events: none !important;
+	user-select: none !important;
+	white-space: nowrap !important;
+	z-index: 10 !important;
+	
+	/* Scale and Fade transition */
+	transform-origin: center center !important;
+	transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out !important;
+}
+
+/* Hide badge completely when cart is empty */
+.robo-cart-badge.d-none,
+.robo-cart-badge[data-count="0"] {
+	display: none !important;
+	opacity: 0 !important;
+	transform: scale(0) !important;
+}
+
+/* Pulse / Scale Pop Keyframes when count updates */
+@keyframes rzpBadgePop {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.4);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.robo-cart-badge.badge-pop {
+	animation: rzpBadgePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+}
+
+
 
 
 
