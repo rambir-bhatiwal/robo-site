@@ -2076,6 +2076,159 @@ form.checkout_coupon {
 	opacity: 0.65 !important;
 }
 
+/* ==========================================================================
+   Robo WooCommerce Expandable Product Search Styles
+   ========================================================================== */
+
+.robo-search-nav-item {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+}
+
+.robo-search-toggle-btn {
+	cursor: pointer;
+	transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+	z-index: 1045;
+	outline: none !important;
+	width: 36px;
+	height: 36px;
+	border-radius: 50% !important;
+}
+
+.robo-search-toggle-btn:hover {
+	color: var(--bs-primary, #0d6efd) !important;
+	background-color: #f8f9fa !important;
+}
+
+/* Desktop Expandable Container (Animates right-to-left width, opacity, visibility) */
+.robo-desktop-expandable-search {
+	position: absolute;
+	right: 100% !important;
+	top: 50%;
+	transform: translateY(-50%);
+	margin-right: 8px;
+	width: 0;
+	opacity: 0;
+	visibility: hidden;
+	overflow: hidden;
+	transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+	            opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+	            visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	white-space: nowrap;
+	z-index: 1040;
+	pointer-events: none;
+}
+
+.robo-desktop-expandable-search .robo-search-wrapper {
+	width: 320px;
+}
+
+/* Expanded Active State */
+.robo-search-nav-item.is-expanded .robo-desktop-expandable-search {
+	width: 320px;
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+.robo-search-nav-item.is-expanded .search-open-icon {
+	display: none !important;
+}
+
+.robo-search-nav-item.is-expanded .search-close-icon {
+	display: inline-flex !important;
+}
+
+
+/* Input group styling & focus states */
+.robo-search-input-group {
+	background-color: #ffffff;
+	border: 1px solid #dee2e6 !important;
+	transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.robo-search-input-group:focus-within {
+	border-color: var(--bs-primary, #0d6efd) !important;
+	box-shadow: 0 0.25rem 0.75rem rgba(13, 110, 253, 0.15) !important;
+}
+
+.robo-search-input {
+	font-size: 0.9rem;
+	color: #212529;
+}
+
+.robo-search-input::-webkit-search-cancel-button,
+.robo-search-input::-webkit-search-decoration {
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.robo-search-input::placeholder {
+	color: #6c757d;
+	opacity: 0.75;
+}
+
+.robo-search-input:focus {
+	outline: none;
+	box-shadow: none !important;
+}
+
+.robo-search-clear-btn {
+	cursor: pointer;
+	line-height: 1;
+	transition: color 0.15s ease-in-out;
+}
+
+.robo-search-clear-btn:hover {
+	color: #dc3545 !important;
+}
+
+/* Live Search Dropdown */
+.robo-search-dropdown {
+	display: none;
+	opacity: 0;
+	transform: translateY(8px);
+	transition: opacity 0.2s ease, transform 0.2s ease;
+	max-height: 440px;
+	overflow-y: auto;
+	background-color: #ffffff;
+	box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15) !important;
+	border-radius: 0.75rem !important;
+	z-index: 1050;
+}
+
+.robo-search-dropdown.show {
+	display: block;
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.robo-search-item {
+	transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+	text-decoration: none;
+	color: inherit;
+	white-space: normal;
+}
+
+.robo-search-item:hover,
+.robo-search-item.active,
+.robo-search-item:focus {
+	background-color: #f8f9fa !important;
+	color: var(--bs-primary, #0d6efd) !important;
+}
+
+.robo-search-item.active {
+	border-left: 3px solid var(--bs-primary, #0d6efd) !important;
+}
+
+/* Mobile search top layout */
+.robo-mobile-menu-search {
+	border-bottom: 1px solid #e9ecef;
+	padding-bottom: 1rem;
+}
+
+
 
 
 

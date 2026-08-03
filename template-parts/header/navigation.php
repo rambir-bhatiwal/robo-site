@@ -32,18 +32,42 @@ if ( is_user_logged_in() ) {
 	}
 }
 
-// Generate the HTML for the menu item    <i class="bi bi-person-circle me-1"></i>
+// Generate the HTML for the login menu item
 $login_menu_item = sprintf(
 	'<li class="menu-item nav-item"><a href="%s" class="nav-link">%s</a></li>',
 	esc_url( $login_url ),
 	esc_html( $login_text )
+);
+
+// Buffer the desktop expandable search template part
+ob_start();
+get_template_part( 'template-parts/header/search-bar', null, array( 'id_suffix' => 'desktop' ) );
+$desktop_search_html = ob_get_clean();
+
+// Generate the Search Toggle menu item for Desktop navigation
+$search_menu_item = sprintf(
+	'<li class="menu-item nav-item position-relative robo-search-nav-item d-none d-lg-flex align-items-center ms-lg-2">
+		<button type="button" class="nav-link border-0 bg-transparent p-1 d-inline-flex align-items-center justify-content-center robo-search-toggle-btn text-dark hover-primary" aria-label="%s" aria-expanded="false">
+			<span class="search-open-icon d-inline-flex align-items-center justify-content-center">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+			</span>
+			<span class="search-close-icon d-none align-items-center justify-content-center">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+			</span>
+		</button>
+		<div class="robo-desktop-expandable-search position-absolute top-50 translate-middle-y">
+			%s
+		</div>
+	</li>',
+	esc_attr__( 'Toggle product search', 'robo' ),
+	$desktop_search_html
 );
 ?>
 <nav class="navbar navbar-expand-lg py-3 navbar-light bg-white" aria-label="<?php esc_attr_e( 'Main Navigation', 'robo' ); ?>">
 	<div class="<?php echo esc_attr( $container_class ); ?>">
 		
 		<!-- Brand/Logo -->
-		<div class="site-branding d-flex align-items-center">
+		<div class="site-branding d-flex align-items-center me-lg-3">
 			<?php
 			if ( has_custom_logo() ) {
 				the_custom_logo();
@@ -64,6 +88,12 @@ $login_menu_item = sprintf(
 
 		<!-- Collapsible Navbar Content -->
 		<div class="collapse navbar-collapse" id="primaryNavbar">
+			
+			<!-- Mobile Menu Search Input (Visible at top of mobile menu when opened) -->
+			<div class="d-lg-none w-100 mb-3 pt-2 robo-mobile-menu-search">
+				<?php get_template_part( 'template-parts/header/search-bar', null, array( 'id_suffix' => 'mobile', 'is_mobile' => true ) ); ?>
+			</div>
+
 			<?php
 			if ( has_nav_menu( 'primary' ) ) {
 				wp_nav_menu(
@@ -71,21 +101,21 @@ $login_menu_item = sprintf(
 						'theme_location' => 'primary',
 						'depth'          => 3,
 						'container'      => false,
-						'menu_class'     => 'navbar-nav mx-auto mb-2 mb-lg-0 fw-medium',
+						'menu_class'     => 'navbar-nav mx-auto mb-2 mb-lg-0 fw-medium align-items-lg-center',
 						'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
 						'walker'         => new Robo_WP_Bootstrap_Navwalker(),
-						'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s' . $login_menu_item . '</ul>',
+						'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s' . $login_menu_item . $search_menu_item . '</ul>',
 					)
 				);
 			} else {
 				// Fallback to custom menu items or page list.
-				$page_menu_filter = function( $menu ) use ( $login_menu_item ) {
-					return str_replace( '</ul>', $login_menu_item . '</ul>', $menu );
+				$page_menu_filter = function( $menu ) use ( $login_menu_item, $search_menu_item ) {
+					return str_replace( '</ul>', $login_menu_item . $search_menu_item . '</ul>', $menu );
 				};
 				add_filter( 'wp_page_menu', $page_menu_filter );
 				wp_page_menu(
 					array(
-						'menu_class'  => 'navbar-nav mx-auto mb-2 mb-lg-0',
+						'menu_class'  => 'navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center',
 						'before'      => '',
 						'after'       => '',
 						'show_home'   => true,
@@ -97,38 +127,13 @@ $login_menu_item = sprintf(
 			}
 			?>
 
-			<!-- Right Actions (Search & Call & CTA) -->
+			<!-- Right Actions (Call / CTA) -->
 			<div class="d-flex align-items-center gap-3 mt-3 mt-lg-0 flex-column flex-lg-row align-self-stretch align-self-lg-center">
-				
-				<!-- Search Icon/Form Toggle -->
-				<!-- <div class="header-search-wrapper position-relative w-100 w-lg-auto text-center">
-					<button class="btn btn-outline-secondary btn-sm rounded-circle d-none d-lg-inline-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" type="button" data-bs-toggle="collapse" data-bs-target="#headerSearchCollapse" aria-expanded="false" aria-controls="headerSearchCollapse" aria-label="<?php // esc_attr_e( 'Search', 'robo' ); ?>">
-						<?php // echo robo_get_svg( 'search' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-					</button> -->
-					
-					<!-- Collapsible Search Bar (Desktop) -->
-					<!-- <div class="collapse position-absolute end-0 mt-3 bg-white p-3 rounded shadow border z-3" id="headerSearchCollapse" style="width: 300px;">
-						<?php // get_search_form(); ?>
-					</div> -->
-					
-					<!-- Inline Search for Mobile -->
-					<!-- <div class="d-block d-lg-none w-100">
-						<?php // get_search_form(); ?>
-					</div>
-				</div> -->
-
-				<!-- Call Action -->
-				<!-- <a href="<?php echo esc_url( 'tel:' . str_replace( ' ', '', robo_get_company_info( 'phone_number' ) ) ); ?>" class="btn btn-outline-primary w-100 w-lg-auto d-flex align-items-center justify-content-center gap-2">
-					<?php // echo robo_get_svg( 'phone' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-					<span><?php // esc_html_e( 'Call Now', 'robo' ); ?></span>
-				</a> -->
-
-				<!-- CTA Button -->
-				<?php //  if ( ! empty( $cta_text ) ) : ?>
-					<!-- <a href="<?php //  echo esc_url( $cta_url ); ?>" class="btn btn-primary w-100 w-lg-auto shadow-sm">
-						<?php //  echo esc_html( $cta_text ); ?>
-					</a> -->
-				<?php //  endif; ?>
+				<?php if ( ! empty( $cta_text ) ) : ?>
+					<a href="<?php echo esc_url( $cta_url ); ?>" class="btn btn-primary w-100 w-lg-auto shadow-sm rounded-pill px-4">
+						<?php echo esc_html( $cta_text ); ?>
+					</a>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
