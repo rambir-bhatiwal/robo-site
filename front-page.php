@@ -1,9 +1,9 @@
 <?php
 /**
- * The front page template file.
+ * The front page template file for the modern STEM & Robotics Homepage.
  *
- * If the user has selected "a static page" for their homepage, this file
- * will be used to render the front page, loading all sections.
+ * Loads all 19 new homepage v2 sections sequentially without altering
+ * the theme header, topbar, or footer.
  *
  * @package Robo
  */
@@ -14,26 +14,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-// List of homepage sections to render.
-$homepage_sections = array(
+// Sequential array of all 19 Homepage V2 sections.
+$homepage_v2_sections = array(
 	'hero',
-	// 'about',
-	// 'services',
-	'popular-products',
-	'features',
-	'portfolio',
-	// 'counter',
-	// 'testimonials',
-	'team',
-	'pricing',
-	// 'faq',
-	// 'latest-blog',
+	'trust-bar',
+	'categories',
+	'featured-kits',
+	'bestsellers',
+	'ai-learning',
+	'why-choose-us',
+	'learning-resources',
+	'project-showcase',
+	'stem-programs',
+	'workshops',
+	'success-stories',
+	'testimonials',
+	'partner-schools',
+	'brand-logos',
+	'latest-blogs',
+	'faq',
 	'newsletter',
-	// 'contact',
+	'final-cta',
 );
 
-foreach ( $homepage_sections as $section ) {
-	get_template_part( 'template-parts/sections/' . $section );
+foreach ( $homepage_v2_sections as $section ) {
+	get_template_part( 'template-parts/sections/homepage-v2/' . $section );
 }
 
 get_footer();

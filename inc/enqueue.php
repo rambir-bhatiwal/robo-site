@@ -79,6 +79,25 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 			true
 		);
 
+		// Enqueue Homepage V2 styles and scripts on Front Page.
+		if ( is_front_page() || is_page_template( 'front-page.php' ) ) {
+			wp_enqueue_style(
+				'robo-homepage-v2-styles',
+				ROBO_THEME_URI . '/assets/css/homepage-v2.css',
+				array( 'robo-custom-style' ),
+				ROBO_THEME_VERSION,
+				'all'
+			);
+
+			wp_enqueue_script(
+				'robo-homepage-v2-scripts',
+				ROBO_THEME_URI . '/assets/js/homepage-v2.js',
+				array( 'jquery', 'bootstrap-bundle' ),
+				ROBO_THEME_VERSION,
+				true
+			);
+		}
+
 		// Enqueue Comment Reply script if threaded comments are active.
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );

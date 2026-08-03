@@ -167,12 +167,51 @@ function robo_customize_register( $wp_customize ) {
 	// ----------------------------------------------------
 	// Section: Hero settings
 	// ----------------------------------------------------
+	// ----------------------------------------------------
+	// Section: Hero settings
+	// ----------------------------------------------------
 	$wp_customize->add_section(
 		'robo_hero_section',
 		array(
 			'title'    => esc_html__( 'Hero Section Settings', 'robo' ),
 			'panel'    => 'robo_options_panel',
 			'priority' => 30,
+		)
+	);
+
+	// General Enable
+	$wp_customize->add_setting(
+		'robo_hero_enable',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'wp_validate_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_enable',
+		array(
+			'type'     => 'checkbox',
+			'label'    => esc_html__( 'Enable Hero Section', 'robo' ),
+			'section'  => 'robo_hero_section',
+		)
+	);
+
+	// Background Colors & Image
+	$wp_customize->add_setting(
+		'robo_hero_bg_color',
+		array(
+			'default'           => '#FFFFFF',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'robo_hero_bg_color',
+			array(
+				'label'   => esc_html__( 'Background Color', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
 		)
 	);
 
@@ -188,166 +227,709 @@ function robo_customize_register( $wp_customize ) {
 			$wp_customize,
 			'robo_hero_bg_image',
 			array(
-				'label'   => esc_html__( 'Hero Background Image', 'robo' ),
+				'label'   => esc_html__( 'Background Image', 'robo' ),
 				'section' => 'robo_hero_section',
 			)
 		)
 	);
 
 	$wp_customize->add_setting(
-		'robo_hero_image',
+		'robo_hero_overlay_color',
 		array(
-			// 'default'           => 'https://app.roboscaler.com/wp-content/uploads/2026/07/513ac378-2fee-4500-8756-c9fb74781012.png',
-			'default'           => 'https://roboscaler.com/wp-content/uploads/2026/07/ChatGPT-Image-Mar-13-2026-02_28_53-PM-3-1024x683.png',
+			'default'           => '#000000',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'robo_hero_overlay_color',
+			array(
+				'label'   => esc_html__( 'Background Overlay Color', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_overlay_opacity',
+		array(
+			'default'           => '0',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_overlay_opacity',
+		array(
+			'type'        => 'text',
+			'label'       => esc_html__( 'Background Overlay Opacity (0 to 1)', 'robo' ),
+			'description' => esc_html__( 'e.g. 0.1 for 10% opacity, 0 for transparent', 'robo' ),
+			'section'     => 'robo_hero_section',
+		)
+	);
+
+	// Top Badge
+	$wp_customize->add_setting(
+		'robo_hero_badge_enable',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'wp_validate_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_badge_enable',
+		array(
+			'type'     => 'checkbox',
+			'label'    => esc_html__( 'Show Top Badge', 'robo' ),
+			'section'  => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_badge_icon',
+		array(
+			'default'           => 'bi-robot',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_badge_icon',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Badge Icon Class', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_badge_text',
+		array(
+			'default'           => 'ROBOTICS KIT',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_badge_text',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Badge Text', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_badge_bg_color',
+		array(
+			'default'           => '#F3F4F6',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'robo_hero_badge_bg_color',
+			array(
+				'label'   => esc_html__( 'Badge Background Color', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_badge_text_color',
+		array(
+			'default'           => '#000000',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'robo_hero_badge_text_color',
+			array(
+				'label'   => esc_html__( 'Badge Text Color', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	// Main Heading
+	$wp_customize->add_setting(
+		'robo_hero_heading_line1',
+		array(
+			'default'           => 'BUILD YOUR OWN',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_heading_line1',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Heading Line 1', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_heading_line2',
+		array(
+			'default'           => 'MINI SUMO',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_heading_line2',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Heading Line 2 (Highlighted)', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_heading_line3',
+		array(
+			'default'           => 'ROBOT',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_heading_line3',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Heading Line 3', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_heading_color',
+		array(
+			'default'           => '#000000',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'robo_hero_heading_color',
+			array(
+				'label'   => esc_html__( 'Heading Color', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_heading_highlight_color',
+		array(
+			'default'           => '#FF0000',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'robo_hero_heading_highlight_color',
+			array(
+				'label'   => esc_html__( 'Line 2 Highlight Color', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	// Sub Heading
+	$wp_customize->add_setting(
+		'robo_hero_subheading',
+		array(
+			'default'           => "India's Most Advanced Mini Sumo Robot Kit",
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_subheading',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Sub Heading Text', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_subheading_highlight',
+		array(
+			'default'           => 'Advanced',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_subheading_highlight',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Sub Heading Highlight Word', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_subheading_highlight_color',
+		array(
+			'default'           => '#FF0000',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'robo_hero_subheading_highlight_color',
+			array(
+				'label'   => esc_html__( 'Sub Heading Highlight Color', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_subheading_color',
+		array(
+			'default'           => '#000000',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'robo_hero_subheading_color',
+			array(
+				'label'   => esc_html__( 'Sub Heading Text Color', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	// Description
+	$wp_customize->add_setting(
+		'robo_hero_description',
+		array(
+			'default'           => 'Assemble, program, and battle with high-torque motors, custom sensors, and robust chassis engineering. Designed for STEM learning and competitions.',
+			'sanitize_callback' => 'sanitize_textarea_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_description',
+		array(
+			'type'    => 'textarea',
+			'label'   => esc_html__( 'Description Paragraph', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	// Feature Cards 1, 2, 3
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$def_icon  = ( 1 === $i ) ? 'bi-cpu-fill' : ( ( 2 === $i ) ? 'bi-gear-wide-connected' : 'bi-lightning-charge-fill' );
+		$def_title = ( 1 === $i ) ? 'ESP32' : ( ( 2 === $i ) ? 'Dual' : 'LiPo' );
+		$def_desc  = ( 1 === $i ) ? 'Processor' : ( ( 2 === $i ) ? 'Motors' : 'Battery' );
+
+		$wp_customize->add_setting(
+			"robo_hero_card{$i}_enable",
+			array(
+				'default'           => true,
+				'sanitize_callback' => 'wp_validate_boolean',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_hero_card{$i}_enable",
+			array(
+				'type'    => 'checkbox',
+				'label'   => sprintf( esc_html__( 'Enable Feature Card %d', 'robo' ), $i ),
+				'section' => 'robo_hero_section',
+			)
+		);
+
+		$wp_customize->add_setting(
+			"robo_hero_card{$i}_icon",
+			array(
+				'default'           => $def_icon,
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_hero_card{$i}_icon",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Card %d Icon Class', 'robo' ), $i ),
+				'section' => 'robo_hero_section',
+			)
+		);
+
+		$wp_customize->add_setting(
+			"robo_hero_card{$i}_title",
+			array(
+				'default'           => $def_title,
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_hero_card{$i}_title",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Card %d Title', 'robo' ), $i ),
+				'section' => 'robo_hero_section',
+			)
+		);
+
+		$wp_customize->add_setting(
+			"robo_hero_card{$i}_desc",
+			array(
+				'default'           => $def_desc,
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_hero_card{$i}_desc",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Card %d Subtitle', 'robo' ), $i ),
+				'section' => 'robo_hero_section',
+			)
+		);
+	}
+
+	// Primary Button
+	$wp_customize->add_setting(
+		'robo_hero_btn_enable',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'wp_validate_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_btn_enable',
+		array(
+			'type'    => 'checkbox',
+			'label'   => esc_html__( 'Show Primary Button', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_btn_text',
+		array(
+			'default'           => 'Explore Robots',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_btn_text',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Primary Button Text', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_btn_url',
+		array(
+			'default'           => '#shop',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_btn_url',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Primary Button URL', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_btn_icon',
+		array(
+			'default'           => 'bi-robot',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_btn_icon',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Primary Button Icon Class', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	// Secondary Button
+	$wp_customize->add_setting(
+		'robo_hero_btn2_enable',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'wp_validate_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_btn2_enable',
+		array(
+			'type'    => 'checkbox',
+			'label'   => esc_html__( 'Show Secondary Button', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_btn2_text',
+		array(
+			'default'           => 'Watch Video',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_btn2_text',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Secondary Button Text', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_btn2_url',
+		array(
+			'default'           => '#video',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_btn2_url',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Secondary Button URL', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_btn2_icon',
+		array(
+			'default'           => 'bi-play-circle-fill',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_btn2_icon',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Secondary Button Icon Class', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	// Bottom Information Row
+	$wp_customize->add_setting(
+		'robo_hero_info_star_icon',
+		array(
+			'default'           => 'bi-star-fill',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_info_star_icon',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Bottom Row Star Icon Class', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_info_star_color',
+		array(
+			'default'           => '#FF0000',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'robo_hero_info_star_color',
+			array(
+				'label'   => esc_html__( 'Bottom Row Star Icon Color', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_info_item1',
+		array(
+			'default'           => '100% STEM Kit',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_info_item1',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Bottom Info Item 1', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_info_item2',
+		array(
+			'default'           => 'Made in India',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_info_item2',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Bottom Info Item 2', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_info_item3',
+		array(
+			'default'           => 'Free Shipping',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_info_item3',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Bottom Info Item 3', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	// Top Right Floating Information Card
+	$wp_customize->add_setting(
+		'robo_hero_floating_card_enable',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'wp_validate_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_floating_card_enable',
+		array(
+			'type'    => 'checkbox',
+			'label'   => esc_html__( 'Show Top-Right Floating Card', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_floating_card_title_part1',
+		array(
+			'default'           => '3-in-1',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_floating_card_title_part1',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Floating Card Title Highlight (Red)', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'robo_hero_floating_card_title_part2',
+		array(
+			'default'           => 'Robot',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'robo_hero_floating_card_title_part2',
+		array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Floating Card Title Regular (Black)', 'robo' ),
+			'section' => 'robo_hero_section',
+		)
+	);
+
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$def_icon  = ( 1 === $i ) ? 'bi-robot' : ( ( 2 === $i ) ? 'bi-car-front-fill' : 'bi-dribbble' );
+		$def_label = ( 1 === $i ) ? 'Sumo Bot' : ( ( 2 === $i ) ? 'Racer Bot' : 'Soccer Bot' );
+
+		$wp_customize->add_setting(
+			"robo_hero_floating_item{$i}_icon",
+			array(
+				'default'           => $def_icon,
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_hero_floating_item{$i}_icon",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Floating Card Item %d Icon Class', 'robo' ), $i ),
+				'section' => 'robo_hero_section',
+			)
+		);
+
+		$wp_customize->add_setting(
+			"robo_hero_floating_item{$i}_label",
+			array(
+				'default'           => $def_label,
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			"robo_hero_floating_item{$i}_label",
+			array(
+				'type'    => 'text',
+				'label'   => sprintf( esc_html__( 'Floating Card Item %d Label', 'robo' ), $i ),
+				'section' => 'robo_hero_section',
+			)
+		);
+	}
+
+	// Product Image Control
+	$wp_customize->add_setting(
+		'robo_hero_product_image',
+		array(
+			'default'           => '',
 			'sanitize_callback' => 'esc_url_raw',
 		)
 	);
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
 			$wp_customize,
-			'robo_hero_image',
+			'robo_hero_product_image',
 			array(
-				'label'       => esc_html__( 'Hero Main/Featured Image', 'robo' ),
-				'description' => esc_html__( 'The main featured image shown on the right side of the hero section.', 'robo' ),
+				'label'       => esc_html__( 'Hero Product Image', 'robo' ),
+				'description' => esc_html__( 'Upload/Select the main featured robot product image.', 'robo' ),
 				'section'     => 'robo_hero_section',
 			)
 		)
 	);
 
 	$wp_customize->add_setting(
-		'robo_hero_title',
+		'robo_hero_product_image_alt',
 		array(
-			'default'           => esc_html__( 'Build Smarter Digital Experiences with Robo', 'robo' ),
-			'sanitize_callback' => 'sanitize_text_field',
-			'transport'         => 'postMessage',
-		)
-	);
-	$wp_customize->add_control(
-		'robo_hero_title',
-		array(
-			'type'    => 'text',
-			'label'   => esc_html__( 'Hero Title', 'robo' ),
-			'section' => 'robo_hero_section',
-		)
-	);
-
-	$wp_customize->add_setting(
-		'robo_hero_subtitle',
-		array(
-			'default'           => esc_html__( 'Robo is a 100% custom-designed WordPress theme using Bootstrap 5 to launch elegant, clean websites fast.', 'robo' ),
-			'sanitize_callback' => 'sanitize_text_field',
-			'transport'         => 'postMessage',
-		)
-	);
-	$wp_customize->add_control(
-		'robo_hero_subtitle',
-		array(
-			'type'    => 'textarea',
-			'label'   => esc_html__( 'Hero Subtitle', 'robo' ),
-			'section' => 'robo_hero_section',
-		)
-	);
-
-	// Hero Button 1
-	$wp_customize->add_setting(
-		'robo_hero_btn1_text',
-		array(
-			'default'           => esc_html__( 'Get Started', 'robo' ),
+			'default'           => 'Mini Sumo Robot Kit',
 			'sanitize_callback' => 'sanitize_text_field',
 		)
 	);
 	$wp_customize->add_control(
-		'robo_hero_btn1_text',
+		'robo_hero_product_image_alt',
 		array(
 			'type'    => 'text',
-			'label'   => esc_html__( 'Button 1 Text', 'robo' ),
+			'label'   => esc_html__( 'Product Image Alt Text', 'robo' ),
 			'section' => 'robo_hero_section',
 		)
 	);
 
-	$wp_customize->add_setting(
-		'robo_hero_btn1_url',
-		array(
-			'default'           => '#contact',
-			'sanitize_callback' => 'esc_url_raw',
-		)
-	);
-	$wp_customize->add_control(
-		'robo_hero_btn1_url',
-		array(
-			'type'    => 'text',
-			'label'   => esc_html__( 'Button 1 URL', 'robo' ),
-			'section' => 'robo_hero_section',
-		)
-	);
-
-	// Hero Button 2
-	$wp_customize->add_setting(
-		'robo_hero_btn2_text',
-		array(
-			'default'           => esc_html__( 'Learn More', 'robo' ),
-			'sanitize_callback' => 'sanitize_text_field',
-		)
-	);
-	$wp_customize->add_control(
-		'robo_hero_btn2_text',
-		array(
-			'type'    => 'text',
-			'label'   => esc_html__( 'Button 2 Text', 'robo' ),
-			'section' => 'robo_hero_section',
-		)
-	);
-
-	$wp_customize->add_setting(
-		'robo_hero_btn2_url',
-		array(
-			'default'           => '#about',
-			'sanitize_callback' => 'esc_url_raw',
-		)
-	);
-	$wp_customize->add_control(
-		'robo_hero_btn2_url',
-		array(
-			'type'    => 'text',
-			'label'   => esc_html__( 'Button 2 URL', 'robo' ),
-			'section' => 'robo_hero_section',
-		)
-	);
-
-	// Statistics
-	for ( $i = 1; $i <= 4; $i++ ) {
-		$wp_customize->add_setting(
-			"robo_hero_stat{$i}_value",
-			array(
-				'default'           => $i === 1 ? '99%' : ( $i === 2 ? '150+' : ( $i === 3 ? '15M+' : '24/7' ) ),
-				'sanitize_callback' => 'sanitize_text_field',
-			)
-		);
-		$wp_customize->add_control(
-			"robo_hero_stat{$i}_value",
-			array(
-				'type'    => 'text',
-				'label'   => sprintf( esc_html__( 'Stat %d Value', 'robo' ), $i ),
-				'section' => 'robo_hero_section',
-			)
-		);
-
-		$wp_customize->add_setting(
-			"robo_hero_stat{$i}_label",
-			array(
-				'default'           => $i === 1 ? 'Customer Satisfaction' : ( $i === 2 ? 'Successful Projects' : ( $i === 3 ? 'Lines of Code' : 'Dedicated Support' ) ),
-				'sanitize_callback' => 'sanitize_text_field',
-			)
-		);
-		$wp_customize->add_control(
-			"robo_hero_stat{$i}_label",
-			array(
-				'type'    => 'text',
-				'label'   => sprintf( esc_html__( 'Stat %d Label', 'robo' ), $i ),
-				'section' => 'robo_hero_section',
-			)
-		);
-	}
 
 	// ----------------------------------------------------
 	// Section: Company Information

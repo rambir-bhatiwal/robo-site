@@ -1,0 +1,444 @@
+/* ==========================================================================
+   Robo Theme - Homepage V2 Design System & Custom Styles
+   ========================================================================== */
+
+:root {
+	--robo-v2-primary: #FF4D30;
+	--robo-v2-primary-hover: #E03E22;
+	--robo-v2-cyan: #00D2FF;
+	--robo-v2-indigo: #4F46E5;
+	--robo-v2-purple: #7C3AED;
+	--robo-v2-dark: #0F172A;
+	--robo-v2-dark-card: #1E293B;
+	--robo-v2-muted: #64748B;
+	--robo-v2-light-bg: #F8FAFC;
+	--robo-v2-glass-bg: rgba(255, 255, 255, 0.85);
+	--robo-v2-glass-border: rgba(226, 232, 240, 0.8);
+	--robo-v2-radius-sm: 8px;
+	--robo-v2-radius-md: 16px;
+	--robo-v2-radius-lg: 24px;
+	--robo-v2-shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+	--robo-v2-shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+	--robo-v2-shadow-lg: 0 20px 35px -10px rgba(15, 23, 42, 0.12), 0 10px 15px -5px rgba(15, 23, 42, 0.06);
+	--robo-v2-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Styles & Typography */
+.robo-v2-section {
+	position: relative;
+	padding: 5rem 0;
+	overflow: hidden;
+}
+
+.robo-v2-bg-light {
+	background-color: var(--robo-v2-light-bg);
+}
+
+.robo-v2-bg-dark {
+	background-color: var(--robo-v2-dark);
+	color: #FFFFFF;
+}
+
+.robo-v2-bg-gradient {
+	background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #0F172A 100%);
+	color: #FFFFFF;
+}
+
+/* Badge styling */
+.robo-v2-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.4rem 1rem;
+	border-radius: 9999px;
+	font-size: 0.8125rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	background: rgba(255, 77, 48, 0.1);
+	color: var(--robo-v2-primary);
+	border: 1px solid rgba(255, 77, 48, 0.25);
+}
+
+.robo-v2-badge-cyan {
+	background: rgba(0, 210, 255, 0.1);
+	color: #00B4D8;
+	border: 1px solid rgba(0, 210, 255, 0.25);
+}
+
+.robo-v2-badge-purple {
+	background: rgba(124, 58, 237, 0.1);
+	color: var(--robo-v2-purple);
+	border: 1px solid rgba(124, 58, 237, 0.25);
+}
+
+/* Section Header Typography */
+.robo-v2-section-title {
+	font-size: clamp(1.875rem, 4vw, 2.75rem);
+	font-weight: 800;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	margin-bottom: 1rem;
+}
+
+.robo-v2-gradient-text {
+	background: linear-gradient(135deg, #FF4D30 0%, #FF7A00 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.robo-v2-gradient-text-blue {
+	background: linear-gradient(135deg, #00D2FF 0%, #3A7BD5 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.robo-v2-gradient-text-purple {
+	background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.robo-v2-section-desc {
+	font-size: 1.125rem;
+	color: var(--robo-v2-muted);
+	max-width: 680px;
+	margin-left: auto;
+	margin-right: auto;
+	line-height: 1.6;
+}
+
+/* Custom Buttons */
+.robo-v2-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.625rem;
+	padding: 0.875rem 1.875rem;
+	font-weight: 700;
+	font-size: 1rem;
+	border-radius: var(--robo-v2-radius-md);
+	transition: var(--robo-v2-transition);
+	text-decoration: none;
+	cursor: pointer;
+	border: none;
+	line-height: 1.2;
+}
+
+.robo-v2-btn-primary {
+	background: linear-gradient(135deg, #FF4D30 0%, #FF6B4A 100%);
+	color: #FFFFFF !important;
+	box-shadow: 0 8px 20px -4px rgba(255, 77, 48, 0.4);
+}
+
+.robo-v2-btn-primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 25px -4px rgba(255, 77, 48, 0.5);
+	background: linear-gradient(135deg, #E03E22 0%, #FF4D30 100%);
+}
+
+.robo-v2-btn-secondary {
+	background: #FFFFFF;
+	color: var(--robo-v2-dark) !important;
+	border: 1px solid var(--robo-v2-glass-border);
+	box-shadow: var(--robo-v2-shadow-sm);
+}
+
+.robo-v2-btn-secondary:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--robo-v2-shadow-md);
+	border-color: var(--robo-v2-primary);
+	color: var(--robo-v2-primary) !important;
+}
+
+.robo-v2-btn-outline-white {
+	background: rgba(255, 255, 255, 0.08);
+	color: #FFFFFF !important;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(8px);
+}
+
+.robo-v2-btn-outline-white:hover {
+	background: rgba(255, 255, 255, 0.2);
+	color: #FFFFFF !important;
+	transform: translateY(-2px);
+}
+
+/* Glassmorphism Cards */
+.robo-v2-card {
+	background: #FFFFFF;
+	border: 1px solid var(--robo-v2-glass-border);
+	border-radius: var(--robo-v2-radius-md);
+	box-shadow: var(--robo-v2-shadow-sm);
+	transition: var(--robo-v2-transition);
+	overflow: hidden;
+	height: 100%;
+}
+
+.robo-v2-card:hover {
+	transform: translateY(-6px);
+	box-shadow: var(--robo-v2-shadow-lg);
+	border-color: rgba(255, 77, 48, 0.3);
+}
+
+.robo-v2-card-dark {
+	background: rgba(30, 41, 59, 0.7);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(12px);
+	color: #FFFFFF;
+}
+
+.robo-v2-card-dark:hover {
+	border-color: rgba(0, 210, 255, 0.4);
+	box-shadow: 0 15px 30px -10px rgba(0, 210, 255, 0.15);
+}
+
+/* Icon Box */
+.robo-v2-icon-box {
+	width: 56px;
+	height: 56px;
+	border-radius: var(--robo-v2-radius-md);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
+	background: rgba(255, 77, 48, 0.1);
+	color: var(--robo-v2-primary);
+	margin-bottom: 1.25rem;
+	transition: var(--robo-v2-transition);
+}
+
+.robo-v2-card:hover .robo-v2-icon-box {
+	transform: scale(1.1) rotate(4deg);
+	background: var(--robo-v2-primary);
+	color: #FFFFFF;
+}
+
+.robo-v2-icon-box-cyan {
+	background: rgba(0, 210, 255, 0.1);
+	color: #00B4D8;
+}
+.robo-v2-card:hover .robo-v2-icon-box-cyan {
+	background: #00B4D8;
+	color: #FFFFFF;
+}
+
+.robo-v2-icon-box-purple {
+	background: rgba(124, 58, 237, 0.1);
+	color: var(--robo-v2-purple);
+}
+.robo-v2-card:hover .robo-v2-icon-box-purple {
+	background: var(--robo-v2-purple);
+	color: #FFFFFF;
+}
+
+/* Product Card Styling */
+.robo-v2-product-card {
+	background: #FFFFFF;
+	border: 1px solid var(--robo-v2-glass-border);
+	border-radius: var(--robo-v2-radius-md);
+	overflow: hidden;
+	transition: var(--robo-v2-transition);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.robo-v2-product-card:hover {
+	transform: translateY(-6px);
+	box-shadow: var(--robo-v2-shadow-lg);
+	border-color: rgba(255, 77, 48, 0.3);
+}
+
+.robo-v2-product-img-wrapper {
+	position: relative;
+	width: 100%;
+	padding-top: 75%; /* 4:3 Aspect ratio */
+	background: #F1F5F9;
+	overflow: hidden;
+}
+
+.robo-v2-product-img-wrapper img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.5s ease;
+}
+
+.robo-v2-product-card:hover .robo-v2-product-img-wrapper img {
+	transform: scale(1.08);
+}
+
+.robo-v2-product-badge {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	padding: 4px 10px;
+	border-radius: 999px;
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	z-index: 2;
+}
+
+.robo-v2-badge-hot {
+	background: #FF3B30;
+	color: #FFFFFF;
+}
+
+.robo-v2-badge-new {
+	background: #00D2FF;
+	color: #0F172A;
+}
+
+.robo-v2-badge-best {
+	background: #7C3AED;
+	color: #FFFFFF;
+}
+
+/* Dynamic Counter Cards */
+.robo-v2-stat-num {
+	font-size: 3rem;
+	font-weight: 800;
+	line-height: 1;
+	color: var(--robo-v2-primary);
+	margin-bottom: 0.5rem;
+	font-family: inherit;
+}
+
+/* Animations */
+.fade-in-up {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-up.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.fade-in-left {
+	opacity: 0;
+	transform: translateX(-30px);
+	transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-left.visible {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.fade-in-right {
+	opacity: 0;
+	transform: translateX(30px);
+	transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-right.visible {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.scale-in {
+	opacity: 0;
+	transform: scale(0.9);
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scale-in.visible {
+	opacity: 1;
+	transform: scale(1);
+}
+
+/* Floating animation */
+@keyframes floatAnimation {
+	0% { transform: translateY(0px); }
+	50% { transform: translateY(-12px); }
+	100% { transform: translateY(0px); }
+}
+
+.robo-v2-floating {
+	animation: floatAnimation 4s ease-in-out infinite;
+}
+
+/* Glowing background orb */
+.robo-v2-glow-orb {
+	position: absolute;
+	width: 350px;
+	height: 350px;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(255, 77, 48, 0.15) 0%, rgba(255, 77, 48, 0) 70%);
+	filter: blur(40px);
+	pointer-events: none;
+}
+
+.robo-v2-glow-orb-cyan {
+	background: radial-gradient(circle, rgba(0, 210, 255, 0.15) 0%, rgba(0, 210, 255, 0) 70%);
+}
+
+.robo-v2-glow-orb-purple {
+	background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0) 70%);
+}
+
+/* Category Grid Card */
+.robo-v2-cat-card {
+	position: relative;
+	border-radius: var(--robo-v2-radius-md);
+	overflow: hidden;
+	background: #FFFFFF;
+	border: 1px solid var(--robo-v2-glass-border);
+	padding: 2rem 1.5rem;
+	text-align: center;
+	transition: var(--robo-v2-transition);
+	height: 100%;
+}
+
+.robo-v2-cat-card:hover {
+	transform: translateY(-8px);
+	box-shadow: var(--robo-v2-shadow-lg);
+	border-color: var(--robo-v2-primary);
+}
+
+.robo-v2-cat-icon {
+	width: 68px;
+	height: 68px;
+	border-radius: 50%;
+	background: var(--robo-v2-light-bg);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 2rem;
+	color: var(--robo-v2-primary);
+	margin-bottom: 1.25rem;
+	transition: var(--robo-v2-transition);
+}
+
+.robo-v2-cat-card:hover .robo-v2-cat-icon {
+	background: var(--robo-v2-primary);
+	color: #FFFFFF;
+	transform: scale(1.1);
+}
+
+/* Responsive Overrides */
+@media (max-width: 991.98px) {
+	.robo-v2-section {
+		padding: 3.5rem 0;
+	}
+	.robo-v2-stat-num {
+		font-size: 2.25rem;
+	}
+}
+
+@media (max-width: 575.98px) {
+	.robo-v2-section {
+		padding: 2.5rem 0;
+	}
+	.robo-v2-btn {
+		width: 100%;
+	}
+}
