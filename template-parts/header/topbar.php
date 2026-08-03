@@ -31,14 +31,14 @@ foreach ( $social_links as $key => $url ) {
 			<div class="col-md-8 d-flex align-items-center flex-wrap justify-content-center justify-content-md-start gap-3 mb-2 mb-md-0">
 				<!-- Phone -->
 				<span class="text-muted small d-flex align-items-center gap-1">
-					<i class="bi bi-telephone-fill text-primary"></i>
+					<span class="text-primary"><?php echo robo_get_svg( 'phone' ); ?></span>
 					<a href="<?php echo esc_url( 'tel:' . str_replace( ' ', '', robo_get_company_info( 'phone_number' ) ) ); ?>" class="text-decoration-none text-muted hover-primary">
 						<?php echo esc_html( robo_get_company_info( 'phone_number' ) ); ?>
 					</a>
 				</span>
 				<!-- Email -->
 				<span class="text-muted small d-flex align-items-center gap-1">
-					<i class="bi bi-envelope-fill text-primary"></i>
+					<span class="text-primary"><?php echo robo_get_svg( 'email' ); ?></span>
 					<a href="<?php echo esc_url( 'https://mail.google.com/mail/?view=cm&fs=1&to=' . robo_get_company_info( 'support_email' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary">
 						<?php echo esc_html( robo_get_company_info( 'support_email' ) ); ?>
 					</a>
@@ -46,7 +46,7 @@ foreach ( $social_links as $key => $url ) {
 				<!-- Location -->
 				<span class="text-muted small d-flex align-items-center gap-1 d-none d-md-inline">
 					<a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary d-flex align-items-center gap-1">
-						<i class="bi bi-geo-alt-fill text-primary"></i>
+						<span class="text-primary"><?php echo robo_get_svg( 'location' ); ?></span>
 						<span class="topbar-address-text d-none d-md-inline"><?php echo esc_html( robo_get_company_info( 'address' ) ); ?></span>
 					</a>
 				</span>
@@ -60,7 +60,7 @@ foreach ( $social_links as $key => $url ) {
 						<!-- start >> Location icon for mobile only -->
 						<span class="text-muted small d-flex align-items-center gap-1 d-inline d-md-none">
 							<a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary d-flex align-items-center gap-1">
-								<i class="bi bi-geo-alt-fill"></i>
+								<?php echo robo_get_svg( 'location' ); ?>
 							</a>
 						</span>
 						<!-- End >> Location icon for mobile only -->
@@ -69,10 +69,10 @@ foreach ( $social_links as $key => $url ) {
 						foreach ( $social_links as $key => $url ) {
 							if ( $url ) {
 								printf(
-									'<a href="%1$s" class="text-muted hover-primary" target="_blank" rel="noopener noreferrer" aria-label="%2$s"><i class="bi bi-%3$s"></i></a>',
+									'<a href="%1$s" class="text-muted hover-primary d-inline-flex align-items-center" target="_blank" rel="noopener noreferrer" aria-label="%2$s">%3$s</a>',
 									esc_url( $url ),
 									esc_attr( ucfirst( $key ) ),
-									esc_attr( $key )
+									robo_get_svg( $key ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								);
 							}
 						}

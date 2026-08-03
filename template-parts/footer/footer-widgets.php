@@ -65,8 +65,8 @@ if ( 1 === $active_sidebars ) {
 					<p class="text-muted small mb-4 lh-lg" style="max-width: 320px;">
 						Engineered for competition, designed for innovators. We supply high-performance mini sumo bots, drone kits, and high-discharge battery cells to STEM classrooms and professional arenas.
 					</p>
-					<span class="small text-muted d-block">
-						<i class="bi bi-shield-fill-check text-primary me-2"></i><?php esc_html_e( '100% Secure Checkout', 'robo' ); ?>
+					<span class="small text-muted d-block d-flex align-items-center gap-1">
+						<span class="text-primary me-1"><?php echo robo_get_svg( 'shield-check' ); ?></span><?php esc_html_e( '100% Secure Checkout', 'robo' ); ?>
 					</span>
 				</div>
 
@@ -101,23 +101,23 @@ if ( 1 === $active_sidebars ) {
 					<h5 class="fw-bold text-white mb-3 text-uppercase tracking-wider" style="font-size: 0.85rem; letter-spacing: 0.5px;">
 						<?php esc_html_e( 'Engineering Lab', 'robo' ); ?>
 					</h5>
-					<p class="text-muted small mb-2 lh-lg">
-						<i class="bi bi-geo-alt-fill text-primary me-2"></i><a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'address' ) ); ?></a>
+					<p class="text-muted small mb-2 lh-lg d-flex align-items-center">
+						<span class="text-primary me-2"><?php echo robo_get_svg( 'location' ); ?></span><a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'address' ) ); ?></a>
 					</p>
-					<p class="text-muted small mb-2">
-						<i class="bi bi-envelope-fill text-primary me-2"></i><a href="<?php echo esc_url( 'https://mail.google.com/mail/?view=cm&fs=1&to=' . robo_get_company_info( 'support_email' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'support_email' ) ); ?></a>
+					<p class="text-muted small mb-2 d-flex align-items-center">
+						<span class="text-primary me-2"><?php echo robo_get_svg( 'email' ); ?></span><a href="<?php echo esc_url( 'https://mail.google.com/mail/?view=cm&fs=1&to=' . robo_get_company_info( 'support_email' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'support_email' ) ); ?></a>
 					</p>
-					<p class="text-muted small mb-2">
-						<i class="bi bi-telephone-fill text-primary me-2"></i><a href="<?php echo esc_url( 'tel:' . str_replace( ' ', '', robo_get_company_info( 'phone_number' ) ) ); ?>" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'phone_number' ) ); ?></a>
+					<p class="text-muted small mb-2 d-flex align-items-center">
+						<span class="text-primary me-2"><?php echo robo_get_svg( 'phone' ); ?></span><a href="<?php echo esc_url( 'tel:' . str_replace( ' ', '', robo_get_company_info( 'phone_number' ) ) ); ?>" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'phone_number' ) ); ?></a>
 					</p>
-					<p class="text-muted small mb-2">
-						<i class="bi bi-whatsapp text-primary me-2"></i><a href="<?php echo esc_url( robo_get_company_info( 'whatsapp_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php esc_html_e( 'WhatsApp', 'robo' ); ?></a>
+					<p class="text-muted small mb-2 d-flex align-items-center">
+						<span class="text-primary me-2"><?php echo robo_get_svg( 'whatsapp' ); ?></span><a href="<?php echo esc_url( robo_get_company_info( 'whatsapp_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php esc_html_e( 'WhatsApp', 'robo' ); ?></a>
 					</p>
-					<p class="text-muted small mb-2">
-						<i class="bi bi-instagram text-primary me-2"></i><a href="<?php echo esc_url( robo_get_company_info( 'instagram_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php esc_html_e( 'Instagram', 'robo' ); ?></a>
+					<p class="text-muted small mb-2 d-flex align-items-center">
+						<span class="text-primary me-2"><?php echo robo_get_svg( 'instagram' ); ?></span><a href="<?php echo esc_url( robo_get_company_info( 'instagram_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php esc_html_e( 'Instagram', 'robo' ); ?></a>
 					</p>
-					<p class="text-muted small mb-0">
-						<i class="bi bi-youtube text-primary me-2"></i><a href="<?php echo esc_url( robo_get_company_info( 'youtube_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'youtube_name' ) ); ?></a>
+					<p class="text-muted small mb-0 d-flex align-items-center">
+						<span class="text-primary me-2"><?php echo robo_get_svg( 'youtube' ); ?></span><a href="<?php echo esc_url( robo_get_company_info( 'youtube_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none hover-primary"><?php echo esc_html( robo_get_company_info( 'youtube_name' ) ); ?></a>
 					</p>
 				</div>
 			<?php endif; ?>

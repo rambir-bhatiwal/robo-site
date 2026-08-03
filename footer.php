@@ -76,10 +76,10 @@ foreach ( $social_links as $key => $url ) {
 								foreach ( $social_links as $key => $url ) {
 									if ( $url ) {
 										printf(
-											'<a href="%1$s" class="text-muted hover-primary" target="_blank" rel="noopener noreferrer" aria-label="%2$s"><i class="bi bi-%3$s fs-5"></i></a>',
+											'<a href="%1$s" class="text-muted hover-primary d-inline-flex align-items-center fs-5" target="_blank" rel="noopener noreferrer" aria-label="%2$s">%3$s</a>',
 											esc_url( $url ),
 											esc_attr( ucfirst( $key ) ),
-											esc_attr( $key )
+											robo_get_svg( $key ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 										);
 									}
 								}

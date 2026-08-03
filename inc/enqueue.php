@@ -9,6 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Preload Bootstrap Icons Webfont to eliminate icon render delays across the site.
+ */
+function robo_preload_icon_fonts() {
+	echo '<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/fonts/bootstrap-icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">' . "\n";
+}
+add_action( 'wp_head', 'robo_preload_icon_fonts', 1 );
+
 if ( ! function_exists( 'robo_scripts' ) ) {
 	/**
 	 * Enqueue styles and scripts.
