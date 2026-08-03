@@ -26,6 +26,7 @@
 		initCartQuantityMonitor();
 		initQuantityButtons();
 		initCheckoutCouponBridge();
+		initProductLiveSearch();
 	});
 
 	// Re-initialize custom quantity buttons after WooCommerce AJAX updates the cart
@@ -421,4 +422,316 @@
 		}
 	}
 
+	/**
+	 * AJAX Live Product Search with Expandable Desktop Input & Accessibility.
+	 */
+	function initProductLiveSearch() {
+		// Desktop Search Toggle Interaction
+		$(document).on('click', '.robo-search-toggle-btn', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var $toggleBtn = $(this);
+			var $navItem = $toggleBtn.closest('.robo-search-nav-item');
+			var $desktopInput = $navItem.find('.robo-search-input');
+
+			if ($navItem.hasClass('is-expanded')) {
+				$navItem.removeClass('is-expanded');
+				$toggleBtn.attr('aria-expanded', 'false');
+				$navItem.find('.robo-search-dropdown').removeClass('show').empty();
+			} else {
+				$navItem.addClass('is-expanded');
+				$toggleBtn.attr('aria-expanded', 'true');
+				setTimeout(function() {
+					$desktopInput.focus();
+				}, 150);
+			}
+		});
+
+		// Prevent clicks inside the expandable search container from closing it
+		$(document).on('click', '.robo-desktop-expandable-search', function(e) {
+			e.stopPropagation();
+		});
+
+		// Auto collapse if empty input loses focus
+		$(document).on('blur', '.robo-search-nav-item .robo-search-input', function() {
+			var $input = $(this);
+			var $navItem = $input.closest('.robo-search-nav-item');
+			setTimeout(function() {
+				if ($input.val().trim() === '' && !$navItem.find(':focus').length) {
+					$navItem.removeClass('is-expanded');
+					$navItem.find('.robo-search-toggle-btn').attr('aria-expanded', 'false');
+					$navItem.find('.robo-search-dropdown').removeClass('show').empty();
+				}
+			}, 200);
+		});
+
+		// ESC key listener to collapse
+		$(document).on('keydown', function(e) {
+			if (e.key === 'Escape') {
+				$('.robo-search-nav-item.is-expanded').each(function() {
+					var $navItem = $(this);
+					$navItem.removeClass('is-expanded');
+					$navItem.find('.robo-search-toggle-btn').attr('aria-expanded', 'false');
+					$navItem.find('.robo-search-dropdown').removeClass('show').empty();
+				});
+			}
+		});
+
+		// Click outside to collapse
+		$(document).on('click', function(e) {
+			if (!$(e.target).closest('.robo-search-nav-item').length) {
+				$('.robo-search-nav-item.is-expanded').each(function() {
+					var $navItem = $(this);
+					$navItem.removeClass('is-expanded');
+					$navItem.find('.robo-search-toggle-btn').attr('aria-expanded', 'false');
+					$navItem.find('.robo-search-dropdown').removeClass('show').empty();
+				});
+			}
+		});
+
+
+		// Live Search AJAX & Keyboard logic for all search wrappers
+		$('.robo-search-wrapper').each(function() {
+			var $wrapper = $(this);
+			var $input = $wrapper.find('.robo-search-input');
+			var $dropdown = $wrapper.find('.robo-search-dropdown');
+			var $clearBtn = $wrapper.find('.robo-search-clear-btn');
+
+			var searchTimeout = null;
+			var activeIndex = -1;
+
+			if (!$input.length || !$dropdown.length) return;
+
+			function toggleClearBtn() {
+				if ($input.val().length > 0) {
+					$clearBtn.removeClass('d-none');
+				} else {
+					$clearBtn.addClass('d-none');
+				}
+			}
+
+			toggleClearBtn();
+
+			$clearBtn.on('click', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				$input.val('').focus();
+				$clearBtn.addClass('d-none');
+				hideSpinner();
+				hideDropdown();
+			});
+
+			function showSpinner() {
+				$spinner.removeClass('d-none');
+			}
+
+			function hideSpinner() {
+				$spinner.addClass('d-none');
+			}
+
+			function showDropdown() {
+				$dropdown.addClass('show');
+				$input.attr('aria-expanded', 'true');
+			}
+
+			function hideDropdown() {
+				$dropdown.removeClass('show').empty();
+				$input.attr('aria-expanded', 'false');
+				$input.removeAttr('aria-activedescendant');
+				activeIndex = -1;
+			}
+
+			function updateActiveItem($items) {
+				$items.removeClass('active').attr('aria-selected', 'false');
+				if (activeIndex >= 0 && activeIndex < $items.length) {
+					var $activeItem = $items.eq(activeIndex);
+					$activeItem.addClass('active').attr('aria-selected', 'true');
+					$input.attr('aria-activedescendant', $activeItem.attr('id'));
+
+					var dropdownEl = $dropdown[0];
+					var itemEl = $activeItem[0];
+					if (itemEl && dropdownEl) {
+						var itemTop = itemEl.offsetTop;
+						var itemBottom = itemTop + itemEl.offsetHeight;
+						var dropdownTop = dropdownEl.scrollTop;
+						var dropdownBottom = dropdownTop + dropdownEl.clientHeight;
+
+						if (itemTop < dropdownTop) {
+							dropdownEl.scrollTop = itemTop;
+						} else if (itemBottom > dropdownBottom) {
+							dropdownEl.scrollTop = itemBottom - dropdownEl.clientHeight;
+						}
+					}
+				} else {
+					$input.removeAttr('aria-activedescendant');
+				}
+			}
+
+			function performSearch(query) {
+				if (query.length < 2) {
+					hideSpinner();
+					hideDropdown();
+					return;
+				}
+
+				showSpinner();
+
+				var ajaxUrl = (window.roboWooParams && window.roboWooParams.ajaxUrl) || (window.roboParams && window.roboParams.ajaxUrl) || params.ajaxUrl || '/wp-admin/admin-ajax.php';
+				var nonce = (window.roboWooParams && window.roboWooParams.nonce) || (window.roboParams && window.roboParams.nonce) || params.nonce || '';
+
+				$.ajax({
+					url: ajaxUrl,
+					type: 'GET',
+					dataType: 'json',
+					data: {
+						action: 'robo_product_live_search',
+						nonce: nonce,
+						query: query
+					},
+					success: function(response) {
+						hideSpinner();
+
+						if (query !== $input.val().trim()) {
+							return;
+						}
+
+						if (response.success && response.data && response.data.products && response.data.products.length > 0) {
+							renderResults(response.data);
+						} else {
+							renderNoResults();
+						}
+					},
+					error: function() {
+						hideSpinner();
+						renderNoResults();
+					}
+				});
+			}
+
+			function renderResults(data) {
+				var products = data.products || [];
+				var viewAllUrl = data.view_all_url || '#';
+				var html = '';
+
+				products.forEach(function(item, index) {
+					var itemId = 'robo-search-item-' + index;
+					html += '<a href="' + item.url + '" class="dropdown-item d-flex align-items-center gap-3 py-2 px-3 border-bottom border-light-subtle robo-search-item" id="' + itemId + '" role="option" aria-selected="false">';
+					
+					html += '<div class="flex-shrink-0 position-relative rounded overflow-hidden bg-light" style="width: 44px; height: 44px;">';
+					html += '<img src="' + item.image + '" alt="' + item.title + '" class="img-fluid w-100 h-100 object-fit-cover">';
+					html += '</div>';
+
+					html += '<div class="flex-grow-1 min-w-0 me-2">';
+					html += '<div class="fw-semibold text-dark text-truncate small mb-1" title="' + item.title + '">' + item.title + '</div>';
+					
+					html += '<div class="d-flex align-items-center gap-2 flex-wrap text-muted small" style="font-size: 0.78rem;">';
+					if (item.category) {
+						html += '<span class="badge bg-secondary-subtle text-secondary fw-normal px-2 py-1">' + item.category + '</span>';
+					}
+					if (item.stock_label) {
+						html += '<span class="badge ' + item.stock_class + ' px-2 py-1">' + item.stock_label + '</span>';
+					}
+					html += '</div>';
+					html += '</div>';
+
+					html += '<div class="flex-shrink-0 text-end">';
+					html += '<div class="fw-bold text-primary small">' + item.price + '</div>';
+					html += '</div>';
+
+					html += '</a>';
+				});
+
+				html += '<a href="' + viewAllUrl + '" class="dropdown-item text-center py-2 px-3 bg-light text-primary fw-semibold small border-top d-flex align-items-center justify-content-center gap-1 robo-search-view-all">';
+				html += '<span>View all results</span> <i class="bi bi-arrow-right"></i>';
+				html += '</a>';
+
+				$dropdown.html(html);
+				showDropdown();
+				activeIndex = -1;
+			}
+
+			function renderNoResults() {
+				var html = '<div class="p-3 text-center text-muted small d-flex flex-column align-items-center gap-2">';
+				html += '<i class="bi bi-search text-secondary fs-4"></i>';
+				html += '<span>No products found matching your search.</span>';
+				html += '</div>';
+
+				$dropdown.html(html);
+				showDropdown();
+				activeIndex = -1;
+			}
+
+			$input.on('input keyup', function() {
+				toggleClearBtn();
+				var query = $(this).val().trim();
+
+				clearTimeout(searchTimeout);
+				if (query.length >= 2) {
+					showSpinner();
+					searchTimeout = setTimeout(function() {
+						performSearch(query);
+					}, 250);
+				} else {
+					hideSpinner();
+					hideDropdown();
+				}
+			});
+
+			$input.on('focus', function() {
+				var query = $(this).val().trim();
+				if (query.length >= 2 && $dropdown.children().length > 0) {
+					showDropdown();
+				}
+			});
+
+			$input.on('keydown', function(e) {
+				var $items = $dropdown.find('.robo-search-item, .robo-search-view-all');
+
+				if (!$dropdown.hasClass('show') || !$items.length) {
+					if (e.key === 'Enter' && $input.val().trim().length > 0) {
+						$form.submit();
+					}
+					return;
+				}
+
+				if (e.key === 'ArrowDown') {
+					e.preventDefault();
+					activeIndex++;
+					if (activeIndex >= $items.length) {
+						activeIndex = 0;
+					}
+					updateActiveItem($items);
+				} else if (e.key === 'ArrowUp') {
+					e.preventDefault();
+					activeIndex--;
+					if (activeIndex < 0) {
+						activeIndex = $items.length - 1;
+					}
+					updateActiveItem($items);
+				} else if (e.key === 'Enter') {
+					if (activeIndex >= 0 && activeIndex < $items.length) {
+						e.preventDefault();
+						var targetUrl = $items.eq(activeIndex).attr('href');
+						if (targetUrl) {
+							window.location.href = targetUrl;
+						}
+					} else {
+						$form.submit();
+					}
+				} else if (e.key === 'Escape') {
+					e.preventDefault();
+					hideDropdown();
+				}
+			});
+
+			$(document).on('click.roboSearch', function(e) {
+				if (!$(e.target).closest($wrapper).length) {
+					hideDropdown();
+				}
+			});
+		});
+	}
+
 })(jQuery);
+
