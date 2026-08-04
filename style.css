@@ -109,13 +109,13 @@ display:block;
 
 .hero-text{
 
-font-size:20px;
+font-size:28px;
 
 color:black;
 
 margin:25px 0 40px;
 
-max-width:420px;
+/* max-width:420px; */
 
 }
 
@@ -145,7 +145,7 @@ align-items:center;
 
 .robot-img{
 
-width:540px;
+width:600px;
 
 max-width:none;
 
@@ -221,9 +221,9 @@ border-radius:50%;
 
 .ring1{
 
-width:530px;
+width:620px;
 
-height:530px;
+height:620px;
 
 animation:rotate 20s linear infinite;
 
@@ -231,9 +231,9 @@ animation:rotate 20s linear infinite;
 
 .ring2{
 
-width:620px;
+width:700px;
 
-height:620px;
+height:700px;
 
 animation:rotateReverse 30s linear infinite;
 
@@ -333,54 +333,343 @@ opacity:0;
 
 /* MOBILE */
 
-@media(max-width:992px){
-
-.hero-title{
-
-font-size:46px;
-
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .hero-title {
+        font-size: 46px;
+    }
+    .robot-wrapper {
+        height: 500px;
+        margin-top: 40px;
+    }
+    .robot-img {
+        width: 480px;
+        max-width: 100%;
+    }
+    .ring1 {
+        width: 350px;
+        height: 350px;
+    }
+    .ring2 {
+        width: 430px;
+        height: 430px;
+    }
+    .glow {
+        width: 350px;
+        height: 350px;
+    }
 }
 
-.robot-wrapper{
-
-height:500px;
-
-margin-top:40px;
-
+/* Ensure Hero container width aligns perfectly with standard site section container width */
+/* .hero-section .container-fluid,
+#hero .container-fluid {
+    width: 100% !important;
+    padding-right: var(--bs-gutter-x, .75rem) !important;
+    padding-left: var(--bs-gutter-x, .75rem) !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
 }
 
-.robot-img{
-
-width:480px;
-
-max-width:100%;
-
+@media (min-width: 576px) {
+    .hero-section .container-fluid,
+    #hero .container-fluid {
+        max-width: 540px !important;
+    }
 }
-
-.ring1{
-
-width:350px;
-
-height:350px;
-
+@media (min-width: 768px) {
+    .hero-section .container-fluid,
+    #hero .container-fluid {
+        max-width: 720px !important;
+    }
 }
-
-.ring2{
-
-width:430px;
-
-height:430px;
-
+@media (min-width: 992px) {
+    .hero-section .container-fluid,
+    #hero .container-fluid {
+        max-width: 1060px !important;
+    }
 }
-
-.glow{
-
-width:350px;
-
-height:350px;
-
+@media (min-width: 1200px) {
+    .hero-section .container-fluid,
+    #hero .container-fluid {
+        max-width: 1140px !important;
+    }
 }
+@media (min-width: 1400px) {
+    .hero-section .container-fluid,
+    #hero .container-fluid {
+        max-width: 1320px !important;
+    }
+} */
 
+/* MOBILE RESPONSIVE HERO SECTION & CENTRALIZED TYPOGRAPHY SYSTEM (max-width: 767.98px) */
+@media (max-width: 767.98px) {
+    body {
+        padding-top: 110px !important;
+    }
+
+    /* Single Centralized Reusable Mobile Typography Utility & Rules */
+    .mobile-typography,
+    body {
+        /* Hero Heading */
+        .hero-title,
+        h1.hero-title {
+            font-size: var(--mobile-font-hero-title);
+            line-height: var(--mobile-line-hero-title);
+        }
+
+        /* Section Heading */
+        .section-title,
+        h2.section-title,
+        h2 {
+            font-size: var(--mobile-font-section-title);
+            line-height: var(--mobile-line-section-title);
+        }
+
+        /* Sub Heading */
+        .section-subtitle,
+        .sub-title,
+        .hero-subtitle,
+        h3 {
+            font-size: var(--mobile-font-sub-heading);
+            line-height: var(--mobile-line-sub-heading);
+        }
+
+        /* Card Heading */
+        .card-title,
+        h4.card-title,
+        h5.card-title,
+        h4,
+        h5,
+        .widget-title {
+            font-size: var(--mobile-font-card-title);
+            line-height: var(--mobile-line-card-title);
+        }
+
+        /* Paragraph */
+        p,
+        .hero-text,
+        .lead,
+        .card-text {
+            font-size: var(--mobile-font-paragraph);
+            line-height: var(--mobile-line-paragraph);
+        }
+
+        /* Small Text */
+        small,
+        .small,
+        .extra-small {
+            font-size: var(--mobile-font-small);
+            line-height: var(--mobile-line-small);
+        }
+
+        /* Button Text */
+        .btn,
+        .hero-btn,
+        button,
+        input[type="submit"],
+        input[type="button"] {
+            font-size: var(--mobile-font-button);
+            line-height: var(--mobile-line-button);
+        }
+
+        /* Labels, Badges & Footer Headings (>= 14px on mobile) */
+        label,
+        .form-label,
+        .hero-badge,
+        .category-badge,
+        .badge,
+        .footer-widgets h5,
+        .site-footer h5,
+        footer h5 {
+            font-size: 14px !important;
+            line-height: var(--mobile-line-label);
+        }
+
+        /* Form Elements */
+        .form-control,
+        .form-select,
+        input,
+        select,
+        textarea {
+            font-size: var(--mobile-font-form);
+            line-height: var(--mobile-line-form);
+        }
+
+        /* Minimum Icon Size Rule (>= 14px on mobile) */
+        svg, i, .bi, [class*="icon"], img.emoji {
+            min-width: 14px;
+            min-height: 14px;
+        }
+    }
+
+    .hero-section,
+    #hero {
+        padding-top: 60px !important;
+        padding-bottom: 20px !important;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .hero-section .hero-left-content,
+    .hero-section .hero-right-content {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Keep side-by-side 2-column layout on mobile (42% left text, 58% right graphic like desktop) */
+    .hero-main-row {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+    }
+
+    .hero-left-content {
+        flex: 0 0 42% !important;
+        max-width: 42% !important;
+        width: 42% !important;
+    }
+
+    .hero-right-content {
+        flex: 0 0 58% !important;
+        max-width: 58% !important;
+        width: 58% !important;
+    }
+
+    /* Left column typography proportional scaling using centralized system */
+    .hero-badge {
+        font-size: var(--mobile-font-label) !important;
+        line-height: var(--mobile-line-label) !important;
+        padding: 3px 8px !important;
+        margin-bottom: 6px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+    }
+
+    .hero-title {
+        font-size: var(--mobile-font-hero-title) !important;
+        line-height: var(--mobile-line-hero-title) !important;
+        margin-bottom: 4px !important;
+        margin-top: 0 !important;
+    }
+
+    .hero-title span {
+        display: inline-block !important;
+    }
+
+    .hero-subtitle {
+        font-size: var(--mobile-font-sub-heading) !important;
+        line-height: var(--mobile-line-sub-heading) !important;
+        margin-bottom: 6px !important;
+    }
+
+    .hero-text {
+        font-size: var(--mobile-font-paragraph) !important;
+        line-height: var(--mobile-line-paragraph) !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+        max-width: 100% !important;
+    }
+
+    /* Buttons scaling */
+    .hero-btn {
+        padding: 6px 12px !important;
+        font-size: var(--mobile-font-button) !important;
+        line-height: var(--mobile-line-button) !important;
+        border-radius: 30px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+    }
+
+    /* Right column: Fully fluid proportional ring & robot graphic unit */
+    .robot-wrapper {
+        position: relative !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        overflow: visible !important;
+    }
+
+    .glow {
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: auto !important;
+        width: 85.5% !important;
+        height: 85.5% !important;
+        filter: blur(20px) !important;
+    }
+
+    .ring1 {
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: auto !important;
+        width: 85.5% !important;
+        height: 85.5% !important;
+    }
+
+    .ring2 {
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: auto !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .robot-img {
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: auto !important;
+        width: 82% !important;
+        max-width: 82% !important;
+        height: auto !important;
+        max-height: 75% !important;
+        object-fit: contain !important;
+        z-index: 10 !important;
+        animation: floatRobotMobile 5s ease-in-out infinite !important;
+    }
+
+    .grid {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background-size: 20px 20px !important;
+    }
+
+    .particle {
+        width: 4px !important;
+        height: 4px !important;
+    }
+
+    .p1 { top: 8% !important; left: 12% !important; }
+    .p2 { top: 15% !important; right: 12% !important; }
+    .p3 { bottom: 15% !important; left: 12% !important; }
+    .p4 { bottom: 8% !important; right: 12% !important; }
+    .p5 { top: 50% !important; left: 4% !important; }
 }
 /*=============================
     SERVICES SECTION
