@@ -15,13 +15,55 @@ if ( empty( $hero_image ) ) {
 }
 
 $btn1_url      = get_theme_mod( 'robo_hero_btn1_url', '#popular-products' );
-
-$hero_style = '';
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
+
+// Retrieve hero background image using WordPress native functions.
+$bg_image_raw = get_theme_mod( 'robo_hero_bg_image', '' );
+$bg_image_url = '';
+
+if ( ! empty( $bg_image_raw ) ) {
+	if ( is_numeric( $bg_image_raw ) ) {
+		$bg_image_url = wp_get_attachment_image_url( (int) $bg_image_raw, 'full' );
+	} else {
+		$attachment_id = attachment_url_to_postid( $bg_image_raw );
+		if ( $attachment_id ) {
+			$bg_image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+		} else {
+			$bg_image_url = esc_url( $bg_image_raw );
+		}
+	}
+}
+
+// Retrieve hero background overlay settings.
+$overlay_enable  = get_theme_mod( 'robo_hero_overlay_enable', false );
+$overlay_color   = get_theme_mod( 'robo_hero_overlay_color', '#000000' );
+$overlay_opacity = get_theme_mod( 'robo_hero_overlay_opacity', '0.3' );
+
+$hero_style   = '';
+$hero_classes = array( 'hero-section' );
+
+if ( ! empty( $bg_image_url ) ) {
+	$hero_classes[] = 'has-hero-bg-image';
+	$hero_style     = sprintf(
+		'style="background-image: url(\'%s\'); background-size: cover; background-position: center center; background-repeat: no-repeat;"',
+		esc_url( $bg_image_url )
+	);
+}
 ?>
 
-<section id="hero" class="hero-section" <?php echo $hero_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-	<div class="<?php echo esc_attr($container_class); ?>">
+<section id="hero" class="<?php echo esc_attr( implode( ' ', $hero_classes ) ); ?>" <?php echo $hero_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<?php if ( ! empty( $bg_image_url ) && $overlay_enable ) : ?>
+		<?php
+		$rgb = sscanf( $overlay_color, '#%02x%02x%02x' );
+		if ( $rgb && 3 === count( $rgb ) ) {
+			$rgba = sprintf( 'rgba(%d, %d, %d, %s)', $rgb[0], $rgb[1], $rgb[2], esc_attr( $overlay_opacity ) );
+		} else {
+			$rgba = 'rgba(0, 0, 0, ' . esc_attr( $overlay_opacity ) . ')';
+		}
+		?>
+		<div class="hero-bg-overlay" style="background-color: <?php echo esc_attr( $rgba ); ?>;"></div>
+	<?php endif; ?>
+	<div class="<?php echo esc_attr( $container_class ); ?>">
 		<div class="row align-items-center hero-main-row">
 			
 			<!-- LEFT -->
