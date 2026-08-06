@@ -713,6 +713,34 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     animation: particleMove 6s infinite;
 }
 
+
+
+/* my-css start */
+@media (max-width: 576px) {
+    .robot-img {
+        position: absolute !important;
+        top: 10% !important;
+        left: -20% !important;
+        margin: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .robot-img {
+        top: 15% !important;
+        left: -40% !important;
+    }
+}
+@media (max-width: 765px) {
+    #hero {
+        background-size: 100% 100% !important;
+    }
+}
+/* my-css end */
+
+
 /* ==========================================================================
    Mobile-Only Responsiveness (max-width: 767px): Proportional Two-Column Scaling
    ========================================================================== */
@@ -1050,18 +1078,18 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     }
 
     .robot-img {
-        position: absolute !important;
-        top: 0 !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        margin: auto !important;
-        width: 82% !important;
-        max-width: 82% !important;
-        height: auto !important;
-        max-height: 75% !important;
-        object-fit: contain !important;
-        z-index: 10 !important;
+        position: absolute ;
+        top: 0 ;
+        bottom: 0 ;
+        left: 0 ;
+        right: 0 ;
+        margin: auto ;
+        width: 82% ;
+        max-width: 82% ;
+        height: auto ;
+        max-height: 75% ;
+        object-fit: contain ;
+        z-index: 10 ;
         animation: floatRobotMobile 5s ease-in-out infinite !important;
     }
 

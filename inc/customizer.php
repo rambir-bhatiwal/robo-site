@@ -194,6 +194,64 @@ function robo_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Hero Background Image (Desktop)
+	$wp_customize->add_setting(
+		'robo_hero_bg_image_desktop',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'robo_hero_bg_image_desktop',
+			array(
+				'label'   => esc_html__( 'Hero Background Image (Desktop)', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	// Hero Background Image (Tablet)
+	$wp_customize->add_setting(
+		'robo_hero_bg_image_tablet',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'robo_hero_bg_image_tablet',
+			array(
+				'label'   => esc_html__( 'Hero Background Image (Tablet)', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	// Hero Background Image (Mobile)
+	$wp_customize->add_setting(
+		'robo_hero_bg_image_mobile',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'robo_hero_bg_image_mobile',
+			array(
+				'label'   => esc_html__( 'Hero Background Image (Mobile)', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+
 	// Hero Background Overlay Enable Toggle
 	$wp_customize->add_setting(
 		'robo_hero_overlay_enable',

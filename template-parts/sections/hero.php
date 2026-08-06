@@ -17,42 +17,92 @@ if ( empty( $hero_image ) ) {
 $btn1_url      = get_theme_mod( 'robo_hero_btn1_url', '#popular-products' );
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 
-// Retrieve hero background image using WordPress native functions.
-$bg_image_raw = get_theme_mod( 'robo_hero_bg_image', '' );
-$bg_image_url = '';
-
-if ( ! empty( $bg_image_raw ) ) {
-	if ( is_numeric( $bg_image_raw ) ) {
-		$bg_image_url = wp_get_attachment_image_url( (int) $bg_image_raw, 'full' );
-	} else {
-		$attachment_id = attachment_url_to_postid( $bg_image_raw );
-		if ( $attachment_id ) {
-			$bg_image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
-		} else {
-			$bg_image_url = esc_url( $bg_image_raw );
+// Helper function to resolve raw Customizer background image value to a full URL.
+if ( ! function_exists( 'robo_get_hero_bg_image_url' ) ) {
+	/**
+	 * Resolves raw background image Customizer input to a sanitized image URL.
+	 *
+	 * @param string|int $raw_value Raw setting value (URL or attachment ID).
+	 * @return string Resolved image URL or empty string.
+	 */
+	function robo_get_hero_bg_image_url( $raw_value ) {
+		if ( empty( $raw_value ) ) {
+			return '';
 		}
+		if ( is_numeric( $raw_value ) ) {
+			$url = wp_get_attachment_image_url( (int) $raw_value, 'full' );
+			return $url ? $url : '';
+		}
+		$attachment_id = attachment_url_to_postid( $raw_value );
+		if ( $attachment_id ) {
+			$url = wp_get_attachment_image_url( $attachment_id, 'full' );
+			return $url ? $url : esc_url( $raw_value );
+		}
+		return esc_url( $raw_value );
 	}
 }
+
+// Retrieve hero background image options from Customizer.
+$bg_image_raw         = get_theme_mod( 'robo_hero_bg_image', '' );
+$bg_image_desktop_raw = get_theme_mod( 'robo_hero_bg_image_desktop', '' );
+$bg_image_tablet_raw  = get_theme_mod( 'robo_hero_bg_image_tablet', '' );
+$bg_image_mobile_raw  = get_theme_mod( 'robo_hero_bg_image_mobile', '' );
+
+$bg_image_fallback_url = robo_get_hero_bg_image_url( $bg_image_raw );
+
+// Display Logic: Use device-specific image if available; fallback to existing Hero Background Image.
+$bg_desktop_url = ! empty( $bg_image_desktop_raw ) ? robo_get_hero_bg_image_url( $bg_image_desktop_raw ) : $bg_image_fallback_url;
+$bg_tablet_url  = ! empty( $bg_image_tablet_raw ) ? robo_get_hero_bg_image_url( $bg_image_tablet_raw ) : $bg_image_fallback_url;
+$bg_mobile_url  = ! empty( $bg_image_mobile_raw ) ? robo_get_hero_bg_image_url( $bg_image_mobile_raw ) : $bg_image_fallback_url;
+
+$has_hero_bg_image = ! empty( $bg_desktop_url ) || ! empty( $bg_tablet_url ) || ! empty( $bg_mobile_url );
 
 // Retrieve hero background overlay settings.
 $overlay_enable  = get_theme_mod( 'robo_hero_overlay_enable', false );
 $overlay_color   = get_theme_mod( 'robo_hero_overlay_color', '#000000' );
 $overlay_opacity = get_theme_mod( 'robo_hero_overlay_opacity', '0.3' );
 
-$hero_style   = '';
-$hero_classes = array( 'hero-section' );
+$hero_style     = '';
+$hero_classes   = array( 'hero-section' );
+$responsive_css = '';
 
-if ( ! empty( $bg_image_url ) ) {
+if ( $has_hero_bg_image ) {
 	$hero_classes[] = 'has-hero-bg-image';
-	$hero_style     = sprintf(
-		'style="background-image: url(\'%s\'); background-size: cover; background-position: center center; background-repeat: no-repeat;"',
-		esc_url( $bg_image_url )
-	);
+
+	if ( $bg_desktop_url === $bg_tablet_url && $bg_tablet_url === $bg_mobile_url ) {
+		$hero_style = sprintf(
+			'style="background-image: url(\'%s\'); background-size: cover; background-position: center center; background-repeat: no-repeat;"',
+			esc_url( $bg_desktop_url )
+		);
+	} else {
+		if ( ! empty( $bg_desktop_url ) ) {
+			$responsive_css .= sprintf(
+				'@media (min-width: 1025px) { #hero.has-hero-bg-image { background-image: url(\'%s\'); background-size: cover; background-position: center center; background-repeat: no-repeat; } } ',
+				esc_url( $bg_desktop_url )
+			);
+		}
+		if ( ! empty( $bg_tablet_url ) ) {
+			$responsive_css .= sprintf(
+				'@media (min-width: 768px) and (max-width: 1024px) { #hero.has-hero-bg-image { background-image: url(\'%s\'); background-size: cover; background-position: center center; background-repeat: no-repeat; } } ',
+				esc_url( $bg_tablet_url )
+			);
+		}
+		if ( ! empty( $bg_mobile_url ) ) {
+			$responsive_css .= sprintf(
+				'@media (max-width: 767px) { #hero.has-hero-bg-image { background-image: url(\'%s\'); background-size: cover; background-position: center center; background-repeat: no-repeat; } } ',
+				esc_url( $bg_mobile_url )
+			);
+		}
+	}
 }
 ?>
 
+<?php if ( ! empty( $responsive_css ) ) : ?>
+	<style><?php echo wp_strip_all_tags( $responsive_css ); ?></style>
+<?php endif; ?>
+
 <section id="hero" class="<?php echo esc_attr( implode( ' ', $hero_classes ) ); ?>" <?php echo $hero_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-	<?php if ( ! empty( $bg_image_url ) && $overlay_enable ) : ?>
+	<?php if ( $has_hero_bg_image && $overlay_enable ) : ?>
 		<?php
 		$rgb = sscanf( $overlay_color, '#%02x%02x%02x' );
 		if ( $rgb && 3 === count( $rgb ) ) {
@@ -90,8 +140,8 @@ if ( ! empty( $bg_image_url ) ) {
 			<div class="col-6 col-lg-7 hero-right-content">
 				<div class="robot-wrapper">
 					<div class="glow"></div>
-					<div class="ring ring1"></div>
-					<div class="ring ring2"></div>
+					<div class="ring ring1 d-none"></div>
+					<div class="ring ring2 d-none"></div>
 					<div class="grid"></div>
 					<div class="particle p1"></div>
 					<div class="particle p2"></div>
