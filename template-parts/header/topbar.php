@@ -28,7 +28,7 @@ foreach ( $social_links as $key => $url ) {
 	<div class="container <?php //echo // esc_attr( $container_class ); ?>">
 		<div class="row align-items-center">
 			<!-- Left Side: Contact Info -->
-			<div class="col-md-8 d-flex align-items-center flex-wrap justify-content-center justify-content-md-start gap-3 mb-2 mb-md-0">
+			<div class="col col-md-8 d-flex align-items-center flex-wrap justify-content-center justify-content-md-start gap-3 mb-2 mb-md-0">
 				<!-- Phone -->
 				<span class="text-muted small d-flex align-items-center gap-1">
 					<span class="text-primary"><?php echo robo_get_svg( 'phone' ); ?></span>
@@ -37,7 +37,7 @@ foreach ( $social_links as $key => $url ) {
 					</a>
 				</span>
 				<!-- Email -->
-				<span class="text-muted small d-flex align-items-center gap-1">
+				<span class="text-muted small d-flex align-items-center gap-1  d-none d-md-inline">
 					<span class="text-primary"><?php echo robo_get_svg( 'email' ); ?></span>
 					<a href="<?php echo esc_url( 'https://mail.google.com/mail/?view=cm&fs=1&to=' . robo_get_company_info( 'support_email' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary">
 						<?php echo esc_html( robo_get_company_info( 'support_email' ) ); ?>
@@ -53,11 +53,18 @@ foreach ( $social_links as $key => $url ) {
 				
 			</div>
 			<!-- Right Side: Social Media -->
-			<div class="col-md-4 text-center text-md-end d-flex align-items-center justify-content-center justify-content-md-end">
+			<div class="col col-md-4 text-center text-md-end d-flex align-items-center justify-content-center justify-content-md-end">
 				<?php if ( $has_social ) : ?>
 					<div class="topbar-socials d-inline-flex gap-3 align-items-center">
 
-						<!-- start >> Location icon for mobile only -->
+						<!-- start >> Location and email icon for mobile only -->
+						<!-- Email -->
+						<span class="text-muted small d-flex align-items-center gap-1 d-inline d-md-none">
+							<span class="topbar-icon-email"><?php echo robo_get_svg( 'email' ); ?></span>
+							<a href="<?php echo esc_url( 'https://mail.google.com/mail/?view=cm&fs=1&to=' . robo_get_company_info( 'support_email' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary">
+								<?php //echo esc_html( robo_get_company_info( 'support_email' ) ); ?>
+							</a>
+						</span>
 						<span class="text-muted small d-flex align-items-center gap-1 d-inline d-md-none">
 							<a href="<?php echo esc_url( robo_get_company_info( 'maps_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-muted hover-primary d-flex align-items-center gap-1">
 								<?php echo robo_get_svg( 'location' ); ?>

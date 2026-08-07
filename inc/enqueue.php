@@ -61,6 +61,33 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 			'all'
 		);
 
+		// Enqueue Trust Statistics Section Style.
+		wp_enqueue_style(
+			'robo-trust-statistics',
+			ROBO_THEME_URI . '/assets/css/sections/trust-statistics.css',
+			array( 'bootstrap', 'robo-style' ),
+			ROBO_THEME_VERSION,
+			'all'
+		);
+
+		// Enqueue Quick Actions Section Style.
+		wp_enqueue_style(
+			'robo-quick-actions',
+			ROBO_THEME_URI . '/assets/css/sections/quick-actions.css',
+			array( 'bootstrap', 'robo-style', 'robo-trust-statistics' ),
+			ROBO_THEME_VERSION,
+			'all'
+		);
+
+		// Enqueue Quick Actions Bar CTA Style.
+		wp_enqueue_style(
+			'robo-quick-actions-bar',
+			ROBO_THEME_URI . '/assets/css/sections/quick-actions-bar.css',
+			array( 'bootstrap', 'robo-style' ),
+			ROBO_THEME_VERSION,
+			'all'
+		);
+
 		// Enqueue Bootstrap JS.
 		wp_enqueue_script(
 			'bootstrap-bundle',

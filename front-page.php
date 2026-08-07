@@ -17,6 +17,9 @@ get_header();
 // List of homepage sections to render.
 $homepage_sections = array(
 	'hero',
+	// 'trust-statistics',
+	// 'quick-actions',
+	'quick-actions-bar',
 	// 'about',
 	// 'services',
 	'popular-products',
@@ -25,7 +28,7 @@ $homepage_sections = array(
 	// 'counter',
 	// 'testimonials',
 	'team',
-	'pricing',
+	// 'pricing',
 	// 'faq',
 	// 'latest-blog',
 	'newsletter',

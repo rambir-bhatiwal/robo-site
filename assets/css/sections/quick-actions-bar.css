@@ -1,0 +1,236 @@
+/* ==================================================
+   ROBO THEME - QUICK ACTIONS BAR SECTION
+   ================================================== */
+
+.robo-quick-actions-bar {
+    position: relative;
+    width: 100%;
+    background-color: var(--robo-trust-bg, #ffffff);
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.robo-quick-actions-bar__container {
+    max-width: 1320px !important;
+}
+
+.robo-quick-actions-bar__card {
+    background: #ffffff;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e9e9e9;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    padding: 36px 32px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.robo-quick-actions-bar__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Badge */
+.robo-quick-actions-bar__badge-wrapper {
+    margin-bottom: 12px;
+}
+
+.robo-quick-actions-bar__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    background-color: rgba(144, 1, 251, 0.08);
+    color: #9001fb;
+    border: 1px solid rgba(144, 1, 251, 0.18);
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* Main Heading */
+.robo-quick-actions-bar__heading {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 10px;
+}
+
+/* Description */
+.robo-quick-actions-bar__desc {
+    font-size: 16px;
+    font-weight: 400;
+    color: #64748b;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    max-width: 600px;
+}
+
+/* Buttons Container */
+.robo-quick-actions-bar__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.robo-quick-actions-bar__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 180px;
+    height: 48px;
+    padding: 12px 26px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    transition: var(--robo-transition-smooth, all 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    white-space: nowrap;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.robo-quick-actions-bar__btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.robo-quick-actions-bar__btn-text {
+    display: inline-block;
+    line-height: 1;
+}
+
+/* Primary Button: Explore Robots & Expert Support */
+.robo-quick-actions-bar__btn--primary {
+    background-color: #FFC107;
+    color: #16244B;
+    border: 2px solid #FFC107;
+}
+
+.robo-quick-actions-bar__btn--primary:hover {
+    background-color: #ff2c00;
+    border-color: #ff2c00;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(255, 44, 0, 0.25);
+}
+
+/* Secondary Button: Watch Videos */
+.robo-quick-actions-bar__btn--secondary {
+    background-color: #9002fb;
+    color: #ffffff;
+    border: 2px solid #9002fb;
+}
+
+.robo-quick-actions-bar__btn--secondary:hover {
+    background-color: #ff2c00;
+    border-color: #ff2c00;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(255, 44, 0, 0.25);
+}
+
+/* Tablet Styling (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .robo-quick-actions-bar {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+    .robo-quick-actions-bar__card {
+        padding: 28px 24px;
+    }
+    .robo-quick-actions-bar__heading {
+        font-size: 24px;
+    }
+    .robo-quick-actions-bar__desc {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    .robo-quick-actions-bar__buttons {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .robo-quick-actions-bar__btn {
+        min-width: 160px;
+        height: 44px;
+        font-size: 15px;
+        padding: 10px 20px;
+        gap: 8px;
+    }
+    .robo-quick-actions-bar__btn-icon {
+        font-size: 16px;
+    }
+}
+
+/* Mobile Styling (767px and below) - 2-Column CSS Grid Layout */
+@media (max-width: 767.98px) {
+    .robo-quick-actions-bar {
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+    .robo-quick-actions-bar__card {
+        padding: 20px 14px;
+        border-radius: 12px;
+    }
+    .robo-quick-actions-bar__badge {
+        font-size: var(--mobile-font-small);
+        line-height: var(--mobile-line-small);
+        padding: 4px 12px;
+    }
+    .robo-quick-actions-bar__heading {
+        font-size: var(--mobile-font-section-title);
+        line-height: var(--mobile-line-section-title);
+        margin-bottom: 8px;
+    }
+    .robo-quick-actions-bar__desc {
+        font-size: var(--mobile-font-paragraph);
+        line-height: var(--mobile-line-paragraph);
+        margin-bottom: 16px;
+    }
+    .robo-quick-actions-bar__buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        width: 100%;
+    }
+    .robo-quick-actions-bar__btn {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        height: 44px;
+        padding: 10px 8px;
+        font-size: var(--mobile-font-paragraph);
+        line-height: var(--mobile-line-paragraph);
+        gap: 6px;
+        white-space: nowrap;
+        text-align: center;
+        box-sizing: border-box;
+        justify-content: center;
+    }
+    .robo-quick-actions-bar__btn:nth-child(3) {
+        grid-column: 1 / -1;
+    }
+    .robo-quick-actions-bar__btn-text {
+        font-size: var(--mobile-font-paragraph);
+        line-height: 1;
+    }
+    .robo-quick-actions-bar__btn-icon {
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+}
+
