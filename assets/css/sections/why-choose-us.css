@@ -1,0 +1,270 @@
+/* ==================================================
+   ROBO THEME - WHY CHOOSE US SECTION
+   ================================================== */
+
+.robo-why-section {
+    position: relative;
+    width: 100%;
+    background-color: #ffffff;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(144, 1, 251, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.03) 0%, transparent 40%),
+        radial-gradient(rgba(144, 1, 251, 0.04) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 32px 32px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    overflow: hidden;
+}
+
+.robo-why-container {
+    max-width: 1320px !important;
+}
+
+/* Header */
+.robo-why-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 44px auto;
+}
+
+.robo-why-badge-wrapper {
+    margin-bottom: 12px;
+}
+
+.robo-why-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    background-color: rgba(144, 1, 251, 0.08);
+    color: #9001fb;
+    border: 1px solid rgba(144, 1, 251, 0.18);
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.robo-why-heading {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+
+.robo-why-desc {
+    font-size: 16px;
+    font-weight: 400;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 auto;
+}
+
+/* Layout Grid */
+.robo-why-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: center;
+    width: 100%;
+}
+
+/* Image Column (40% Desktop) */
+.robo-why-media-col {
+    flex: 0 0 calc(40% - 16px);
+    max-width: calc(40% - 16px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.robo-why-image-wrapper {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.robo-why-image-wrapper img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    display: block;
+}
+
+/* Cards Column (60% Desktop or 100% when no image) */
+.robo-why-content-col {
+    flex: 0 0 calc(60% - 16px);
+    max-width: calc(60% - 16px);
+}
+
+.robo-why-content-col--full {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+}
+
+/* Feature Cards Grid */
+.robo-why-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+.robo-why-content-col--full .robo-why-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Feature Card */
+.robo-why-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .robo-why-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 36px rgba(144, 1, 251, 0.12);
+        border-color: #9001fb;
+    }
+
+    .robo-why-card:hover .robo-why-icon-box {
+        transform: scale(1.08);
+        background-color: rgba(144, 1, 251, 0.12);
+    }
+
+    .robo-why-card:hover .robo-why-arrow {
+        color: #9001fb;
+        transform: translateX(6px);
+    }
+}
+
+/* Card Elements */
+.robo-why-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background-color: rgba(144, 1, 251, 0.08);
+    color: #9001fb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.robo-why-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+    line-height: 1.35;
+}
+
+.robo-why-text {
+    font-size: 15px;
+    font-weight: 400;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.robo-why-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+}
+
+.robo-why-arrow {
+    display: inline-flex;
+    align-items: center;
+    color: #64748b;
+    font-size: 16px;
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive Media Queries */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .robo-why-section {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+    .robo-why-heading {
+        font-size: 28px;
+    }
+    .robo-why-media-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 24px;
+    }
+    .robo-why-content-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .robo-why-cards-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .robo-why-section {
+        padding-top: 36px;
+        padding-bottom: 36px;
+    }
+    .robo-why-header {
+        margin-bottom: 24px;
+    }
+    .robo-why-heading {
+        font-size: var(--mobile-font-section-title, 22px);
+        line-height: var(--mobile-line-section-title, 1.3);
+    }
+    .robo-why-desc {
+        font-size: var(--mobile-font-paragraph, 15px);
+        line-height: var(--mobile-line-paragraph, 1.5);
+    }
+    .robo-why-media-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    .robo-why-content-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .robo-why-cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+    }
+    .robo-why-card {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    .robo-why-title {
+        font-size: 16px;
+    }
+    .robo-why-text {
+        font-size: var(--mobile-font-paragraph, 15px);
+        margin-bottom: 12px;
+    }
+}
