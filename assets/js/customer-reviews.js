@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateMetrics() {
         if (allSlides.length === 0) return;
-        const gap = 24;
+        const gap = window.innerWidth <= 767.98 ? 16 : 24;
         const cols = Math.max(1, getDeviceColumns());
         const flexBasis = `calc((100% - ${(cols - 1) * gap}px) / ${cols})`;
 
