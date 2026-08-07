@@ -97,6 +97,15 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 			'all'
 		);
 
+		// Enqueue Popular Products Section Style.
+		wp_enqueue_style(
+			'robo-popular-products',
+			ROBO_THEME_URI . '/assets/css/sections/popular-products.css',
+			array( 'bootstrap', 'robo-style' ),
+			ROBO_THEME_VERSION,
+			'all'
+		);
+
 		// Enqueue Bootstrap JS.
 		wp_enqueue_script(
 			'bootstrap-bundle',
