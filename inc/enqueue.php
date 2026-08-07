@@ -25,6 +25,15 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 		// Enqueue WordPress Dashicons for icon display (logged in and logged out users).
 		wp_enqueue_style( 'dashicons' );
 
+		// Enqueue Font Awesome CSS for icon support.
+		wp_enqueue_style(
+			'font-awesome',
+			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+			array(),
+			'6.5.1',
+			'all'
+		);
+
 		// Enqueue Bootstrap CSS.
 		wp_enqueue_style(
 			'bootstrap',
@@ -48,6 +57,33 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 			'robo-style',
 			get_stylesheet_uri(),
 			array( 'robo-custom-style' ),
+			ROBO_THEME_VERSION,
+			'all'
+		);
+
+		// Enqueue Trust Statistics Section Style.
+		wp_enqueue_style(
+			'robo-trust-statistics',
+			ROBO_THEME_URI . '/assets/css/sections/trust-statistics.css',
+			array( 'bootstrap', 'robo-style' ),
+			ROBO_THEME_VERSION,
+			'all'
+		);
+
+		// Enqueue Quick Actions Section Style.
+		wp_enqueue_style(
+			'robo-quick-actions',
+			ROBO_THEME_URI . '/assets/css/sections/quick-actions.css',
+			array( 'bootstrap', 'robo-style', 'robo-trust-statistics' ),
+			ROBO_THEME_VERSION,
+			'all'
+		);
+
+		// Enqueue Quick Actions Bar CTA Style.
+		wp_enqueue_style(
+			'robo-quick-actions-bar',
+			ROBO_THEME_URI . '/assets/css/sections/quick-actions-bar.css',
+			array( 'bootstrap', 'robo-style' ),
 			ROBO_THEME_VERSION,
 			'all'
 		);
