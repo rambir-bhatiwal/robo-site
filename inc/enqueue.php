@@ -88,6 +88,15 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 			'all'
 		);
 
+		// Enqueue Product Categories Slider Style.
+		wp_enqueue_style(
+			'robo-category-slider',
+			ROBO_THEME_URI . '/assets/css/sections/category-slider.css',
+			array( 'bootstrap', 'robo-style' ),
+			ROBO_THEME_VERSION,
+			'all'
+		);
+
 		// Enqueue Bootstrap JS.
 		wp_enqueue_script(
 			'bootstrap-bundle',
@@ -102,6 +111,15 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 			'robo-main',
 			ROBO_THEME_URI . '/assets/js/main.js',
 			array( 'bootstrap-bundle' ),
+			ROBO_THEME_VERSION,
+			true
+		);
+
+		// Enqueue Product Categories Slider JS.
+		wp_enqueue_script(
+			'robo-category-slider',
+			ROBO_THEME_URI . '/assets/js/category-slider.js',
+			array(),
 			ROBO_THEME_VERSION,
 			true
 		);

@@ -20,6 +20,7 @@ $homepage_sections = array(
 	// 'trust-statistics',
 	// 'quick-actions',
 	'quick-actions-bar',
+	'category-slider',
 	// 'about',
 	// 'services',
 	'popular-products',
