@@ -1,0 +1,364 @@
+/* ==================================================
+   ROBO THEME - CUSTOMER REVIEWS SECTION
+   ================================================== */
+
+.robo-reviews-section {
+    position: relative;
+    width: 100%;
+    background-color: #f8fafc;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    overflow: hidden;
+}
+
+.robo-reviews-container {
+    max-width: 1320px !important;
+}
+
+/* Header */
+.robo-reviews-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 44px auto;
+}
+
+.robo-reviews-badge-wrapper {
+    margin-bottom: 12px;
+}
+
+.robo-reviews-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    background-color: rgba(144, 1, 251, 0.08);
+    color: #9001fb;
+    border: 1px solid rgba(144, 1, 251, 0.18);
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.robo-reviews-heading {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+
+.robo-reviews-desc {
+    font-size: 16px;
+    font-weight: 400;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 auto;
+}
+
+/* Grid & Slider Container */
+.robo-reviews-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.robo-reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--rr-desktop-cols, 3), 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+/* Slider Track Container */
+.robo-reviews-track-container {
+    overflow: hidden;
+    width: 100%;
+    padding: 16px 8px 24px 8px;
+    margin: -16px -8px -24px -8px;
+}
+
+.robo-reviews-track {
+    display: flex;
+    gap: 24px;
+    will-change: transform;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.robo-reviews-slide {
+    flex: 0 0 calc((100% - 48px) / 3);
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Review Card */
+.robo-reviews-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .robo-reviews-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 36px rgba(144, 1, 251, 0.12);
+        border-color: #9001fb;
+    }
+
+    .robo-reviews-card:hover .robo-reviews-avatar img,
+    .robo-reviews-card:hover .robo-reviews-avatar-icon {
+        transform: scale(1.08);
+    }
+}
+
+/* Quote Icon Top Right */
+.robo-reviews-quote-icon {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-size: 36px;
+    color: rgba(144, 1, 251, 0.12);
+    line-height: 1;
+    pointer-events: none;
+    font-family: Georgia, serif;
+}
+
+/* Card Top: Stars & Verified Badge */
+.robo-reviews-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.robo-reviews-stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #f59e0b;
+    font-size: 16px;
+}
+
+.robo-reviews-verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background-color: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Review Text */
+.robo-reviews-text {
+    font-size: 15px;
+    font-weight: 400;
+    color: #334155;
+    line-height: 1.65;
+    margin-bottom: 24px;
+    font-style: italic;
+}
+
+/* Author Info Footer */
+.robo-reviews-footer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px dashed #f1f5f9;
+}
+
+.robo-reviews-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f1f5f9;
+    border: 2px solid rgba(144, 1, 251, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.robo-reviews-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.robo-reviews-avatar-icon {
+    font-size: 22px;
+    color: #9001fb;
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.robo-reviews-author-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.robo-reviews-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.25;
+}
+
+.robo-reviews-role {
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.robo-reviews-location {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+/* Navigation Buttons */
+.robo-reviews-nav {
+    position: absolute;
+    top: calc(50% - 30px);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    outline: none;
+}
+
+.robo-reviews-nav:hover {
+    background: #9001fb;
+    color: #ffffff;
+    border-color: #9001fb;
+    box-shadow: 0 6px 18px rgba(144, 1, 251, 0.3);
+}
+
+.robo-reviews-nav--prev {
+    left: -22px;
+}
+
+.robo-reviews-nav--next {
+    right: -22px;
+}
+
+/* Dots */
+.robo-reviews-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.robo-reviews-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #cbd5e1;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.robo-reviews-dot.active {
+    width: 26px;
+    border-radius: 20px;
+    background-color: #9001fb;
+}
+
+/* Responsive Breakpoints */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .robo-reviews-section {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+    .robo-reviews-heading {
+        font-size: 28px;
+    }
+    .robo-reviews-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .robo-reviews-slide {
+        flex: 0 0 calc((100% - 16px) / 2);
+    }
+}
+
+@media (max-width: 767.98px) {
+    .robo-reviews-section {
+        padding-top: 36px;
+        padding-bottom: 36px;
+    }
+    .robo-reviews-header {
+        margin-bottom: 24px;
+    }
+    .robo-reviews-heading {
+        font-size: var(--mobile-font-section-title, 22px);
+        line-height: var(--mobile-line-section-title, 1.3);
+    }
+    .robo-reviews-desc {
+        font-size: var(--mobile-font-paragraph, 15px);
+        line-height: var(--mobile-line-paragraph, 1.5);
+    }
+    .robo-reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .robo-reviews-slide {
+        flex: 0 0 100%;
+    }
+    .robo-reviews-card {
+        padding: 18px 14px;
+        border-radius: 14px;
+    }
+    .robo-reviews-text {
+        font-size: var(--mobile-font-paragraph, 15px);
+        margin-bottom: 16px;
+    }
+    .robo-reviews-nav {
+        display: flex;
+        width: 36px;
+        height: 36px;
+        top: calc(50% - 18px);
+        z-index: 10;
+    }
+    .robo-reviews-nav--prev {
+        left: 2px;
+    }
+    .robo-reviews-nav--next {
+        right: 2px;
+    }
+    .robo-reviews-dots {
+        margin-top: 18px;
+    }
+}

@@ -106,6 +106,24 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 			'all'
 		);
 
+		// Enqueue Why Choose Us Section Style.
+		wp_enqueue_style(
+			'robo-why-choose-us',
+			ROBO_THEME_URI . '/assets/css/sections/why-choose-us.css',
+			array( 'bootstrap', 'robo-style' ),
+			ROBO_THEME_VERSION,
+			'all'
+		);
+
+		// Enqueue Customer Reviews Section Style.
+		wp_enqueue_style(
+			'robo-customer-reviews',
+			ROBO_THEME_URI . '/assets/css/sections/customer-reviews.css',
+			array( 'bootstrap', 'robo-style' ),
+			ROBO_THEME_VERSION,
+			'all'
+		);
+
 		// Enqueue Bootstrap JS.
 		wp_enqueue_script(
 			'bootstrap-bundle',
@@ -128,7 +146,16 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 		wp_enqueue_script(
 			'robo-category-slider',
 			ROBO_THEME_URI . '/assets/js/category-slider.js',
-			array(),
+			array( 'bootstrap-bundle' ),
+			ROBO_THEME_VERSION,
+			true
+		);
+
+		// Enqueue Customer Reviews Section JS.
+		wp_enqueue_script(
+			'robo-customer-reviews',
+			ROBO_THEME_URI . '/assets/js/customer-reviews.js',
+			array( 'bootstrap-bundle' ),
 			ROBO_THEME_VERSION,
 			true
 		);

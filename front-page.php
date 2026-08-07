@@ -24,6 +24,8 @@ $homepage_sections = array(
 	// 'about',
 	// 'services',
 	'popular-products',
+	'why-choose-us',
+	'customer-reviews',
 	'features',
 	'portfolio',
 	// 'counter',
