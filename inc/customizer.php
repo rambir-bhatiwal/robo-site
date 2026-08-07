@@ -194,6 +194,130 @@ function robo_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Hero Background Image (Desktop)
+	$wp_customize->add_setting(
+		'robo_hero_bg_image_desktop',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'robo_hero_bg_image_desktop',
+			array(
+				'label'   => esc_html__( 'Hero Background Image (Desktop)', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	// Hero Background Image (Tablet)
+	$wp_customize->add_setting(
+		'robo_hero_bg_image_tablet',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'robo_hero_bg_image_tablet',
+			array(
+				'label'   => esc_html__( 'Hero Background Image (Tablet)', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	// Hero Background Image (Mobile)
+	$wp_customize->add_setting(
+		'robo_hero_bg_image_mobile',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'robo_hero_bg_image_mobile',
+			array(
+				'label'   => esc_html__( 'Hero Background Image (Mobile)', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+
+	// Hero Background Overlay Enable Toggle
+	$wp_customize->add_setting(
+		'robo_hero_overlay_enable',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'robo_sanitize_checkbox',
+		)
+	);
+
+	// Add a checkbox control for enabling/disabling the hero background overlay
+	$wp_customize->add_control(
+		'robo_hero_overlay_enable',
+		array(
+			'type'        => 'checkbox',
+			'label'       => esc_html__( 'Enable Background Overlay', 'robo' ),
+			'description' => esc_html__( 'Show a color overlay over the hero background image for better text readability.', 'robo' ),
+			'section'     => 'robo_hero_section',
+		)
+	);
+
+	// Hero Background Overlay Color
+	$wp_customize->add_setting(
+		'robo_hero_overlay_color',
+		array(
+			'default'           => '#000000',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+
+	// Add a color picker control for the hero background overlay color
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'robo_hero_overlay_color',
+			array(
+				'label'   => esc_html__( 'Overlay Color', 'robo' ),
+				'section' => 'robo_hero_section',
+			)
+		)
+	);
+
+	// Hero Background Overlay Opacity
+	$wp_customize->add_setting(
+		'robo_hero_overlay_opacity',
+		array(
+			'default'           => '0.3',
+			'sanitize_callback' => 'robo_sanitize_float',
+		)
+	);
+
+	// Add a number input control for the hero background overlay opacity
+	$wp_customize->add_control(
+		'robo_hero_overlay_opacity',
+		array(
+			'type'        => 'number',
+			'label'       => esc_html__( 'Overlay Opacity', 'robo' ),
+			'description' => esc_html__( 'Value between 0 (transparent) and 1 (opaque). Default is 0.3.', 'robo' ),
+			'section'     => 'robo_hero_section',
+			'input_attrs' => array(
+				'min'  => 0,
+				'max'  => 1,
+				'step' => 0.05,
+			),
+		)
+	);
+
 	$wp_customize->add_setting(
 		'robo_hero_image',
 		array(
@@ -1079,6 +1203,27 @@ function robo_sanitize_select( $input, $setting ) {
 	$input   = sanitize_key( $input );
 	$choices = $setting->manager->get_control( $setting->id )->choices;
 	return array_key_exists( $input, $choices ) ? $input : $setting->default;
+}
+
+/**
+ * Sanitize checkbox inputs.
+ *
+ * @param bool $checked Input.
+ * @return bool
+ */
+function robo_sanitize_checkbox( $checked ) {
+	return ( isset( $checked ) && true === (bool) $checked );
+}
+
+/**
+ * Sanitize float / range inputs between 0 and 1.
+ *
+ * @param float|string $input Input.
+ * @return float
+ */
+function robo_sanitize_float( $input ) {
+	$val = floatval( $input );
+	return ( $val >= 0 && $val <= 1 ) ? $val : 0.3;
 }
 
 /**
