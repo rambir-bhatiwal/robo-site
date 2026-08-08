@@ -44,7 +44,7 @@ $portfolio_items = array(
 	),
 );
 ?>
-<section id="portfolio" class="portfolio-section py-5 my-5">
+<section id="portfolio" class="portfolio-section pt-3">
 	<div class="<?php echo esc_attr( $container_class ); ?> py-4">
 		
 		<!-- Section Header -->

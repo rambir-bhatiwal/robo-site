@@ -313,8 +313,10 @@
         flex: 0 0 calc((100% - 16px) / 2);
     }
 }
-
 @media (max-width: 767.98px) {
+    #customer-reviews {
+        margin-bottom: 1rem !important;
+    }
     .robo-reviews-section {
         padding-top: 36px;
         padding-bottom: 36px;

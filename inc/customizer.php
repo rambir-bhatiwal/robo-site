@@ -321,8 +321,7 @@ function robo_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'robo_hero_image',
 		array(
-			// 'default'           => 'https://app.roboscaler.com/wp-content/uploads/2026/07/513ac378-2fee-4500-8756-c9fb74781012.png',
-			'default'           => 'https://roboscaler.com/wp-content/uploads/2026/07/ChatGPT-Image-Mar-13-2026-02_28_53-PM-3-1024x683.png',
+			'default'           => content_url( '/uploads/2026/07/ChatGPT-Image-Mar-13-2026-02_28_53-PM-3-1024x683.png' ),
 			'sanitize_callback' => 'esc_url_raw',
 		)
 	);
@@ -578,27 +577,27 @@ function robo_customize_register( $wp_customize ) {
 	$about_images = array(
 		'hero'       => array(
 			'label'   => esc_html__( 'Hero Section Image', 'robo' ),
-			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/539e0c5e-5c07-49a5-aa03-de3d6bb5cfdd-1.jpeg',
+			'default' => content_url( '/uploads/2026/07/539e0c5e-5c07-49a5-aa03-de3d6bb5cfdd-1.jpeg' ),
 		),
 		'intro'      => array(
 			'label'   => esc_html__( 'Welcome Introduction Image', 'robo' ),
-			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/e24e5cbc-6dfd-4bf6-bba0-d90c71644b1a-e1784633711885.jpeg',
+			'default' => content_url( '/uploads/2026/07/e24e5cbc-6dfd-4bf6-bba0-d90c71644b1a-e1784633711885.jpeg' ),
 		),
 		'what_we_do' => array(
 			'label'   => esc_html__( 'What We Do Image', 'robo' ),
-			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/2eb16044-dd3d-44cc-978e-234df8077e6c.jpeg',
+			'default' => content_url( '/uploads/2026/07/2eb16044-dd3d-44cc-978e-234df8077e6c.jpeg' ),
 		),
 		'our_goal'   => array(
 			'label'   => esc_html__( 'Our Goal Image', 'robo' ),
-			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/a3c7cae9-f159-4cae-940d-bc40ef1fea6c.jpeg',
+			'default' => content_url( '/uploads/2026/07/a3c7cae9-f159-4cae-940d-bc40ef1fea6c.jpeg' ),
 		),
 		'why_choose' => array(
 			'label'   => esc_html__( 'Why Choose Us Image', 'robo' ),
-			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/9c6f88b5-a841-4a75-8890-596857c33304.jpeg',
+			'default' => content_url( '/uploads/2026/07/9c6f88b5-a841-4a75-8890-596857c33304.jpeg' ),
 		),
 		'customers'  => array(
 			'label'   => esc_html__( 'Our Customers Image', 'robo' ),
-			'default' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/31ac61f5-c79d-4f80-a904-7fcfee04a94d.jpeg',
+			'default' => content_url( '/uploads/2026/07/31ac61f5-c79d-4f80-a904-7fcfee04a94d.jpeg' ),
 		),
 		'cta'        => array(
 			'label'   => esc_html__( 'Call To Action Image', 'robo' ),

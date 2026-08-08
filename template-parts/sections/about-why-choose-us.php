@@ -11,8 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 $section_img     = robo_get_about_image( 'why_choose' );
+$why_bg_raw      = get_theme_mod( 'robo_why_choose_us_bg_image', '' );
+$why_bg_url      = robo_get_hero_bg_image_url( $why_bg_raw );
+$why_bg_style    = ! empty( $why_bg_url ) ? ' style="background-image: url(\'' . esc_url( $why_bg_url ) . '\'); background-repeat: no-repeat; background-position: center center; background-size: cover; background-attachment: scroll;"' : '';
 ?>
-<section class="about-why-choose py-4 my-4 bg-light-subtle border-top border-bottom border-light-subtle overflow-hidden">
+<section class="about-why-choose py-4 my-4 bg-light-subtle border-top border-bottom border-light-subtle overflow-hidden"<?php echo $why_bg_style; ?>>
 	<div class="<?php echo esc_attr( $container_class ); ?>">
 		<div class="row mb-4 text-center justify-content-center">
 			<div class="col-lg-8">

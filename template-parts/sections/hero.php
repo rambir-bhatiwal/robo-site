@@ -11,36 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $hero_image   = get_header_image();
 if ( empty( $hero_image ) ) {
-	$hero_image = 'https://app.roboscaler.com/wp-content/uploads/2026/07/513ac378-2fee-4500-8756-c9fb74781012.png';
+	$hero_image = content_url( '/uploads/2026/07/513ac378-2fee-4500-8756-c9fb74781012.png' );
 }
 
 $btn1_url      = get_theme_mod( 'robo_hero_btn1_url', '#popular-products' );
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 
-// Helper function to resolve raw Customizer background image value to a full URL.
-if ( ! function_exists( 'robo_get_hero_bg_image_url' ) ) {
-	/**
-	 * Resolves raw background image Customizer input to a sanitized image URL.
-	 *
-	 * @param string|int $raw_value Raw setting value (URL or attachment ID).
-	 * @return string Resolved image URL or empty string.
-	 */
-	function robo_get_hero_bg_image_url( $raw_value ) {
-		if ( empty( $raw_value ) ) {
-			return '';
-		}
-		if ( is_numeric( $raw_value ) ) {
-			$url = wp_get_attachment_image_url( (int) $raw_value, 'full' );
-			return $url ? $url : '';
-		}
-		$attachment_id = attachment_url_to_postid( $raw_value );
-		if ( $attachment_id ) {
-			$url = wp_get_attachment_image_url( $attachment_id, 'full' );
-			return $url ? $url : esc_url( $raw_value );
-		}
-		return esc_url( $raw_value );
-	}
-}
+
 
 // Retrieve hero background image options from Customizer.
 $bg_image_raw         = get_theme_mod( 'robo_hero_bg_image', '' );

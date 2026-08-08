@@ -28,6 +28,45 @@ add_action( 'http_api_curl', function( $handle ) {
 	curl_setopt( $handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
 } );
 
+if ( ! function_exists( 'robo_get_hero_bg_image_url' ) ) {
+	/**
+	 * Resolves raw background image Customizer input (URL string or attachment ID)
+	 * to a sanitized, dynamic image URL matching the current site's scheme & domain host.
+	 *
+	 * @param string|int $raw_value Raw setting value (URL or attachment ID).
+	 * @return string Resolved dynamic image URL or empty string.
+	 */
+	function robo_get_hero_bg_image_url( $raw_value ) {
+		if ( empty( $raw_value ) ) {
+			return '';
+		}
+
+		if ( is_numeric( $raw_value ) ) {
+			$url = wp_get_attachment_image_url( (int) $raw_value, 'full' );
+			return $url ? esc_url( $url ) : '';
+		}
+
+		$raw_str = (string) $raw_value;
+
+		// Extract relative subpath if URL contains /wp-content/
+		$content_pos = strpos( $raw_str, '/wp-content/' );
+		if ( false !== $content_pos ) {
+			$relative_path = substr( $raw_str, $content_pos + 11 );
+			return esc_url( content_url( '/' . ltrim( $relative_path, '/' ) ) );
+		}
+
+		// Fallback if URL contains /uploads/ directly
+		$uploads_pos = strpos( $raw_str, '/uploads/' );
+		if ( false !== $uploads_pos ) {
+			$relative_path = substr( $raw_str, $uploads_pos );
+			$upload_dir    = wp_get_upload_dir();
+			return esc_url( $upload_dir['baseurl'] . $relative_path );
+		}
+
+		return esc_url( $raw_str );
+	}
+}
+
 
 if ( ! function_exists( 'robo_get_reading_time' ) ) {
 	/**
@@ -243,19 +282,19 @@ if ( ! function_exists( 'robo_get_about_image' ) ) {
 	 */
 	function robo_get_about_image( $key ) {
 		$defaults = array(
-			'hero'       => 'https://app.roboscaler.com/wp-content/uploads/2026/07/539e0c5e-5c07-49a5-aa03-de3d6bb5cfdd-1.jpeg',
-			'intro'      => 'https://app.roboscaler.com/wp-content/uploads/2026/07/e24e5cbc-6dfd-4bf6-bba0-d90c71644b1a-e1784633711885.jpeg',
-			'what_we_do' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/2eb16044-dd3d-44cc-978e-234df8077e6c.jpeg',
-			'our_goal'   => 'https://app.roboscaler.com/wp-content/uploads/2026/07/a3c7cae9-f159-4cae-940d-bc40ef1fea6c.jpeg',
-			'why_choose' => 'https://app.roboscaler.com/wp-content/uploads/2026/07/9c6f88b5-a841-4a75-8890-596857c33304.jpeg',
-			'customers'  => 'https://app.roboscaler.com/wp-content/uploads/2026/07/31ac61f5-c79d-4f80-a904-7fcfee04a94d.jpeg',
+			'hero'       => content_url( '/uploads/2026/07/539e0c5e-5c07-49a5-aa03-de3d6bb5cfdd-1.jpeg' ),
+			'intro'      => content_url( '/uploads/2026/07/e24e5cbc-6dfd-4bf6-bba0-d90c71644b1a-e1784633711885.jpeg' ),
+			'what_we_do' => content_url( '/uploads/2026/07/2eb16044-dd3d-44cc-978e-234df8077e6c.jpeg' ),
+			'our_goal'   => content_url( '/uploads/2026/07/a3c7cae9-f159-4cae-940d-bc40ef1fea6c.jpeg' ),
+			'why_choose' => content_url( '/uploads/2026/07/9c6f88b5-a841-4a75-8890-596857c33304.jpeg' ),
+			'customers'  => content_url( '/uploads/2026/07/31ac61f5-c79d-4f80-a904-7fcfee04a94d.jpeg' ),
 			'cta'        => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1200&q=80',
 		);
 
 		$setting_name = "robo_about_{$key}_image";
 		$default_url  = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
 
-		return get_theme_mod( $setting_name, $default_url );
+		return robo_get_hero_bg_image_url( get_theme_mod( $setting_name, $default_url ) );
 	}
 }
 

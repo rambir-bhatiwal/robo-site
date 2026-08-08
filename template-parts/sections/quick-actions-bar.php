@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<section id="quick-actions-bar" class="robo-quick-actions-bar">
+<section id="quick-actions-bar" class="robo-quick-actions-bar mb-0">
 	<div class="container robo-quick-actions-bar__container">
 		<div class="robo-quick-actions-bar__card">
 			<div class="robo-quick-actions-bar__content">

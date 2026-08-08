@@ -16,8 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 | Add any valid image URL to enable it.
 |--------------------------------------------------------------------------
 */
-// $background_image = '';
-$background_image = 'http://0.0.0.0:8080/wp-content/uploads/2026/08/403d6e76-c61e-42ac-928c-aa806afc7563.png';
+$background_image = content_url( '/uploads/2026/08/403d6e76-c61e-42ac-928c-aa806afc7563.png' );
 
 /* ===========================================================
 | Popular Products Section Configuration
@@ -318,15 +317,17 @@ if ( empty( $products_to_display ) ) {
 
 <?php
 $section_style = '';
-$title_color = get_theme_mod( 'robo_popular_products_title_color', '#000000' );
-if ( ! empty( $background_image ) ) {
-	$section_style = 'background-image: url(' . esc_url( $background_image ) . '); background-repeat: no-repeat; background-position: center center; background-size: cover; background-attachment: scroll;';
+$customizer_bg = robo_get_hero_bg_image_url( get_theme_mod( 'robo_popular_products_bg_image', '' ) );
+$effective_bg  = ! empty( $customizer_bg ) ? $customizer_bg : $background_image;
 
-	$title_color = get_theme_mod( 'robo_popular_products_title_color', '#ffffff' );
+$title_color = get_theme_mod( 'robo_popular_products_title_color', '#000000' );
+if ( ! empty( $effective_bg ) ) {
+	$section_style = 'background-image: url(' . esc_url( $effective_bg ) . '); background-repeat: no-repeat; background-position: center center; background-size: cover; background-attachment: scroll;';
+	$title_color   = get_theme_mod( 'robo_popular_products_title_color', '#ffffff' );
 }
 ?>
 
-<section id="popular-products" class="robo-popular-products"<?php if ( ! empty( $section_style ) ) : ?> style="<?php echo esc_attr( $section_style ); ?>"<?php endif; ?> aria-label="<?php esc_attr_e( 'Popular Products', 'robo' ); ?>">
+<section id="popular-products" class="robo-popular-products mb-0"<?php if ( ! empty( $section_style ) ) : ?> style="<?php echo esc_attr( $section_style ); ?>"<?php endif; ?> aria-label="<?php esc_attr_e( 'Popular Products', 'robo' ); ?>">
 	<div class="container robo-popular-products__container">
 		
 		<!-- Section Header -->

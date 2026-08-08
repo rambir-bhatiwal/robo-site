@@ -21,7 +21,7 @@ $section_desc  = get_theme_mod( 'robo_team_section_desc', __( 'A collaborative g
 	<div class="<?php echo esc_attr( $container_class ); ?> py-4">
 		
 		<!-- Section Header -->
-		<div class="row mb-5 justify-content-center text-center">
+		<div class="row mb-3 justify-content-center text-center">
 			<div class="col-lg-6">
 				<?php if ( ! empty( $section_badge ) ) : ?>
 					<span class="text-primary text-uppercase fw-bold small tracking-wider mb-2 d-block"><?php echo esc_html( $section_badge ); ?></span>

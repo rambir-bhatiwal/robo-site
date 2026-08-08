@@ -102,11 +102,15 @@ $testimonials = array(
 	),
 );
 
-$is_slider = ! empty( $config['enableSlider'] );
-$config_json = wp_json_encode( $config );
+$is_slider    = ! empty( $config['enableSlider'] );
+$config_json  = wp_json_encode( $config );
+
+$reviews_bg_raw   = get_theme_mod( 'robo_customer_reviews_bg_image', '' );
+$reviews_bg_url   = robo_get_hero_bg_image_url( $reviews_bg_raw );
+$reviews_bg_style = ! empty( $reviews_bg_url ) ? ' style="background-image: url(\'' . esc_url( $reviews_bg_url ) . '\'); background-repeat: no-repeat; background-position: center center; background-size: cover; background-attachment: scroll;"' : '';
 ?>
 
-<section id="customer-reviews" class="robo-reviews-section" data-reviews-config="<?php echo esc_attr( $config_json ); ?>" aria-label="<?php esc_attr_e( 'Customer Reviews', 'robo' ); ?>">
+<section id="customer-reviews" class="robo-reviews-section mb-0"<?php echo $reviews_bg_style; ?> data-reviews-config="<?php echo esc_attr( $config_json ); ?>" aria-label="<?php esc_attr_e( 'Customer Reviews', 'robo' ); ?>">
 	<div class="container robo-reviews-container">
 		
 		<!-- Section Header -->
