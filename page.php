@@ -25,7 +25,7 @@ if ( class_exists( 'WooCommerce' ) && ( is_cart() || is_checkout() || is_account
 }
 
 $main_col_class = $is_woo_page ? 'col-12' : 'col-lg-8';
-$wrapper_padding_class = $is_woo_page ? 'pt-4 pb-5' : 'py-5';
+$wrapper_padding_class = $is_woo_page ? 'pt-0 pb-1' : 'py-3';
 ?>
 
 <?php

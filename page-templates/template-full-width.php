@@ -18,7 +18,7 @@ get_template_part( 'template-parts/sections/breadcrumb' );
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 ?>
 
-<div id="primary" class="content-area py-5 bg-light-subtle">
+<div id="primary" class="content-area pb-4 pt-1 bg-light-subtle">
 	<main id="main" class="site-main">
 		<div class="<?php echo esc_attr( $container_class ); ?>">
 			<?php

@@ -2762,7 +2762,6 @@ section,
 .popular-products,
 .features-section,
 .portfolio-section,
-.team-section,
 .pricing-section,
 .contact-section,
 .counter-section,
@@ -2780,14 +2779,21 @@ section,
 .map-section,
 .contact-faq,
 .contact-cta,
-.videos-hero,
-.contact-hero,
-.about-hero-section,
-.hero-section,
-.shop-header-banner,
-.breadcrumb-section,
 .breadcrumb-container {
     margin-bottom: 3.5rem !important;
+}
+
+/* Remove bottom margin ONLY from Hero Sections on every page */
+#hero,
+.hero-section,
+.shop-header-banner,
+.about-hero-section,
+.contact-hero,
+.videos-hero,
+.breadcrumb-section,
+.team-section,
+.robo-lms-hero {
+    margin-bottom: 0 !important;
 }
 
 /* Remove space for newsletter section only */
