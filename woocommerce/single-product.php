@@ -24,8 +24,8 @@ get_header( 'shop' );
 do_action( 'woocommerce_before_main_content' );
 
 // Manually open the WooCommerce layout wrapper with container
-echo '<div class="robo-woocommerce-wrapper py-4 bg-light-subtle">';
-echo '<div class="container">';
+echo '<div class="robo-woocommerce-wrapper pb-4 bg-light-subtle">';
+echo '<div class="container-fluid">';
 ?>
 
 <!-- Breadcrumbs (Outside the product card wrapper) -->

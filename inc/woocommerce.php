@@ -169,12 +169,12 @@ function robo_woocommerce_add_to_cart_class( $html, $product, $args = array() ) 
 		return $html;
 	}
 
-	$btn_class = 'btn btn-primary robo-btn w-100 add_to_cart_button';
+	$btn_class = 'robo-btn-add-to-cart add_to_cart_button';
 	
 	if ( $product->is_type( 'variable' ) ) {
-		$btn_class = 'btn btn-outline-primary robo-btn w-100';
+		$btn_class = 'robo-btn-add-to-cart btn-outline-primary';
 	} elseif ( $product->is_type( 'grouped' ) || $product->is_type( 'external' ) ) {
-		$btn_class = 'btn btn-outline-secondary robo-btn w-100';
+		$btn_class = 'robo-btn-add-to-cart btn-outline-secondary';
 	}
 
 	if ( $product->is_purchasable() && $product->is_in_stock() ) {
@@ -182,7 +182,7 @@ function robo_woocommerce_add_to_cart_class( $html, $product, $args = array() ) 
 			$btn_class .= ' no-ajax';
 		}
 	} else {
-		$btn_class = 'btn btn-secondary disabled robo-btn w-100';
+		$btn_class = 'robo-btn-add-to-cart disabled';
 	}
 
 	$html = str_replace( 'class="button', 'class="' . esc_attr( $btn_class ), $html );

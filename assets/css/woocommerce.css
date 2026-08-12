@@ -75,14 +75,7 @@
 	}
 }
 
-@media (min-width: 768px) and (max-width: 991.98px) {
-	.woocommerce #primary.col-md-8,
-	.woocommerce-page #primary.col-md-8 {
-		width: 66.66666667% !important;
-	}
-}
-
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
 	.woocommerce #primary.col-lg-9,
 	.woocommerce-page #primary.col-lg-9,
 	.woocommerce #primary.col-md-8,
@@ -100,16 +93,16 @@
 /* ==========================================================================
    2. Responsive Offcanvas Sidebar overrides
    ========================================================================== */
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
 	#shopSidebarOffcanvas {
 		max-width: 320px;
 		box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 	}
 }
 
-@media (min-width: 768px) {
-	/* Force Offcanvas-md to render as static columns on Desktop/Tablets */
-	.offcanvas-md {
+@media (min-width: 992px) {
+	/* Force Offcanvas-lg to render as static columns on Desktop */
+	.offcanvas-lg {
 		position: static !important;
 		visibility: visible !important;
 		transform: none !important;
@@ -121,11 +114,11 @@
 		display: block !important;
 		box-shadow: none !important;
 	}
-	.offcanvas-md .offcanvas-body {
+	.offcanvas-lg .offcanvas-body {
 		padding: 0 !important;
 		overflow: visible !important;
 	}
-	.border-end-md {
+	.border-end-lg {
 		border-right: 1px solid #e9ecef !important;
 	}
 }
@@ -406,25 +399,183 @@
 	box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
 }
 
+@media (max-width: 575.98px) {
+	.shop-toolbar {
+		padding: 10px 12px !important;
+	}
+	.shop-toolbar .row {
+		--bs-gutter-x: 0.5rem;
+		--bs-gutter-y: 0.5rem;
+	}
+	.shop-result-count {
+		font-size: 0.78rem !important;
+	}
+	.woocommerce-ordering select {
+		min-width: 110px !important;
+		font-size: 0.8rem !important;
+		padding: 0.35rem 1.8rem 0.35rem 0.5rem !important;
+		background-position: right 0.5rem center !important;
+	}
+	.shop-toolbar .btn {
+		padding: 0.35rem 0.65rem !important;
+		font-size: 0.8rem !important;
+	}
+}
+
 /* ==========================================================================
    7. Product Cards Custom Styling
    ========================================================================== */
 .woocommerce-page .products .product-card.product,
 .woocommerce .products .product-card.product,
 .products-container .product-card.product,
-.product-card {
-	float: none !important;
-	width: 100% !important;
-	margin: 0 !important;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-	border: 1px solid #e9ecef !important;
+.robo-popular-products__card.product-card {
+	display: flex !important;
+	flex-direction: column !important;
+	height: 100% !important;
+	border-radius: 16px !important;
+	border: 1px solid #e2e8f0 !important;
+	box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
+	background: #ffffff !important;
+	overflow: hidden !important;
+	transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+	            box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
+	            border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-.product-card:hover {
-	transform: translateY(-5px);
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
-	border-color: #dee2e6 !important;
+@media (hover: hover) and (pointer: fine) {
+	.robo-popular-products__card.product-card:hover {
+		transform: translateY(-6px) !important;
+		box-shadow: 0 16px 36px rgba(144, 1, 251, 0.12) !important;
+		border-color: #9001fb !important;
+	}
+
+	.robo-popular-products__card.product-card:hover .product-card-img {
+		transform: scale(1.06) !important;
+	}
+}
+
+.robo-product-actions a.robo-btn-add-to-cart,
+.robo-product-actions .button,
+.robo-product-actions .add_to_cart_button {
+	flex: 1 !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 6px !important;
+	padding: 10px 16px !important;
+	background-color: #9001fb !important;
+	color: #ffffff !important;
+	border-radius: 10px !important;
+	font-size: 15px !important;
+	font-weight: 600 !important;
+	text-decoration: none !important;
+	transition: all 0.2s ease !important;
+	border: none !important;
+	width: 100% !important;
+	margin: 0 !important;
+}
+
+.robo-product-actions a.robo-btn-add-to-cart:hover,
+.robo-product-actions .button:hover,
+.robo-product-actions .add_to_cart_button:hover {
+	background-color: #7b01d6 !important;
+	color: #ffffff !important;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+	.robo-product-image-wrap {
+		height: 180px !important;
+		padding: 12px !important;
+	}
+	.robo-product-category-badge {
+		font-size: 12px !important;
+		padding: 3px 10px !important;
+	}
+	.robo-product-card__body {
+		padding: 16px 14px !important;
+	}
+	.robo-product-title {
+		font-size: 15px !important;
+		height: 2.7em !important;
+	}
+	.robo-product-price {
+		font-size: 16px !important;
+		margin-bottom: 14px !important;
+	}
+	.robo-product-actions a.robo-btn-add-to-cart,
+	.robo-product-actions .button {
+		font-size: 14px !important;
+		padding: 9px 12px !important;
+	}
+}
+
+@media (max-width: 767.98px) {
+	.robo-product-image-wrap {
+		height: 140px !important;
+		padding: 10px !important;
+	}
+	.robo-product-category-badge {
+		font-size: 11px !important;
+		padding: 3px 8px !important;
+		line-height: 1.3 !important;
+	}
+	.robo-product-card__body {
+		padding: 12px 10px !important;
+	}
+	.robo-product-title {
+		font-size: 14px !important;
+		height: 2.6em !important;
+		margin-bottom: 6px !important;
+	}
+	.robo-product-price {
+		font-size: 15px !important;
+		margin-bottom: 10px !important;
+	}
+	.robo-product-price del {
+		font-size: 12px !important;
+	}
+	.robo-product-actions a.robo-btn-add-to-cart,
+	.robo-product-actions .button {
+		font-size: 13px !important;
+		padding: 8px 6px !important;
+		border-radius: 8px !important;
+	}
+}
+
+@media (max-width: 479.98px) {
+	.robo-product-badge-sale {
+		font-size: 10px !important;
+		padding: 2px 7px !important;
+		top: 8px !important;
+		left: 8px !important;
+	}
+	.robo-product-top-actions {
+		top: 8px !important;
+		right: 8px !important;
+		gap: 4px !important;
+	}
+	.robo-product-action-btn {
+		width: 28px !important;
+		height: 28px !important;
+	}
+	.robo-product-action-btn svg {
+		width: 14px !important;
+		height: 14px !important;
+	}
+	.robo-product-image-wrap {
+		height: 130px !important;
+		padding: 8px !important;
+	}
+	.robo-product-card__body {
+		padding: 10px 8px !important;
+	}
+	.robo-product-title {
+		font-size: 13px !important;
+		height: 2.6em !important;
+	}
+	.robo-product-price {
+		font-size: 14px !important;
+	}
 }
 
 /* Badges Placement */

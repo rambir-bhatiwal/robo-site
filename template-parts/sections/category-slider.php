@@ -117,7 +117,7 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 				</span>
 			</div>
 			<h2 class="robo-category-slider__heading">
-				<?php esc_html_e( 'Shop by Categories', 'robo' ); ?>
+				<?php esc_html_e( 'Our Robotics Collections ⭐', 'robo' ); ?>
 			</h2>
 			<p class="robo-category-slider__desc">
 				<?php esc_html_e( 'Discover robotics kits, electronics, AI modules, STEM products, and educational resources designed for students, makers, schools, and professionals.', 'robo' ); ?>

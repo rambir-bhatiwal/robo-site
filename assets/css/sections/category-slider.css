@@ -6,7 +6,7 @@
     position: relative;
     width: 100%;
     background-color: var(--robo-trust-bg, #ffffff);
-    padding-top: 50px;
+    padding-top: 20px;
     padding-bottom: 20px;
     overflow: hidden;
 }
@@ -293,7 +293,7 @@
 /* Tablet (768px to 1024px) - 3 Cards */
 @media (min-width: 768px) and (max-width: 1024px) {
     .robo-category-slider {
-        padding-top: 40px;
+        padding-top: 20px;
         padding-bottom: 40px;
     }
     .robo-category-slider__heading {
@@ -322,8 +322,8 @@
 /* Mobile (767px and below) - 2 Cards */
 @media (max-width: 767.98px) {
     .robo-category-slider {
-        padding-top: 30px;
-        padding-bottom: 30px;
+        padding-top: 0px;
+        padding-bottom: 0px;
     }
     .robo-category-slider__header {
         margin-bottom: 24px;

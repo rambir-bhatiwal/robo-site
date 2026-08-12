@@ -29,20 +29,23 @@ do_action( 'woocommerce_before_main_content' );
 	</div>
 </div>
 
+<!-- Category Collections Section (Reused from Home Page) -->
+<?php get_template_part( 'template-parts/sections/category-slider' ); ?>
+
 <!-- Main Shop Row -->
 <div class="row g-4">
 	
 	<!-- Left Sidebar Column -->
-	<div class="col-lg-3 col-md-4">
-		<!-- Responsive Offcanvas: behaves as Drawer on Mobile (<768px), static block on Tablet/Desktop (>=768px) -->
-		<div class="offcanvas-md offcanvas-start border-end-md h-100 bg-white" tabindex="-1" id="shopSidebarOffcanvas" aria-labelledby="shopSidebarOffcanvasLabel">
-			<div class="offcanvas-header border-bottom bg-light d-md-none">
+	<div class="col-lg-3">
+		<!-- Responsive Offcanvas: behaves as Drawer on Mobile & Tablet (<992px), static block on Desktop (>=992px) -->
+		<div class="offcanvas-lg offcanvas-start border-end-lg h-100 bg-white" tabindex="-1" id="shopSidebarOffcanvas" aria-labelledby="shopSidebarOffcanvasLabel">
+			<div class="offcanvas-header border-bottom bg-light d-lg-none">
 				<h5 class="offcanvas-title fw-bold text-dark d-flex align-items-center gap-2" id="shopSidebarOffcanvasLabel">
 					<i class="bi bi-funnel fs-4 text-primary"></i> <?php esc_html_e( 'Filter & Search', 'robo' ); ?>
 				</h5>
 				<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" data-bs-target="#shopSidebarOffcanvas" aria-label="Close"></button>
 			</div>
-			<div class="offcanvas-body p-4 p-md-0">
+			<div class="offcanvas-body p-4 p-lg-0">
 				<aside id="secondary" class="widget-area w-100" aria-label="<?php esc_attr_e( 'Shop Sidebar', 'robo' ); ?>">
 					<?php if ( is_active_sidebar( 'shop-sidebar' ) ) : ?>
 						<?php dynamic_sidebar( 'shop-sidebar' ); ?>
@@ -96,36 +99,27 @@ do_action( 'woocommerce_before_main_content' );
 	</div>
 
 	<!-- Right Content Column -->
-	<main id="primary" class="site-main col-lg-9 col-md-8">
+	<main id="primary" class="site-main col-lg-9">
 		<?php if ( woocommerce_product_loop() ) : ?>
 			
 			<!-- Shop Toolbar Option -->
 			<div class="shop-toolbar bg-white p-3 rounded shadow-sm border border-light-subtle mb-4">
-				<div class="row align-items-center g-3">
+				<div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between gap-2 gap-sm-3">
 					
-					<!-- Left Side: Result Count & Mobile Filter Trigger -->
-					<div class="col d-flex align-items-center gap-3">
-						<!-- Mobile Filter Button (Visible only on <768px) -->
-						<button class="btn btn-outline-primary robo-btn d-md-none d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#shopSidebarOffcanvas" aria-controls="shopSidebarOffcanvas">
+					<!-- Right Side on Desktop/Tablet (Sorting Dropdown & Layout Switcher) / Top on Mobile (order-1 on Mobile, order-sm-2 on Desktop/Tablet) -->
+					<div class="d-flex align-items-center justify-content-between justify-content-sm-end gap-2 gap-sm-3 flex-wrap order-1 order-sm-2">
+						<!-- Mobile / Tablet Filter Button (Visible only on <992px) -->
+						<button class="btn btn-outline-primary robo-btn d-lg-none d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#shopSidebarOffcanvas" aria-controls="shopSidebarOffcanvas">
 							<i class="bi bi-funnel fs-6"></i> <?php esc_html_e( 'Filters', 'robo' ); ?>
 						</button>
-						
-						<!-- Result count text -->
-						<div class="text-muted small">
-							<?php woocommerce_result_count(); ?>
-						</div>
-					</div>
 
-					<!-- Right Side: Order Dropdown & Layout Switcher -->
-					<div class="col-auto d-flex align-items-center gap-3 flex-wrap justify-content-end">
-						
 						<!-- Sorting Dropdown -->
 						<div class="toolbar-sort">
 							<?php woocommerce_catalog_ordering(); ?>
 						</div>
 
 						<!-- Grid / List Switcher Button -->
-						<div class="btn-group border border-light-subtle rounded p-1 bg-light" role="group" aria-label="<?php esc_attr_e( 'Grid or List Toggle', 'robo' ); ?>">
+						<div class="btn-group border border-light-subtle rounded p-1 bg-light d-none d-sm-inline-flex" role="group" aria-label="<?php esc_attr_e( 'Grid or List Toggle', 'robo' ); ?>">
 							<button type="button" class="btn btn-sm btn-light border-0 active text-primary" id="grid-view-btn" title="<?php esc_attr_e( 'Grid view', 'robo' ); ?>">
 								<i class="bi bi-grid-3x3-gap-fill fs-5"></i>
 							</button>
@@ -133,8 +127,13 @@ do_action( 'woocommerce_before_main_content' );
 								<i class="bi bi-list-ul fs-5"></i>
 							</button>
 						</div>
-
 					</div>
+
+					<!-- Result Count Text (Left Side on Desktop/Tablet, Below Sorting Dropdown on Mobile: order-2 on Mobile, order-sm-1 on Desktop/Tablet) -->
+					<div class="p-0 text-end text-muted small shop-result-count order-2 order-sm-1">
+						<?php woocommerce_result_count(); ?>
+					</div>
+
 				</div>
 			</div>
 
@@ -150,8 +149,8 @@ do_action( 'woocommerce_before_main_content' );
 				?>
 			</div>
 
-			<!-- Dynamic WooCommerce Product Loop Grid -->
-			<div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 products transition-all products-container" id="robo-products-container">
+			<!-- Dynamic WooCommerce Product Loop Grid (2 cols Mobile, 3 cols Tablet, 3 cols Desktop) -->
+			<div class="row g-2 g-sm-3 g-md-4 row-cols-2 row-cols-md-3 row-cols-lg-3 products transition-all products-container" id="robo-products-container">
 				<?php
 				if ( wc_get_loop_prop( 'total' ) ) {
 					while ( have_posts() ) {

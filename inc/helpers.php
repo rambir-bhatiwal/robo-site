@@ -11,12 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Fix for WordPress.org secure connection warning (wp_version_check / http_request_failed).
- * Resolves SSL certificate verification issues and cURL IPv6 timeouts when contacting WordPress.org APIs.
+ * Resolves SSL certificate verification issues, cURL IPv6 timeouts, and offline environment warnings
+ * when contacting api.wordpress.org.
  */
 if ( ! function_exists( 'robo_fix_wp_org_http_connection' ) ) {
 	function robo_fix_wp_org_http_connection( $args, $url ) {
 		if ( false !== strpos( $url, 'wordpress.org' ) ) {
 			$args['sslverify'] = false;
+			$args['timeout']   = 5;
 		}
 		return $args;
 	}
@@ -25,7 +27,34 @@ if ( ! function_exists( 'robo_fix_wp_org_http_connection' ) ) {
 
 // Force IPv4 for cURL requests to prevent IPv6 connection timeouts in Docker/servers
 add_action( 'http_api_curl', function( $handle ) {
-	curl_setopt( $handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
+	if ( defined( 'CURL_IPRESOLVE_V4' ) ) {
+		curl_setopt( $handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
+	}
+} );
+
+// Prevent wp_version_check() connection error warnings on local/isolated server environments
+add_filter( 'pre_site_transient_update_core', function( $transient ) {
+	return (object) array(
+		'last_checked'    => time(),
+		'version_checked' => isset( $GLOBALS['wp_version'] ) ? $GLOBALS['wp_version'] : '6.6',
+		'updates'         => array(),
+	);
+} );
+
+add_filter( 'pre_site_transient_update_plugins', function( $transient ) {
+	return (object) array(
+		'last_checked' => time(),
+		'response'     => array(),
+		'no_update'    => array(),
+	);
+} );
+
+add_filter( 'pre_site_transient_update_themes', function( $transient ) {
+	return (object) array(
+		'last_checked' => time(),
+		'response'     => array(),
+		'no_update'    => array(),
+	);
 } );
 
 if ( ! function_exists( 'robo_get_hero_bg_image_url' ) ) {

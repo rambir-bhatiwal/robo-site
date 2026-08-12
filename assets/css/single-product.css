@@ -28,10 +28,9 @@
 }
 
 /* Tighten layout spacing for WooCommerce wrappers to prevent excess whitespace */
-.robo-woocommerce-wrapper {
-	padding-top: 1.5rem !important;
+/* .robo-woocommerce-wrapper {
 	padding-bottom: 2.5rem !important;
-}
+} */
 
 /* Premium Card Layouts */
 .product-gallery-col .card,

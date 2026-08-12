@@ -42,7 +42,7 @@ $links = paginate_links(
 
 if ( is_array( $links ) ) {
 	?>
-	<nav class="woocommerce-pagination my-5" aria-label="<?php esc_attr_e( 'Product Pagination', 'woocommerce' ); ?>">
+	<nav class="woocommerce-pagination mb-4" aria-label="<?php esc_attr_e( 'Product Pagination', 'woocommerce' ); ?>">
 		<ul class="pagination justify-content-center">
 			<?php
 			foreach ( $links as $link ) {
