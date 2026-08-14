@@ -1,4 +1,4 @@
-name: Deploy WordPress Theme to InfinityFree
+name: Deploy WordPress Theme to InfinityFree by Rambir-bhatiwal
 
 on:
   push:
