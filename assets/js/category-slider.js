@@ -59,7 +59,7 @@ const CATEGORY_SLIDER_CONFIG = {
      | Number of category cards visible on each device.
      -------------------------------------------------- */
     slidesPerView: {
-        mobile: 3,
+        mobile: 2,
         tablet: 3,
         desktop: 4
     },
