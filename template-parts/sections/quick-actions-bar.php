@@ -8,11 +8,20 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$background_image = content_url( '/uploads/2026/08/403d6e76-c61e-42ac-928c-aa806afc7563.png' );
+$customizer_bg    = function_exists( 'robo_get_hero_bg_image_url' ) ? robo_get_hero_bg_image_url( get_theme_mod( 'robo_popular_products_bg_image', '' ) ) : '';
+$effective_bg     = ! empty( $customizer_bg ) ? $customizer_bg : $background_image;
+
+$section_style = '';
+if ( ! empty( $effective_bg ) ) {
+	$section_style = 'background-image: url(' . esc_url( $effective_bg ) . '); background-repeat: no-repeat; background-position: center center; background-size: cover; background-attachment: scroll;';
+}
 ?>
 
-<section id="quick-actions-bar" class="robo-quick-actions-bar mb-0">
-	<div class="container robo-quick-actions-bar__container">
-		<div class="robo-quick-actions-bar__card">
+<section id="quick-actions-bar" class="robo-quick-actions-bar mb-0 mt-0 pt-0">
+	<div class="container robo-quick-actions-bar__container p-0 m-0 " <?php if ( ! empty( $section_style ) ) : ?> style="<?php echo esc_attr( $section_style ); ?>"<?php endif; ?> >
+		<div class="robo-quick-actions-bar__card" <?php if ( ! empty( $section_style ) ) : ?> style="<?php echo esc_attr( $section_style ); ?>"<?php endif; ?>>
 			<div class="robo-quick-actions-bar__content">
 				
 				<!-- Badge -->
@@ -23,12 +32,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<!-- Main Heading -->
-				<h2 class="robo-quick-actions-bar__heading">
+				<h2 class="text-white robo-quick-actions-bar__heading">
 					Start Your Robotics Journey
 				</h2>
 
 				<!-- Description -->
-				<p class="robo-quick-actions-bar__desc">
+				<p class=" text-light robo-quick-actions-bar__desc">
 					Explore our robotics kits or watch product demonstrations before getting started.
 				</p>
 
