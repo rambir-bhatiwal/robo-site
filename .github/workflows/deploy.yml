@@ -1,18 +1,22 @@
-name: Deploy Wordpress theme on infinitifree
+name: Deploy WordPress Theme to InfinityFree
 
 on:
   push:
     branches:
       - dev-new-working
+
   workflow_dispatch:
 
 jobs:
   deploy:
-    runs-on: ubantu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-      - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: actions/checkout@v4
+
+      - name: Deploy theme to InfinityFree
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
