@@ -1236,3 +1236,34 @@ section,
 .error-404-actions .form-control {
     height: 100%;
 }
+
+/* ==========================================================================
+   Breadcrumb Icon Centering & Mobile Font Size
+   ========================================================================== */
+.breadcrumb-item,
+.breadcrumb-item a {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.breadcrumb-item a {
+    gap: 4px;
+}
+
+.breadcrumb-item i,
+.breadcrumb-item .bi {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+@media (max-width: 767.98px) {
+    .breadcrumb,
+    .breadcrumb-item,
+    .breadcrumb-item a {
+        font-size: 15px;
+    }
+}

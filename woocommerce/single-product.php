@@ -30,7 +30,7 @@ echo '<div class="container-fluid">';
 
 <!-- Breadcrumbs (Outside the product card wrapper) -->
 <div class="row mb-3">
-	<div class="col-12">
+	<div class="col-12 robo_woocommerce_breadcrumbs">
 		<?php
 		if ( function_exists( 'robo_woocommerce_breadcrumbs' ) ) {
 			robo_woocommerce_breadcrumbs();
