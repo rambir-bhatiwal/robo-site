@@ -10,12 +10,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Preload Bootstrap Icons Webfont to eliminate icon render delays across the site.
+ * Remove jQuery Migrate on frontend to eliminate unnecessary console logs and save HTTP requests.
  */
-function robo_preload_icon_fonts() {
-	echo '<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/fonts/bootstrap-icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">' . "\n";
+function robo_remove_jquery_migrate( $scripts ) {
+	if ( ! is_admin() && isset( $scripts->registered['jquery'] ) ) {
+		$script = $scripts->registered['jquery'];
+		if ( ! empty( $script->deps ) ) {
+			$script->deps = array_diff( $script->deps, array( 'jquery-migrate' ) );
+		}
+	}
 }
-add_action( 'wp_head', 'robo_preload_icon_fonts', 1 );
+add_action( 'wp_default_scripts', 'robo_remove_jquery_migrate' );
 
 if ( ! function_exists( 'robo_scripts' ) ) {
 	/**

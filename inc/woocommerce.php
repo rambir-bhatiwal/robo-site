@@ -508,3 +508,30 @@ add_filter( 'option_woocommerce_razorpay_settings', function( $value ) {
 	}
 	return $value;
 } );
+
+/**
+ * WooCommerce Stripe Gateway Compatibility:
+ * 1. Hide Express Checkout / Payment Request Buttons on non-SSL (HTTP) local development environments to eliminate Apple Pay / Google Pay console warnings.
+ * 2. Remove 'link' payment method when currency is INR to prevent Stripe API 400 (Bad Request) errors.
+ */
+add_filter( 'wc_stripe_hide_payment_request_on_product_page', function( $hide, $post = null ) {
+	if ( ! is_ssl() && ! ( defined( 'WC_STRIPE_FORCE_PAYMENT_REQUEST_OVER_HTTP' ) && WC_STRIPE_FORCE_PAYMENT_REQUEST_OVER_HTTP ) ) {
+		return true;
+	}
+	return $hide;
+}, 10, 2 );
+
+add_filter( 'wc_stripe_payment_request_params', function( $params ) {
+	if ( ! is_array( $params ) ) {
+		return $params;
+	}
+
+	// Disable 'link' when currency is INR to avoid Stripe 400 Bad Request
+	$currency = isset( $params['currency'] ) ? strtolower( $params['currency'] ) : ( function_exists( 'get_woocommerce_currency' ) ? strtolower( get_woocommerce_currency() ) : '' );
+	if ( 'inr' === $currency && isset( $params['payment_method_types'] ) && is_array( $params['payment_method_types'] ) ) {
+		$params['payment_method_types'] = array_values( array_diff( $params['payment_method_types'], array( 'link' ) ) );
+	}
+
+	return $params;
+} );
+
