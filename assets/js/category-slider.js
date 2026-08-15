@@ -285,8 +285,14 @@ document.addEventListener('DOMContentLoaded', function () {
             requestAnimationFrame(trackDotsLoop);
         }
 
+        let snapTimeout = null;
+
         function snapToSlideIndex(targetIdx, currentX) {
             if (setWidth <= 0 || stepWidth <= 0) return;
+            if (snapTimeout) {
+                clearTimeout(snapTimeout);
+                snapTimeout = null;
+            }
             isNavigating = true;
             track.style.animation = 'none';
 
@@ -301,32 +307,45 @@ document.addEventListener('DOMContentLoaded', function () {
                 desiredTranslate += setWidth;
             }
 
-            track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+            track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
             track.style.transform = `translate3d(${desiredTranslate}px, 0, 0)`;
+            activeDotIdx = targetIdx;
             updateDotHighlight(targetIdx);
 
-            setTimeout(() => {
+            snapTimeout = setTimeout(() => {
                 isNavigating = false;
                 track.style.transition = 'none';
-                startMarqueeAnimation(targetX);
-            }, 400);
+                track.style.transform = `translate3d(-${targetX}px, 0, 0)`;
+                if (CATEGORY_SLIDER_CONFIG.autoplay && window.innerWidth > 1024) {
+                    startMarqueeAnimation(targetX);
+                }
+                snapTimeout = null;
+            }, 350);
         }
 
         function navigateToIndex(targetIdx) {
             if (setWidth <= 0 || stepWidth <= 0) return;
+            if (snapTimeout) {
+                clearTimeout(snapTimeout);
+                snapTimeout = null;
+            }
             isNavigating = true;
             track.style.animation = 'none';
 
             const targetX = targetIdx * stepWidth;
-            track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+            track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
             track.style.transform = `translate3d(-${targetX}px, 0, 0)`;
+            activeDotIdx = targetIdx;
             updateDotHighlight(targetIdx);
 
-            setTimeout(() => {
+            snapTimeout = setTimeout(() => {
                 isNavigating = false;
                 track.style.transition = 'none';
-                startMarqueeAnimation(targetX);
-            }, 400);
+                if (CATEGORY_SLIDER_CONFIG.autoplay && window.innerWidth > 1024) {
+                    startMarqueeAnimation(targetX);
+                }
+                snapTimeout = null;
+            }, 350);
         }
 
         // Navigation Arrows in Continuous Mode
@@ -367,40 +386,39 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // =========================================================
-        // CONTINUE SLIDER REAL-TIME LIVE DRAGGING (CONTINUOUS MODE)
+        // CONTROLLED MOBILE LIVE DRAGGING (NO MOMENTUM / NO SKIPPING)
         // =========================================================
-        // Enables interactive touch and drag on mobile and tablet devices.
-        // During active drag, the slider content directly and continuously
-        // tracks the user's finger (transition: none). On release, it smoothly
-        // snaps to the nearest/target slide using cubic-bezier easing and
-        // seamlessly resumes the continuous marquee conveyor animation.
+        // Provides exact 1:1 real-time finger tracking without multi-slide
+        // throwing or runaway acceleration on repeated direction changes.
         // =========================================================
         function initTouchSwipe() {
             if (!CATEGORY_SLIDER_CONFIG.touchSwipe) return;
 
-            // ---------------------------------------------------------
             // 1. DRAG STATE VARIABLES
-            // ---------------------------------------------------------
-            // Stores initial touch coordinate and track translate at drag start.
-            // These values remain completely stable and unchanged throughout
-            // the entire drag gesture to prevent coordinate drift.
-            let dragStartX = 0;             // Pointer X coordinate recorded on touchstart
-            let dragStartY = 0;             // Pointer Y coordinate recorded on touchstart
-            let dragStartTranslate = 0;     // Stable normalized track translate (px) at touchstart
-            let touchDeltaX = 0;            // Net horizontal displacement (currentX - dragStartX)
-            let isDragging = false;         // True once horizontal dragging is established
-            let isScrolling = undefined;    // True if gesture is vertical page scroll; false if horizontal
-            let wasPausedByTouch = false;   // Flags that marquee was stopped for touch interaction
+            let dragStartX = 0;             // Touch start clientX
+            let dragStartY = 0;             // Touch start clientY
+            let dragStartTranslate = 0;     // Stable normalized track translate at drag start
+            let startSlideIndex = 0;        // Slide index when drag started
+            let touchDeltaX = 0;            // Net displacement (currentX - startX)
+            let isDragging = false;         // True once horizontal movement is confirmed
+            let isScrolling = undefined;    // True if gesture is vertical page scroll
+            let wasPausedByTouch = false;   // Flags that background motion was paused
+            let rafId = null;               // requestAnimationFrame handle for 60fps throttling
+            let pendingTranslate = 0;       // Buffered translate value for rAF render
 
-            // ---------------------------------------------------------
-            // 2. POINTER / TOUCH START HANDLER
-            // ---------------------------------------------------------
-            // Captures the exact pixel position of the track when the finger
-            // lands on the slider, stops CSS marquee animation, and disables
-            // CSS transitions so movement is directly bound to the finger.
+            // 2. DRAG START HANDLER
             const onTouchStart = (e) => {
-                // Ignore touch listeners on desktop viewports without touch capability
                 if (window.innerWidth > 1024 && !('ontouchstart' in window)) return;
+
+                // Clear any pending snap timers from previous gestures
+                if (snapTimeout) {
+                    clearTimeout(snapTimeout);
+                    snapTimeout = null;
+                }
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
 
                 const touch = e.touches[0];
                 dragStartX = touch.clientX;
@@ -409,12 +427,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 isDragging = false;
                 isScrolling = undefined;
                 wasPausedByTouch = true;
-                isNavigating = true; // Lock background dot-tracking loops while dragging
+                isNavigating = true; // Lock background loops during active gesture
 
-                // -----------------------------------------------------
-                // 3. INITIAL TRANSLATE POSITION CAPTURE
-                // -----------------------------------------------------
-                // Read the active computed CSS transform matrix from the track
+                // 3. CAPTURE CURRENT TRANSLATE POSITION
                 let currentMatrixX = 0;
                 try {
                     const style = window.getComputedStyle(track);
@@ -425,25 +440,26 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 } catch (err) {}
 
-                // Normalize starting translate to the canonical range (-setWidth, 0]
+                // Normalize starting translate within (-setWidth, 0]
                 if (setWidth > 0) {
                     currentMatrixX = currentMatrixX % setWidth;
                     if (currentMatrixX > 0) currentMatrixX -= setWidth;
                 }
 
-                // Stable anchor for the entire gesture (NEVER mutated in touchmove)
                 dragStartTranslate = currentMatrixX;
+                if (stepWidth > 0) {
+                    startSlideIndex = Math.round(Math.abs(currentMatrixX) / stepWidth) % originalCount;
+                } else {
+                    startSlideIndex = activeDotIdx;
+                }
 
-                // Freeze animation and eliminate transition lag immediately
+                // Freeze animations immediately so the track is directly connected to the touch
                 track.style.animation = 'none';
                 track.style.transition = 'none';
                 track.style.transform = `translate3d(${dragStartTranslate}px, 0, 0)`;
             };
 
-            // ---------------------------------------------------------
-            // 4. LIVE POINTER / TOUCH MOVE HANDLER
-            // ---------------------------------------------------------
-            // Evaluates gesture direction and applies real-time 1:1 translation.
+            // 4. LIVE DRAG MOVE HANDLER
             const onTouchMove = (e) => {
                 if (!wasPausedByTouch) return;
 
@@ -453,21 +469,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 const absX = Math.abs(deltaX);
                 const absY = Math.abs(deltaY);
 
-                // -----------------------------------------------------
-                // 5. HORIZONTAL VS VERTICAL GESTURE DETECTION
-                // -----------------------------------------------------
-                // Determine gesture direction once movement exceeds the 6px jitter deadband.
-                // If horizontal movement is dominant, lock drag mode and prevent page scrolling.
-                // If vertical movement is dominant, release to native page scrolling.
+                // 5. GESTURE DISCRIMINATION (6px Deadband)
                 if (isScrolling === undefined) {
                     if (absX >= 6 || absY >= 6) {
                         if (absX >= absY) {
-                            isScrolling = false; // Confirmed horizontal slider drag
+                            isScrolling = false; // Horizontal slider drag
                             isDragging = true;
                         } else {
-                            isScrolling = true;  // Confirmed vertical page scroll
+                            isScrolling = true;  // Vertical page scroll
                             isNavigating = false;
-                            if (CATEGORY_SLIDER_CONFIG.autoplay) {
+                            if (CATEGORY_SLIDER_CONFIG.autoplay && window.innerWidth > 1024) {
                                 startMarqueeAnimation(Math.abs(dragStartTranslate));
                             }
                             return;
@@ -475,100 +486,79 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
 
-                // -----------------------------------------------------
-                // 6. LIVE REAL-TIME TRANSFORM UPDATE (BOTH DIRECTIONS)
-                // -----------------------------------------------------
+                // 6. LIVE TRANSFORM UPDATE (SYNCHRONIZED WITH RAF)
                 if (isScrolling === false && isDragging) {
                     if (e.cancelable) e.preventDefault();
                     touchDeltaX = deltaX;
 
-                    // Calculate live position strictly from stable dragStartTranslate + deltaX
-                    // A negative deltaX moves the slider left (forward)
-                    // A positive deltaX moves the slider right (backward)
+                    // Calculate live position from immutable starting anchor
                     const rawTranslate = dragStartTranslate + deltaX;
 
-                    // -------------------------------------------------
-                    // 7. TRANSLATE BOUNDARIES & INFINITE LOOP MAPPING
-                    // -------------------------------------------------
-                    // Seamlessly wrap translate within (-setWidth, 0] so cloned
-                    // slides provide infinite visual continuity in both directions.
+                    // Wrap within canonical range (-setWidth, 0] for continuous slide coverage
                     let liveTranslate = rawTranslate;
                     if (setWidth > 0) {
                         liveTranslate = rawTranslate % setWidth;
                         if (liveTranslate > 0) liveTranslate -= setWidth;
                     }
 
-                    // Directly update the track with zero transition lag
-                    track.style.transition = 'none';
-                    track.style.transform = `translate3d(${liveTranslate}px, 0, 0)`;
+                    pendingTranslate = liveTranslate;
+                    if (!rafId) {
+                        rafId = requestAnimationFrame(() => {
+                            track.style.transition = 'none';
+                            track.style.transform = `translate3d(${pendingTranslate}px, 0, 0)`;
+                            rafId = null;
+                        });
+                    }
 
-                    // Update pagination dot highlights in real time during drag
+                    // Update dot indicators in real time
                     if (setWidth > 0 && stepWidth > 0) {
                         const currentNorm = Math.abs(liveTranslate) % setWidth;
-                        const activeIdx = Math.floor(currentNorm / stepWidth) % originalCount;
+                        const activeIdx = Math.round(currentNorm / stepWidth) % originalCount;
                         updateDotHighlight(activeIdx);
                     }
                 }
             };
 
-            // ---------------------------------------------------------
-            // 8. POINTER / TOUCH RELEASE & SNAP HANDLER
-            // ---------------------------------------------------------
-            // Evaluates total drag distance against swipe threshold, snaps to
-            // the destination slide with smooth easing, and resumes continuous marquee.
+            // 7. DRAG RELEASE & CONTROLLED SNAP (NO MOMENTUM / NO MULTI-SLIDE SKIPPING)
             const onTouchEnd = () => {
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+
                 if (isDragging && isScrolling === false) {
                     const threshold = CATEGORY_SLIDER_CONFIG.swipeThreshold || 40;
                     const deltaX = touchDeltaX;
 
                     if (setWidth > 0 && stepWidth > 0) {
-                        // Determine current normalized position on the track
                         const rawTranslate = dragStartTranslate + deltaX;
                         let liveTranslate = rawTranslate % setWidth;
                         if (liveTranslate > 0) liveTranslate -= setWidth;
 
-                        const currentPos = -liveTranslate; // Positive offset from slide 0 in [0, setWidth)
-
+                        // Controlled single-slide step decision:
+                        // Move at most 1 adjacent slide or return to starting slide
                         let targetIdx;
                         if (deltaX <= -threshold) {
-                            // ---------------------------------------------
-                            // Forward Drag (Left): advance to next slide
-                            // ---------------------------------------------
-                            if (Math.abs(deltaX) > stepWidth) {
-                                targetIdx = Math.round(currentPos / stepWidth) % originalCount;
-                            } else {
-                                targetIdx = Math.ceil(currentPos / stepWidth) % originalCount;
-                            }
+                            // Forward Drag (Left): advance to next adjacent slide
+                            targetIdx = (startSlideIndex + 1) % originalCount;
                         } else if (deltaX >= threshold) {
-                            // ---------------------------------------------
-                            // Backward Drag (Right): return to previous slide
-                            // ---------------------------------------------
-                            if (Math.abs(deltaX) > stepWidth) {
-                                targetIdx = Math.round(currentPos / stepWidth) % originalCount;
-                            } else {
-                                targetIdx = Math.floor(currentPos / stepWidth) % originalCount;
-                            }
+                            // Backward Drag (Right): return to previous adjacent slide
+                            targetIdx = (startSlideIndex - 1 + originalCount) % originalCount;
                         } else {
-                            // ---------------------------------------------
-                            // Small Drag (< Threshold): settle to nearest slide
-                            // ---------------------------------------------
-                            targetIdx = Math.round(currentPos / stepWidth) % originalCount;
+                            // Drag distance below threshold: return to start slide
+                            targetIdx = startSlideIndex;
                         }
 
-                        // Execute smooth shortest-path snap transition to targetIdx
+                        // Smooth shortest-path snap transition
                         snapToSlideIndex(targetIdx, liveTranslate);
                     } else {
                         isNavigating = false;
-                        if (CATEGORY_SLIDER_CONFIG.autoplay) {
+                        if (CATEGORY_SLIDER_CONFIG.autoplay && window.innerWidth > 1024) {
                             startMarqueeAnimation(Math.abs(dragStartTranslate));
                         }
                     }
 
-                    // -------------------------------------------------
-                    // 9. TAP / LINK ACCIDENTAL ACTIVATION PROTECTION
-                    // -------------------------------------------------
-                    // Intercepts the synthetic click event on touch release if the
-                    // user was genuinely dragging, allowing normal card taps to open URLs.
+                    // Prevent accidental card link opening on drag release
                     if (Math.abs(deltaX) > 5) {
                         const preventClick = (ev) => {
                             ev.preventDefault();
@@ -580,16 +570,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         }, 100);
                     }
                 } else if (wasPausedByTouch && isScrolling !== true) {
-                    // Tap without drag: resume continuous marquee animation
                     isNavigating = false;
-                    if (CATEGORY_SLIDER_CONFIG.autoplay) {
+                    if (CATEGORY_SLIDER_CONFIG.autoplay && window.innerWidth > 1024) {
                         startMarqueeAnimation(Math.abs(dragStartTranslate));
                     }
                 }
 
-                // -----------------------------------------------------
-                // 10. DRAG STATE CLEANUP
-                // -----------------------------------------------------
+                // 8. RESET DRAG STATE
                 wasPausedByTouch = false;
                 isDragging = false;
                 isScrolling = undefined;
