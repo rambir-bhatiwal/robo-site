@@ -450,34 +450,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 const touch = e.touches[0];
                 const deltaX = touch.clientX - dragStartX;
                 const deltaY = touch.clientY - dragStartY;
+                const absX = Math.abs(deltaX);
+                const absY = Math.abs(deltaY);
 
                 // -----------------------------------------------------
                 // 5. HORIZONTAL VS VERTICAL GESTURE DETECTION
                 // -----------------------------------------------------
-                // If the user is swiping vertically, allow native page scrolling.
-                // If horizontal movement is established (> 6px), lock drag mode.
+                // Determine gesture direction once movement exceeds the 6px jitter deadband.
+                // If horizontal movement is dominant, lock drag mode and prevent page scrolling.
+                // If vertical movement is dominant, release to native page scrolling.
                 if (isScrolling === undefined) {
-                    if (Math.abs(deltaY) > Math.abs(deltaX)) {
-                        isScrolling = true; // Native vertical page scroll
-                        isNavigating = false;
-                        if (CATEGORY_SLIDER_CONFIG.autoplay) {
-                            startMarqueeAnimation(Math.abs(dragStartTranslate));
+                    if (absX >= 6 || absY >= 6) {
+                        if (absX >= absY) {
+                            isScrolling = false; // Confirmed horizontal slider drag
+                            isDragging = true;
+                        } else {
+                            isScrolling = true;  // Confirmed vertical page scroll
+                            isNavigating = false;
+                            if (CATEGORY_SLIDER_CONFIG.autoplay) {
+                                startMarqueeAnimation(Math.abs(dragStartTranslate));
+                            }
+                            return;
                         }
-                        return;
-                    } else if (Math.abs(deltaX) > 6) {
-                        isScrolling = false; // Horizontal slider drag established
-                        isDragging = true;
                     }
                 }
 
                 // -----------------------------------------------------
-                // 6. LIVE REAL-TIME TRANSFORM UPDATE
+                // 6. LIVE REAL-TIME TRANSFORM UPDATE (BOTH DIRECTIONS)
                 // -----------------------------------------------------
                 if (isScrolling === false && isDragging) {
                     if (e.cancelable) e.preventDefault();
                     touchDeltaX = deltaX;
 
                     // Calculate live position strictly from stable dragStartTranslate + deltaX
+                    // A negative deltaX moves the slider left (forward)
+                    // A positive deltaX moves the slider right (backward)
                     const rawTranslate = dragStartTranslate + deltaX;
 
                     // -------------------------------------------------
