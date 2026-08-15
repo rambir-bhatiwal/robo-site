@@ -177,8 +177,17 @@ document.addEventListener('DOMContentLoaded', function () {
         let setWidth = 0;
         let stepWidth = 0;
         let dotButtons = [];
-        let activeDotIdx = 0;
         let isNavigating = false;
+        let snapTimeout = null;
+
+        // =========================================================
+        // SINGLE SOURCE OF TRUTH FOR CURRENT SLIDE INDEX
+        // =========================================================
+        // Stores the canonical active slide index [0, originalCount - 1].
+        // Updated synchronously by drag completion, arrow clicks, dot clicks,
+        // and desktop marquee tracking.
+        // =========================================================
+        let currentContinueSlideIndex = 0;
 
         function updateLayoutAndSpeed(startX = 0) {
             const gap = getSpaceBetween();
@@ -239,7 +248,37 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // Pagination Dots
+        // =========================================================
+        // CENTRALIZED DOT SYNCHRONIZATION FUNCTION
+        // =========================================================
+        // Responsible for updating the visual state of all pagination dots.
+        // Strips .active from all inactive dots and applies .active only
+        // to the dot matching targetIndex.
+        // =========================================================
+        function updateContinueSliderDots(targetIndex) {
+            if (!dotsContainer || dotButtons.length === 0 || originalCount === 0) return;
+
+            // Normalize and clamp target index to valid slide boundary [0, originalCount - 1]
+            const safeIndex = ((targetIndex % originalCount) + originalCount) % originalCount;
+            currentContinueSlideIndex = safeIndex;
+
+            // Synchronize active classes across all pagination dots
+            dotButtons.forEach((dot, idx) => {
+                if (idx === safeIndex) {
+                    dot.classList.add('active');
+                    dot.setAttribute('aria-current', 'true');
+                } else {
+                    dot.classList.remove('active');
+                    dot.removeAttribute('aria-current');
+                }
+            });
+        }
+
+        // =========================================================
+        // CREATE PAGINATION DOTS
+        // =========================================================
+        // Creates DOM buttons for each slide and registers click handlers.
+        // =========================================================
         function createDots() {
             if (!dotsContainer || !CATEGORY_SLIDER_CONFIG.pagination) return;
             dotsContainer.innerHTML = '';
@@ -250,26 +289,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 dot.className = `robo-category-dot${i === 0 ? ' active' : ''}`;
                 dot.setAttribute('type', 'button');
                 dot.setAttribute('aria-label', `Go to category slide ${i + 1}`);
+                if (i === 0) dot.setAttribute('aria-current', 'true');
+
+                // DOT-CLICK NAVIGATION: Triggers slide movement and dot update
                 dot.addEventListener('click', () => {
                     navigateToIndex(i);
                 });
+
                 dotsContainer.appendChild(dot);
                 dotButtons.push(dot);
             }
-            activeDotIdx = 0;
+
+            updateContinueSliderDots(currentContinueSlideIndex);
         }
 
-        function updateDotHighlight(newIdx) {
-            if (newIdx !== activeDotIdx && dotButtons[newIdx]) {
-                if (dotButtons[activeDotIdx]) dotButtons[activeDotIdx].classList.remove('active');
-                dotButtons[newIdx].classList.add('active');
-                activeDotIdx = newIdx;
-            }
-        }
-
-        // Continuous Dot Active Tracking loop
+        // Continuous Dot Active Tracking loop (Desktop continuous marquee autoplay only)
         function trackDotsLoop() {
-            if (CATEGORY_SLIDER_CONFIG.pagination && setWidth > 0 && stepWidth > 0 && !isNavigating) {
+            if (CATEGORY_SLIDER_CONFIG.pagination && setWidth > 0 && stepWidth > 0 && !isNavigating && window.innerWidth > 1024) {
                 try {
                     const style = window.getComputedStyle(track);
                     const matrixStr = style.transform || style.webkitTransform;
@@ -278,15 +314,21 @@ document.addEventListener('DOMContentLoaded', function () {
                         const currentX = Math.abs(matrix.m41);
                         const norm = currentX % setWidth;
                         const idx = Math.floor(norm / stepWidth) % originalCount;
-                        updateDotHighlight(idx);
+                        if (idx !== currentContinueSlideIndex) {
+                            updateContinueSliderDots(idx);
+                        }
                     }
                 } catch (e) {}
             }
             requestAnimationFrame(trackDotsLoop);
         }
 
-        let snapTimeout = null;
-
+        // =========================================================
+        // DRAG / SWIPE COMPLETION SNAP HANDLER
+        // =========================================================
+        // Called when a touch/drag gesture ends. Calculates the shortest
+        // distance snap, updates pagination dots immediately, and eases track.
+        // =========================================================
         function snapToSlideIndex(targetIdx, currentX) {
             if (setWidth <= 0 || stepWidth <= 0) return;
             if (snapTimeout) {
@@ -296,7 +338,13 @@ document.addEventListener('DOMContentLoaded', function () {
             isNavigating = true;
             track.style.animation = 'none';
 
-            const targetX = targetIdx * stepWidth;
+            // Normalize target index
+            const safeIdx = ((targetIdx % originalCount) + originalCount) % originalCount;
+
+            // DRAG COMPLETION DOT SYNC: Update single source of truth & active dot immediately
+            updateContinueSliderDots(safeIdx);
+
+            const targetX = safeIdx * stepWidth;
             let desiredTranslate = -targetX;
 
             // Calculate shortest visual distance between currentX and desiredTranslate
@@ -309,8 +357,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
             track.style.transform = `translate3d(${desiredTranslate}px, 0, 0)`;
-            activeDotIdx = targetIdx;
-            updateDotHighlight(targetIdx);
 
             snapTimeout = setTimeout(() => {
                 isNavigating = false;
@@ -323,6 +369,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 350);
         }
 
+        // =========================================================
+        // DISCRETE SLIDE NAVIGATION HANDLER (ARROWS & DOT CLICKS)
+        // =========================================================
+        // Moves the slider to a specific slide index and updates dots.
+        // =========================================================
         function navigateToIndex(targetIdx) {
             if (setWidth <= 0 || stepWidth <= 0) return;
             if (snapTimeout) {
@@ -332,11 +383,15 @@ document.addEventListener('DOMContentLoaded', function () {
             isNavigating = true;
             track.style.animation = 'none';
 
-            const targetX = targetIdx * stepWidth;
+            // Normalize target index
+            const safeIdx = ((targetIdx % originalCount) + originalCount) % originalCount;
+
+            // ARROW / DOT CLICK DOT SYNC: Update single source of truth & active dot immediately
+            updateContinueSliderDots(safeIdx);
+
+            const targetX = safeIdx * stepWidth;
             track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
             track.style.transform = `translate3d(-${targetX}px, 0, 0)`;
-            activeDotIdx = targetIdx;
-            updateDotHighlight(targetIdx);
 
             snapTimeout = setTimeout(() => {
                 isNavigating = false;
@@ -348,19 +403,23 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 350);
         }
 
-        // Navigation Arrows in Continuous Mode
+        // =========================================================
+        // ARROW NAVIGATION EVENT LISTENERS
+        // =========================================================
         if (nextBtn) {
             nextBtn.style.display = CATEGORY_SLIDER_CONFIG.navigation ? '' : 'none';
+            // NEXT ARROW: Advances from currentContinueSlideIndex to next slide
             nextBtn.addEventListener('click', () => {
-                const nextIdx = (activeDotIdx + 1) % originalCount;
+                const nextIdx = (currentContinueSlideIndex + 1) % originalCount;
                 navigateToIndex(nextIdx);
             });
         }
 
         if (prevBtn) {
             prevBtn.style.display = CATEGORY_SLIDER_CONFIG.navigation ? '' : 'none';
+            // PREVIOUS ARROW: Reverses from currentContinueSlideIndex to previous slide
             prevBtn.addEventListener('click', () => {
-                const prevIdx = (activeDotIdx - 1 + originalCount) % originalCount;
+                const prevIdx = (currentContinueSlideIndex - 1 + originalCount) % originalCount;
                 navigateToIndex(prevIdx);
             });
         }
@@ -447,11 +506,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 dragStartTranslate = currentMatrixX;
-                if (stepWidth > 0) {
-                    startSlideIndex = Math.round(Math.abs(currentMatrixX) / stepWidth) % originalCount;
-                } else {
-                    startSlideIndex = activeDotIdx;
-                }
+                // DRAG START INDEX: Stored from single source of truth or computed matrix
+                startSlideIndex = currentContinueSlideIndex;
 
                 // Freeze animations immediately so the track is directly connected to the touch
                 track.style.animation = 'none';
@@ -509,13 +565,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             rafId = null;
                         });
                     }
-
-                    // Update dot indicators in real time
-                    if (setWidth > 0 && stepWidth > 0) {
-                        const currentNorm = Math.abs(liveTranslate) % setWidth;
-                        const activeIdx = Math.round(currentNorm / stepWidth) % originalCount;
-                        updateDotHighlight(activeIdx);
-                    }
                 }
             };
 
@@ -549,7 +598,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             targetIdx = startSlideIndex;
                         }
 
-                        // Smooth shortest-path snap transition
+                        // Smooth shortest-path snap transition & dot update
                         snapToSlideIndex(targetIdx, liveTranslate);
                     } else {
                         isNavigating = false;
