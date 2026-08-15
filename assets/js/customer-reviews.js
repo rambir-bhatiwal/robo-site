@@ -19,7 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
         autoplaySpeed: 4,
         desktopColumns: 3,
         tabletColumns: 2,
-        mobileColumns: 1
+        mobileColumns: 1,
+        touchSwipe: true,
+        swipeThreshold: 40
     };
 
     if (configAttr) {
@@ -148,29 +150,114 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function goToNext() {
+        track.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+        currentTranslate -= cachedStepWidth;
+        if (Math.abs(currentTranslate) >= cachedSetWidth) {
+            currentTranslate += cachedSetWidth;
+        }
+        track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+        updateActiveDot();
+    }
+
+    function goToPrev() {
+        track.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+        currentTranslate += cachedStepWidth;
+        if (currentTranslate > 0) {
+            currentTranslate -= cachedSetWidth;
+        }
+        track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+        updateActiveDot();
+    }
+
     if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            track.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
-            currentTranslate -= cachedStepWidth;
-            if (Math.abs(currentTranslate) >= cachedSetWidth) {
-                currentTranslate += cachedSetWidth;
-            }
-            track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-            updateActiveDot();
-        });
+        nextBtn.addEventListener('click', goToNext);
     }
 
     if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            track.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
-            currentTranslate += cachedStepWidth;
-            if (currentTranslate > 0) {
-                currentTranslate -= cachedSetWidth;
-            }
-            track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-            updateActiveDot();
-        });
+        prevBtn.addEventListener('click', goToPrev);
     }
+
+    // Enable touch/swipe interaction for mobile and tablet touch devices.
+    // Arrow navigation remains unchanged.
+    // Horizontal gestures move slides while vertical gestures remain available for normal page scrolling.
+    function initTouchSwipe() {
+        if (!config.touchSwipe) return;
+
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchDiffX = 0;
+        let isSwiping = false;
+        let isScrolling = undefined;
+
+        const onTouchStart = (e) => {
+            if (window.innerWidth > 1024 && !('ontouchstart' in window)) return;
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            touchDiffX = 0;
+            isSwiping = false;
+            isScrolling = undefined;
+            isPaused = true;
+            stopAutoplay();
+        };
+
+        const onTouchMove = (e) => {
+            const touch = e.touches[0];
+            const diffX = touch.clientX - touchStartX;
+            const diffY = touch.clientY - touchStartY;
+
+            if (isScrolling === undefined) {
+                if (Math.abs(diffY) > Math.abs(diffX)) {
+                    isScrolling = true; // User is scrolling vertically
+                } else if (Math.abs(diffX) > 8) {
+                    isScrolling = false; // User is swiping horizontally
+                }
+            }
+
+            if (isScrolling === false) {
+                if (e.cancelable) e.preventDefault();
+                isSwiping = true;
+                touchDiffX = diffX;
+            }
+        };
+
+        const onTouchEnd = () => {
+            isPaused = false;
+            startAutoplay();
+
+            if (isSwiping && isScrolling === false) {
+                const threshold = config.swipeThreshold || 40;
+                if (touchDiffX <= -threshold) {
+                    // Swiped Left -> Next Slide
+                    goToNext();
+                } else if (touchDiffX >= threshold) {
+                    // Swiped Right -> Previous Slide
+                    goToPrev();
+                }
+
+                // Prevent accidental click inside card during drag
+                const preventClick = (ev) => {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                };
+                track.addEventListener('click', preventClick, { capture: true, once: true });
+                setTimeout(() => {
+                    track.removeEventListener('click', preventClick, { capture: true });
+                }, 100);
+            }
+
+            isSwiping = false;
+            isScrolling = undefined;
+        };
+
+        track.addEventListener('touchstart', onTouchStart, { passive: true });
+        track.addEventListener('touchmove', onTouchMove, { passive: false });
+        track.addEventListener('touchend', onTouchEnd, { passive: true });
+        track.addEventListener('touchcancel', onTouchEnd, { passive: true });
+    }
+
+    initTouchSwipe();
 
     // Pause Autoplay ONLY on Card Hover
     track.querySelectorAll('.robo-reviews-card').forEach(card => {

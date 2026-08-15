@@ -89,7 +89,13 @@ const CATEGORY_SLIDER_CONFIG = {
     /* --------------------------------------------------
      | Show Pagination Dots
      -------------------------------------------------- */
-    pagination: true
+    pagination: true,
+
+    /* --------------------------------------------------
+     | Touch / Swipe on Mobile & Tablet
+     -------------------------------------------------- */
+    touchSwipe: true,
+    swipeThreshold: 40
 
 };
 
@@ -332,8 +338,93 @@ document.addEventListener('DOMContentLoaded', function () {
                 img.addEventListener('load', () => updateLayoutAndSpeed(0));
             }
         });
-        window.addEventListener('load', () => updateLayoutAndSpeed(0));
-        window.addEventListener('resize', () => updateLayoutAndSpeed(0));
+        // Enable touch/swipe interaction for mobile and tablet touch devices.
+        // Arrow navigation remains unchanged.
+        // Horizontal gestures move slides while vertical gestures remain available for normal page scrolling.
+        function initTouchSwipe() {
+            if (!CATEGORY_SLIDER_CONFIG.touchSwipe) return;
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchDiffX = 0;
+            let isSwiping = false;
+            let isScrolling = undefined;
+            let wasPausedByTouch = false;
+
+            const onTouchStart = (e) => {
+                if (window.innerWidth > 1024 && !('ontouchstart' in window)) return;
+                const touch = e.touches[0];
+                touchStartX = touch.clientX;
+                touchStartY = touch.clientY;
+                touchDiffX = 0;
+                isSwiping = false;
+                isScrolling = undefined;
+
+                wasPausedByTouch = true;
+                track.style.animationPlayState = 'paused';
+            };
+
+            const onTouchMove = (e) => {
+                if (!wasPausedByTouch) return;
+                const touch = e.touches[0];
+                const diffX = touch.clientX - touchStartX;
+                const diffY = touch.clientY - touchStartY;
+
+                if (isScrolling === undefined) {
+                    if (Math.abs(diffY) > Math.abs(diffX)) {
+                        isScrolling = true; // Vertical page scroll
+                    } else if (Math.abs(diffX) > 8) {
+                        isScrolling = false; // Horizontal gesture
+                    }
+                }
+
+                if (isScrolling === false) {
+                    if (e.cancelable) e.preventDefault();
+                    isSwiping = true;
+                    touchDiffX = diffX;
+                }
+            };
+
+            const onTouchEnd = () => {
+                if (wasPausedByTouch) {
+                    wasPausedByTouch = false;
+                    track.style.animationPlayState = 'running';
+                }
+
+                if (isSwiping && isScrolling === false) {
+                    const threshold = CATEGORY_SLIDER_CONFIG.swipeThreshold || 40;
+                    if (touchDiffX <= -threshold) {
+                        // Swiped Left -> Move to Next Slide
+                        const nextIdx = (activeDotIdx + 1) % originalCount;
+                        navigateToIndex(nextIdx);
+                    } else if (touchDiffX >= threshold) {
+                        // Swiped Right -> Move to Previous Slide
+                        const prevIdx = (activeDotIdx - 1 + originalCount) % originalCount;
+                        navigateToIndex(prevIdx);
+                    }
+
+                    // Prevent triggering link click on card during swipe
+                    const preventClick = (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    };
+                    track.addEventListener('click', preventClick, { capture: true, once: true });
+                    setTimeout(() => {
+                        track.removeEventListener('click', preventClick, { capture: true });
+                    }, 100);
+                }
+
+                isSwiping = false;
+                isScrolling = undefined;
+            };
+
+            track.addEventListener('touchstart', onTouchStart, { passive: true });
+            track.addEventListener('touchmove', onTouchMove, { passive: false });
+            track.addEventListener('touchend', onTouchEnd, { passive: true });
+            track.addEventListener('touchcancel', onTouchEnd, { passive: true });
+        }
+
+        initTouchSwipe();
 
         requestAnimationFrame(trackDotsLoop);
     }
@@ -497,6 +588,105 @@ document.addEventListener('DOMContentLoaded', function () {
             () => { isPaused = true; stopStepAutoplay(); },
             () => { isPaused = false; startStepAutoplay(); }
         );
+
+        // Enable touch/swipe interaction for mobile and tablet touch devices in Step mode.
+        function initStepTouchSwipe() {
+            if (!CATEGORY_SLIDER_CONFIG.touchSwipe) return;
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchDiffX = 0;
+            let isSwiping = false;
+            let isScrolling = undefined;
+
+            const onTouchStart = (e) => {
+                if (window.innerWidth > 1024 && !('ontouchstart' in window)) return;
+                const touch = e.touches[0];
+                touchStartX = touch.clientX;
+                touchStartY = touch.clientY;
+                touchDiffX = 0;
+                isSwiping = false;
+                isScrolling = undefined;
+                isPaused = true;
+                stopStepAutoplay();
+            };
+
+            const onTouchMove = (e) => {
+                const touch = e.touches[0];
+                const diffX = touch.clientX - touchStartX;
+                const diffY = touch.clientY - touchStartY;
+
+                if (isScrolling === undefined) {
+                    if (Math.abs(diffY) > Math.abs(diffX)) {
+                        isScrolling = true; // Vertical page scroll
+                    } else if (Math.abs(diffX) > 8) {
+                        isScrolling = false; // Horizontal gesture
+                    }
+                }
+
+                if (isScrolling === false) {
+                    if (e.cancelable) e.preventDefault();
+                    isSwiping = true;
+                    touchDiffX = diffX;
+                }
+            };
+
+            const onTouchEnd = () => {
+                isPaused = false;
+                startStepAutoplay();
+
+                if (isSwiping && isScrolling === false) {
+                    const threshold = CATEGORY_SLIDER_CONFIG.swipeThreshold || 40;
+                    if (touchDiffX <= -threshold) {
+                        // Swiped Left -> Next Slide
+                        if (nextBtn) {
+                            nextBtn.click();
+                        } else {
+                            track.style.transition = `transform ${CATEGORY_SLIDER_CONFIG.slideTransitionDuration}s cubic-bezier(0.25, 1, 0.5, 1)`;
+                            currentTranslate -= cachedStepWidth;
+                            if (CATEGORY_SLIDER_CONFIG.loop && Math.abs(currentTranslate) >= cachedSetWidth) {
+                                currentTranslate += cachedSetWidth;
+                            }
+                            track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+                            updateActiveDot();
+                        }
+                    } else if (touchDiffX >= threshold) {
+                        // Swiped Right -> Previous Slide
+                        if (prevBtn) {
+                            prevBtn.click();
+                        } else {
+                            track.style.transition = `transform ${CATEGORY_SLIDER_CONFIG.slideTransitionDuration}s cubic-bezier(0.25, 1, 0.5, 1)`;
+                            currentTranslate += cachedStepWidth;
+                            if (CATEGORY_SLIDER_CONFIG.loop && currentTranslate > 0) {
+                                currentTranslate -= cachedSetWidth;
+                            }
+                            track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+                            updateActiveDot();
+                        }
+                    }
+
+                    // Prevent triggering link click on card during swipe
+                    const preventClick = (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    };
+                    track.addEventListener('click', preventClick, { capture: true, once: true });
+                    setTimeout(() => {
+                        track.removeEventListener('click', preventClick, { capture: true });
+                    }, 100);
+                }
+
+                isSwiping = false;
+                isScrolling = undefined;
+            };
+
+            track.addEventListener('touchstart', onTouchStart, { passive: true });
+            track.addEventListener('touchmove', onTouchMove, { passive: false });
+            track.addEventListener('touchend', onTouchEnd, { passive: true });
+            track.addEventListener('touchcancel', onTouchEnd, { passive: true });
+        }
+
+        initStepTouchSwipe();
 
         applyDynamicStyles();
         createDots();
