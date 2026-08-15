@@ -13,7 +13,7 @@
     --robo-transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Centralized Mobile Typography Variables (max-width: 767.98px) - 14px Minimum Rule */
-    --mobile-font-hero-title: clamp(45px, 5.2vw, 24px);
+    --mobile-font-hero-title: clamp(30px, 5.2vw, 24px);
     --mobile-line-hero-title: 1.15;
 
     --mobile-font-section-title: clamp(18px, 4.5vw, 22px);
@@ -719,7 +719,7 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
 @media (max-width: 576px) {
     .robot-img {
         position: absolute !important;
-        top: 10% !important;
+        top: 0% !important;
         left: -20% !important;
         margin: auto !important;
         width: 100% !important;

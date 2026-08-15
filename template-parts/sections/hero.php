@@ -108,9 +108,9 @@ if ( $has_hero_bg_image ) {
 					Build, Code & Compete with India's most advanced Mini Sumo Robot kit.
 				</p>
 
-				<a href="<?php echo esc_url($btn1_url); ?>" class="btn hero-btn robo-btn">
+				<!-- <a href="<?php //echo esc_url($btn1_url); ?>" class="btn hero-btn robo-btn">
 					Explore Robots →
-				</a>
+				</a> -->
 			</div>
 
 			<!-- RIGHT -->
