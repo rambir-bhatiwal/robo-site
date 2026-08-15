@@ -338,16 +338,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 img.addEventListener('load', () => updateLayoutAndSpeed(0));
             }
         });
-        // Enable touch/swipe interaction for mobile and tablet touch devices.
-        // Arrow navigation remains unchanged.
-        // Horizontal gestures move slides while vertical gestures remain available for normal page scrolling.
+        // Real-time live touch dragging for mobile and tablet touch devices.
+        // The track visually follows the finger continuously during drag (transition: none).
+        // On release, snaps cleanly to the next/prev or nearest slide with smooth easing.
         function initTouchSwipe() {
             if (!CATEGORY_SLIDER_CONFIG.touchSwipe) return;
 
             let touchStartX = 0;
             let touchStartY = 0;
             let touchDiffX = 0;
-            let isSwiping = false;
+            let dragStartMatrixX = 0;
+            let isDragging = false;
             let isScrolling = undefined;
             let wasPausedByTouch = false;
 
@@ -357,11 +358,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 touchStartX = touch.clientX;
                 touchStartY = touch.clientY;
                 touchDiffX = 0;
-                isSwiping = false;
+                isDragging = false;
                 isScrolling = undefined;
-
                 wasPausedByTouch = true;
-                track.style.animationPlayState = 'paused';
+
+                // Read current computed transform matrix X to anchor drag
+                let matrixX = 0;
+                try {
+                    const style = window.getComputedStyle(track);
+                    const matrixStr = style.transform || style.webkitTransform;
+                    if (matrixStr && matrixStr !== 'none') {
+                        const matrix = new DOMMatrix(matrixStr);
+                        matrixX = matrix.m41;
+                    }
+                } catch (err) {}
+
+                dragStartMatrixX = matrixX;
+
+                // Freeze animation at exact current pixel
+                track.style.animation = 'none';
+                track.style.transition = 'none';
+                track.style.transform = `translate3d(${dragStartMatrixX}px, 0, 0)`;
             };
 
             const onTouchMove = (e) => {
@@ -372,49 +389,87 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (isScrolling === undefined) {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
-                        isScrolling = true; // Vertical page scroll
-                    } else if (Math.abs(diffX) > 8) {
-                        isScrolling = false; // Horizontal gesture
+                        isScrolling = true; // Vertical page scroll -> do not drag
+                        // Resume continuous animation if user is scrolling vertically
+                        if (CATEGORY_SLIDER_CONFIG.autoplay && !isNavigating) {
+                            startMarqueeAnimation(Math.abs(dragStartMatrixX));
+                        }
+                    } else if (Math.abs(diffX) > 6) {
+                        isScrolling = false; // Horizontal gesture established
+                        isDragging = true;
                     }
                 }
 
-                if (isScrolling === false) {
+                if (isScrolling === false && isDragging) {
                     if (e.cancelable) e.preventDefault();
-                    isSwiping = true;
                     touchDiffX = diffX;
+
+                    // Real-time live dragging: move track directly with finger
+                    let liveX = dragStartMatrixX + diffX;
+                    if (setWidth > 0) {
+                        while (liveX > 0) liveX -= setWidth;
+                        while (liveX < -setWidth * 2) liveX += setWidth;
+                    }
+                    track.style.transition = 'none';
+                    track.style.transform = `translate3d(${liveX}px, 0, 0)`;
+
+                    if (setWidth > 0 && stepWidth > 0) {
+                        const norm = Math.abs(liveX) % setWidth;
+                        const idx = Math.floor(norm / stepWidth) % originalCount;
+                        updateDotHighlight(idx);
+                    }
                 }
             };
 
             const onTouchEnd = () => {
-                if (wasPausedByTouch) {
-                    wasPausedByTouch = false;
-                    track.style.animationPlayState = 'running';
-                }
-
-                if (isSwiping && isScrolling === false) {
+                if (isDragging && isScrolling === false) {
                     const threshold = CATEGORY_SLIDER_CONFIG.swipeThreshold || 40;
-                    if (touchDiffX <= -threshold) {
-                        // Swiped Left -> Move to Next Slide
-                        const nextIdx = (activeDotIdx + 1) % originalCount;
-                        navigateToIndex(nextIdx);
-                    } else if (touchDiffX >= threshold) {
-                        // Swiped Right -> Move to Previous Slide
-                        const prevIdx = (activeDotIdx - 1 + originalCount) % originalCount;
-                        navigateToIndex(prevIdx);
+                    const diffX = touchDiffX;
+
+                    if (setWidth > 0 && stepWidth > 0) {
+                        const norm = Math.abs(dragStartMatrixX) % setWidth;
+                        let targetIdx;
+
+                        if (diffX <= -threshold) {
+                            // Dragged left -> advance to next slide
+                            const baseIdx = Math.floor(norm / stepWidth);
+                            targetIdx = (baseIdx + 1) % originalCount;
+                        } else if (diffX >= threshold) {
+                            // Dragged right -> return to previous slide
+                            const baseIdx = Math.ceil(norm / stepWidth);
+                            targetIdx = (baseIdx - 1 + originalCount) % originalCount;
+                        } else {
+                            // Small drag -> settle back to nearest slide
+                            targetIdx = Math.round((norm - diffX) / stepWidth) % originalCount;
+                        }
+
+                        navigateToIndex(targetIdx);
+                    } else {
+                        if (CATEGORY_SLIDER_CONFIG.autoplay) {
+                            startMarqueeAnimation(Math.abs(dragStartMatrixX));
+                        }
                     }
 
-                    // Prevent triggering link click on card during swipe
-                    const preventClick = (ev) => {
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                    };
-                    track.addEventListener('click', preventClick, { capture: true, once: true });
-                    setTimeout(() => {
-                        track.removeEventListener('click', preventClick, { capture: true });
-                    }, 100);
+                    // Prevent accidental link opening on card during drag
+                    if (Math.abs(diffX) > 5) {
+                        const preventClick = (ev) => {
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                        };
+                        track.addEventListener('click', preventClick, { capture: true, once: true });
+                        setTimeout(() => {
+                            track.removeEventListener('click', preventClick, { capture: true });
+                        }, 100);
+                    }
+                } else if (wasPausedByTouch && isScrolling !== true) {
+                    // Tap without drag -> resume continuous animation
+                    if (CATEGORY_SLIDER_CONFIG.autoplay && !isNavigating) {
+                        startMarqueeAnimation(Math.abs(dragStartMatrixX));
+                    }
                 }
 
-                isSwiping = false;
+                wasPausedByTouch = false;
+                isDragging = false;
                 isScrolling = undefined;
             };
 
@@ -589,14 +644,15 @@ document.addEventListener('DOMContentLoaded', function () {
             () => { isPaused = false; startStepAutoplay(); }
         );
 
-        // Enable touch/swipe interaction for mobile and tablet touch devices in Step mode.
+        // Real-time live touch dragging in Step mode for mobile & tablet.
         function initStepTouchSwipe() {
             if (!CATEGORY_SLIDER_CONFIG.touchSwipe) return;
 
             let touchStartX = 0;
             let touchStartY = 0;
             let touchDiffX = 0;
-            let isSwiping = false;
+            let dragStartTranslate = 0;
+            let isDragging = false;
             let isScrolling = undefined;
 
             const onTouchStart = (e) => {
@@ -605,10 +661,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 touchStartX = touch.clientX;
                 touchStartY = touch.clientY;
                 touchDiffX = 0;
-                isSwiping = false;
+                dragStartTranslate = currentTranslate;
+                isDragging = false;
                 isScrolling = undefined;
                 isPaused = true;
                 stopStepAutoplay();
+
+                track.style.transition = 'none';
             };
 
             const onTouchMove = (e) => {
@@ -619,15 +678,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (isScrolling === undefined) {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
                         isScrolling = true; // Vertical page scroll
-                    } else if (Math.abs(diffX) > 8) {
-                        isScrolling = false; // Horizontal gesture
+                    } else if (Math.abs(diffX) > 6) {
+                        isScrolling = false; // Horizontal gesture established
+                        isDragging = true;
                     }
                 }
 
-                if (isScrolling === false) {
+                if (isScrolling === false && isDragging) {
                     if (e.cancelable) e.preventDefault();
-                    isSwiping = true;
                     touchDiffX = diffX;
+
+                    // Real-time live dragging: move track directly with finger
+                    let liveTranslate = dragStartTranslate + diffX;
+                    if (CATEGORY_SLIDER_CONFIG.loop && cachedSetWidth > 0) {
+                        if (liveTranslate > 0) {
+                            liveTranslate -= cachedSetWidth;
+                            dragStartTranslate -= cachedSetWidth;
+                        } else if (Math.abs(liveTranslate) >= cachedSetWidth * 2) {
+                            liveTranslate += cachedSetWidth;
+                            dragStartTranslate += cachedSetWidth;
+                        }
+                    }
+
+                    track.style.transition = 'none';
+                    track.style.transform = `translate3d(${liveTranslate}px, 0, 0)`;
                 }
             };
 
@@ -635,48 +709,55 @@ document.addEventListener('DOMContentLoaded', function () {
                 isPaused = false;
                 startStepAutoplay();
 
-                if (isSwiping && isScrolling === false) {
+                if (isDragging && isScrolling === false) {
                     const threshold = CATEGORY_SLIDER_CONFIG.swipeThreshold || 40;
-                    if (touchDiffX <= -threshold) {
-                        // Swiped Left -> Next Slide
-                        if (nextBtn) {
-                            nextBtn.click();
-                        } else {
-                            track.style.transition = `transform ${CATEGORY_SLIDER_CONFIG.slideTransitionDuration}s cubic-bezier(0.25, 1, 0.5, 1)`;
-                            currentTranslate -= cachedStepWidth;
-                            if (CATEGORY_SLIDER_CONFIG.loop && Math.abs(currentTranslate) >= cachedSetWidth) {
-                                currentTranslate += cachedSetWidth;
-                            }
-                            track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-                            updateActiveDot();
-                        }
-                    } else if (touchDiffX >= threshold) {
-                        // Swiped Right -> Previous Slide
-                        if (prevBtn) {
-                            prevBtn.click();
-                        } else {
-                            track.style.transition = `transform ${CATEGORY_SLIDER_CONFIG.slideTransitionDuration}s cubic-bezier(0.25, 1, 0.5, 1)`;
-                            currentTranslate += cachedStepWidth;
-                            if (CATEGORY_SLIDER_CONFIG.loop && currentTranslate > 0) {
-                                currentTranslate -= cachedSetWidth;
-                            }
-                            track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-                            updateActiveDot();
-                        }
+                    const diffX = touchDiffX;
+                    const animMs = Math.max(100, CATEGORY_SLIDER_CONFIG.slideTransitionDuration * 1000);
+
+                    track.style.transition = `transform ${CATEGORY_SLIDER_CONFIG.slideTransitionDuration}s cubic-bezier(0.25, 1, 0.5, 1)`;
+
+                    if (diffX <= -threshold) {
+                        // Dragged left -> Snap to Next slide
+                        currentTranslate = dragStartTranslate - cachedStepWidth;
+                    } else if (diffX >= threshold) {
+                        // Dragged right -> Snap to Previous slide
+                        currentTranslate = dragStartTranslate + cachedStepWidth;
+                    } else {
+                        // Small drag -> Settle smoothly back to original position
+                        currentTranslate = dragStartTranslate;
                     }
 
-                    // Prevent triggering link click on card during swipe
-                    const preventClick = (ev) => {
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                    };
-                    track.addEventListener('click', preventClick, { capture: true, once: true });
-                    setTimeout(() => {
-                        track.removeEventListener('click', preventClick, { capture: true });
-                    }, 100);
+                    if (CATEGORY_SLIDER_CONFIG.loop && Math.abs(currentTranslate) >= cachedSetWidth) {
+                        setTimeout(() => {
+                            track.style.transition = 'none';
+                            currentTranslate += cachedSetWidth;
+                            track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+                        }, animMs);
+                    } else if (CATEGORY_SLIDER_CONFIG.loop && currentTranslate > 0) {
+                        setTimeout(() => {
+                            track.style.transition = 'none';
+                            currentTranslate -= cachedSetWidth;
+                            track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+                        }, animMs);
+                    }
+
+                    track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+                    updateActiveDot();
+
+                    // Prevent accidental link tap on card
+                    if (Math.abs(diffX) > 5) {
+                        const preventClick = (ev) => {
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                        };
+                        track.addEventListener('click', preventClick, { capture: true, once: true });
+                        setTimeout(() => {
+                            track.removeEventListener('click', preventClick, { capture: true });
+                        }, 100);
+                    }
                 }
 
-                isSwiping = false;
+                isDragging = false;
                 isScrolling = undefined;
             };
 

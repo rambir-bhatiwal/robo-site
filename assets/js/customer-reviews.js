@@ -178,16 +178,17 @@ document.addEventListener('DOMContentLoaded', function () {
         prevBtn.addEventListener('click', goToPrev);
     }
 
-    // Enable touch/swipe interaction for mobile and tablet touch devices.
-    // Arrow navigation remains unchanged.
-    // Horizontal gestures move slides while vertical gestures remain available for normal page scrolling.
+    // Real-time live touch dragging for mobile and tablet touch devices.
+    // The track visually follows the finger continuously during drag (transition: none).
+    // On release, snaps cleanly to the next/prev or nearest slide with smooth easing.
     function initTouchSwipe() {
         if (!config.touchSwipe) return;
 
         let touchStartX = 0;
         let touchStartY = 0;
         let touchDiffX = 0;
-        let isSwiping = false;
+        let dragStartTranslate = 0;
+        let isDragging = false;
         let isScrolling = undefined;
 
         const onTouchStart = (e) => {
@@ -196,10 +197,13 @@ document.addEventListener('DOMContentLoaded', function () {
             touchStartX = touch.clientX;
             touchStartY = touch.clientY;
             touchDiffX = 0;
-            isSwiping = false;
+            dragStartTranslate = currentTranslate;
+            isDragging = false;
             isScrolling = undefined;
             isPaused = true;
             stopAutoplay();
+
+            track.style.transition = 'none';
         };
 
         const onTouchMove = (e) => {
@@ -210,15 +214,30 @@ document.addEventListener('DOMContentLoaded', function () {
             if (isScrolling === undefined) {
                 if (Math.abs(diffY) > Math.abs(diffX)) {
                     isScrolling = true; // User is scrolling vertically
-                } else if (Math.abs(diffX) > 8) {
-                    isScrolling = false; // User is swiping horizontally
+                } else if (Math.abs(diffX) > 6) {
+                    isScrolling = false; // User is dragging horizontally
+                    isDragging = true;
                 }
             }
 
-            if (isScrolling === false) {
+            if (isScrolling === false && isDragging) {
                 if (e.cancelable) e.preventDefault();
-                isSwiping = true;
                 touchDiffX = diffX;
+
+                // Real-time live dragging: move track directly with finger
+                let liveTranslate = dragStartTranslate + diffX;
+                if (cachedSetWidth > 0) {
+                    if (liveTranslate > 0) {
+                        liveTranslate -= cachedSetWidth;
+                        dragStartTranslate -= cachedSetWidth;
+                    } else if (Math.abs(liveTranslate) >= cachedSetWidth * 2) {
+                        liveTranslate += cachedSetWidth;
+                        dragStartTranslate += cachedSetWidth;
+                    }
+                }
+
+                track.style.transition = 'none';
+                track.style.transform = `translate3d(${liveTranslate}px, 0, 0)`;
             }
         };
 
@@ -226,28 +245,54 @@ document.addEventListener('DOMContentLoaded', function () {
             isPaused = false;
             startAutoplay();
 
-            if (isSwiping && isScrolling === false) {
+            if (isDragging && isScrolling === false) {
                 const threshold = config.swipeThreshold || 40;
-                if (touchDiffX <= -threshold) {
-                    // Swiped Left -> Next Slide
-                    goToNext();
-                } else if (touchDiffX >= threshold) {
-                    // Swiped Right -> Previous Slide
-                    goToPrev();
+                const diffX = touchDiffX;
+
+                track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+
+                if (diffX <= -threshold) {
+                    // Dragged Left -> Next Slide
+                    currentTranslate = dragStartTranslate - cachedStepWidth;
+                } else if (diffX >= threshold) {
+                    // Dragged Right -> Previous Slide
+                    currentTranslate = dragStartTranslate + cachedStepWidth;
+                } else {
+                    // Small drag -> Settle smoothly back to original position
+                    currentTranslate = dragStartTranslate;
                 }
 
+                if (Math.abs(currentTranslate) >= cachedSetWidth) {
+                    setTimeout(() => {
+                        track.style.transition = 'none';
+                        currentTranslate += cachedSetWidth;
+                        track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+                    }, 400);
+                } else if (currentTranslate > 0) {
+                    setTimeout(() => {
+                        track.style.transition = 'none';
+                        currentTranslate -= cachedSetWidth;
+                        track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+                    }, 400);
+                }
+
+                track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+                updateActiveDot();
+
                 // Prevent accidental click inside card during drag
-                const preventClick = (ev) => {
-                    ev.preventDefault();
-                    ev.stopPropagation();
-                };
-                track.addEventListener('click', preventClick, { capture: true, once: true });
-                setTimeout(() => {
-                    track.removeEventListener('click', preventClick, { capture: true });
-                }, 100);
+                if (Math.abs(diffX) > 5) {
+                    const preventClick = (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    };
+                    track.addEventListener('click', preventClick, { capture: true, once: true });
+                    setTimeout(() => {
+                        track.removeEventListener('click', preventClick, { capture: true });
+                    }, 100);
+                }
             }
 
-            isSwiping = false;
+            isDragging = false;
             isScrolling = undefined;
         };
 
