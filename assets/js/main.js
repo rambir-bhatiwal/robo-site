@@ -12,11 +12,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToTopBtn = document.getElementById('back-to-top');
 
     /**
+     * Topbar & Fixed Header Scroll Configuration
+     */
+    const topbarScrollConfig = {
+        // Master switch for customized scroll behavior (true = asymmetric sensitivity & configurable duration, false = original default)
+        enabled: true,
+
+        // Downward scroll distance (px) required to hide the topbar (quick / responsive)
+        hideThreshold: 6,
+
+        // Upward accumulated scroll distance (px) required to show the topbar (prevents accidental reveal / flickering)
+        showThreshold: 35,
+
+        // Transition duration when hiding the topbar on downward scroll
+        hideDuration: '0.45s',
+
+        // Transition duration when showing the topbar on upward scroll
+        showDuration: '0.35s'
+    };
+
+    /**
      * 1. Fixed Header scroll behavior (GPU-accelerated slide up/down without layout shift or vibration).
      */
     const handleHeaderScroll = () => {
         const topbar = document.querySelector('.topbar');
         if (!header || !topbar) return;
+
+        // Helper to format transition duration string
+        const formatDuration = (val) => (typeof val === 'number' ? `${val}ms` : val);
+        const setHeaderTransition = (duration) => {
+            if (duration) {
+                header.style.transition = `transform ${formatDuration(duration)} cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, box-shadow 0.3s ease`;
+            }
+        };
 
         // Keep body padding-top matched to full header height so content never jumps
         const updateHeaderPadding = () => {
@@ -30,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let lastScrollY = Math.max(0, window.scrollY);
         let isHidden = false;
         let ticking = false;
+        let accumulatedUp = 0;
+        let accumulatedDown = 0;
 
         const updateHeader = () => {
             const currentScrollY = Math.max(0, window.scrollY);
@@ -43,20 +73,53 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentScrollY <= 0 || isMobileMenuOpen) {
                 // At top of page or mobile menu open -> slide header to 0
                 if (isHidden) {
+                    if (topbarScrollConfig.enabled && topbarScrollConfig.showDuration) {
+                        setHeaderTransition(topbarScrollConfig.showDuration);
+                    }
                     header.style.transform = 'translateY(0)';
                     isHidden = false;
+                }
+                accumulatedUp = 0;
+                accumulatedDown = 0;
+            } else if (!topbarScrollConfig.enabled) {
+                // Fallback to original scroll behavior when custom config is disabled
+                header.style.transition = '';
+                if (scrollDelta > 0) {
+                    if (!isHidden) {
+                        header.style.transform = `translateY(-${topbarHeight}px)`;
+                        isHidden = true;
+                    }
+                } else if (scrollDelta < 0) {
+                    if (isHidden) {
+                        header.style.transform = 'translateY(0)';
+                        isHidden = false;
+                    }
                 }
             } else if (scrollDelta > 0) {
-                // Scrolling DOWN -> slide header UP by topbar height immediately
-                if (!isHidden) {
+                // Scrolling DOWN -> accumulate down movement and hide topbar
+                accumulatedDown += scrollDelta;
+                accumulatedUp = 0;
+
+                if (!isHidden && accumulatedDown >= topbarScrollConfig.hideThreshold) {
+                    if (topbarScrollConfig.hideDuration) {
+                        setHeaderTransition(topbarScrollConfig.hideDuration);
+                    }
                     header.style.transform = `translateY(-${topbarHeight}px)`;
                     isHidden = true;
+                    accumulatedDown = 0;
                 }
             } else if (scrollDelta < 0) {
-                // Scrolling UP -> slide header back DOWN
-                if (isHidden) {
+                // Scrolling UP -> accumulate up movement; show topbar only after exceeding showThreshold
+                accumulatedUp += Math.abs(scrollDelta);
+                accumulatedDown = 0;
+
+                if (isHidden && accumulatedUp >= topbarScrollConfig.showThreshold) {
+                    if (topbarScrollConfig.showDuration) {
+                        setHeaderTransition(topbarScrollConfig.showDuration);
+                    }
                     header.style.transform = 'translateY(0)';
                     isHidden = false;
+                    accumulatedUp = 0;
                 }
             }
 
