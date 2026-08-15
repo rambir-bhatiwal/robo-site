@@ -40,19 +40,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const isMobileMenuOpen = navbarCollapse && navbarCollapse.classList.contains('show');
             const topbarHeight = topbar.offsetHeight || 40;
 
-            if (currentScrollY <= 20 || isMobileMenuOpen) {
+            if (currentScrollY <= 0 || isMobileMenuOpen) {
                 // At top of page or mobile menu open -> slide header to 0
                 if (isHidden) {
                     header.style.transform = 'translateY(0)';
                     isHidden = false;
                 }
-            } else if (scrollDelta > 8 && currentScrollY > topbarHeight) {
-                // Scrolling DOWN past topbar height -> slide header UP by topbar height
+            } else if (scrollDelta > 0) {
+                // Scrolling DOWN -> slide header UP by topbar height immediately
                 if (!isHidden) {
                     header.style.transform = `translateY(-${topbarHeight}px)`;
                     isHidden = true;
                 }
-            } else if (scrollDelta < -8) {
+            } else if (scrollDelta < 0) {
                 // Scrolling UP -> slide header back DOWN
                 if (isHidden) {
                     header.style.transform = 'translateY(0)';
