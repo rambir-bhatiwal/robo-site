@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let dotButtons = [];
         let isNavigating = false;
         let snapTimeout = null;
+        let autoplayResumeTimeout = null;
 
         // =========================================================
         // SINGLE SOURCE OF TRUTH FOR CURRENT SLIDE INDEX
@@ -214,10 +215,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (setWidth <= 0) return;
 
-            startMarqueeAnimation(startX);
+            startAutoplay(startX);
         }
 
-        function startMarqueeAnimation(startX = 0) {
+        // =========================================================
+        // CENTRALIZED AUTOPLAY CONTROLLERS (NO DUPLICATE TIMERS)
+        // =========================================================
+        // Guarantees exactly ONE timer / animation instance at any time.
+        // Prevents timer accumulation, runaway speed, or permanent stopping.
+        // =========================================================
+        function stopAutoplay() {
+            if (autoplayResumeTimeout) {
+                clearTimeout(autoplayResumeTimeout);
+                autoplayResumeTimeout = null;
+            }
+            if (snapTimeout) {
+                clearTimeout(snapTimeout);
+                snapTimeout = null;
+            }
+            track.style.animation = 'none';
+        }
+
+        function startAutoplay(startX = 0, delay = 0) {
+            stopAutoplay();
+            if (!CATEGORY_SLIDER_CONFIG.autoplay) return;
+
+            if (delay > 0) {
+                autoplayResumeTimeout = setTimeout(() => {
+                    autoplayResumeTimeout = null;
+                    executeMarquee(startX);
+                }, delay);
+            } else {
+                executeMarquee(startX);
+            }
+        }
+
+        function executeMarquee(startX = 0) {
             if (setWidth <= 0) return;
 
             const speed = Math.max(1, CATEGORY_SLIDER_CONFIG.continuousSpeed);
@@ -242,10 +275,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             `;
 
-            if (CATEGORY_SLIDER_CONFIG.autoplay && !isNavigating) {
-                track.style.transition = 'none';
-                track.style.animation = `roboMarqueeConveyor ${duration.toFixed(4)}s linear infinite`;
-            }
+            track.style.transition = 'none';
+            track.style.animation = `roboMarqueeConveyor ${duration.toFixed(4)}s linear infinite`;
         }
 
         // =========================================================
@@ -331,12 +362,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // =========================================================
         function snapToSlideIndex(targetIdx, currentX) {
             if (setWidth <= 0 || stepWidth <= 0) return;
-            if (snapTimeout) {
-                clearTimeout(snapTimeout);
-                snapTimeout = null;
-            }
+            stopAutoplay();
             isNavigating = true;
-            track.style.animation = 'none';
 
             // Normalize target index
             const safeIdx = ((targetIdx % originalCount) + originalCount) % originalCount;
@@ -362,10 +389,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 isNavigating = false;
                 track.style.transition = 'none';
                 track.style.transform = `translate3d(-${targetX}px, 0, 0)`;
-                if (CATEGORY_SLIDER_CONFIG.autoplay && window.innerWidth > 1024) {
-                    startMarqueeAnimation(targetX);
-                }
                 snapTimeout = null;
+                startAutoplay(targetX);
             }, 350);
         }
 
@@ -376,12 +401,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // =========================================================
         function navigateToIndex(targetIdx) {
             if (setWidth <= 0 || stepWidth <= 0) return;
-            if (snapTimeout) {
-                clearTimeout(snapTimeout);
-                snapTimeout = null;
-            }
+            stopAutoplay();
             isNavigating = true;
-            track.style.animation = 'none';
 
             // Normalize target index
             const safeIdx = ((targetIdx % originalCount) + originalCount) % originalCount;
@@ -396,10 +417,8 @@ document.addEventListener('DOMContentLoaded', function () {
             snapTimeout = setTimeout(() => {
                 isNavigating = false;
                 track.style.transition = 'none';
-                if (CATEGORY_SLIDER_CONFIG.autoplay && window.innerWidth > 1024) {
-                    startMarqueeAnimation(targetX);
-                }
                 snapTimeout = null;
+                startAutoplay(targetX);
             }, 350);
         }
 
@@ -467,19 +486,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // 2. DRAG START HANDLER
             const onTouchStart = (e) => {
-                if (window.innerWidth > 1024 && !('ontouchstart' in window)) return;
-
-                // Clear any pending snap timers from previous gestures
-                if (snapTimeout) {
-                    clearTimeout(snapTimeout);
-                    snapTimeout = null;
-                }
+                stopAutoplay();
                 if (rafId) {
                     cancelAnimationFrame(rafId);
                     rafId = null;
                 }
 
-                const touch = e.touches[0];
+                const touch = e.touches ? e.touches[0] : e;
                 dragStartX = touch.clientX;
                 dragStartY = touch.clientY;
                 touchDeltaX = 0;
@@ -519,7 +532,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const onTouchMove = (e) => {
                 if (!wasPausedByTouch) return;
 
-                const touch = e.touches[0];
+                const touch = e.touches ? e.touches[0] : e;
                 const deltaX = touch.clientX - dragStartX;
                 const deltaY = touch.clientY - dragStartY;
                 const absX = Math.abs(deltaX);
@@ -534,9 +547,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         } else {
                             isScrolling = true;  // Vertical page scroll
                             isNavigating = false;
-                            if (CATEGORY_SLIDER_CONFIG.autoplay && window.innerWidth > 1024) {
-                                startMarqueeAnimation(Math.abs(dragStartTranslate));
-                            }
+                            startAutoplay(Math.abs(dragStartTranslate));
                             return;
                         }
                     }
@@ -602,9 +613,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         snapToSlideIndex(targetIdx, liveTranslate);
                     } else {
                         isNavigating = false;
-                        if (CATEGORY_SLIDER_CONFIG.autoplay && window.innerWidth > 1024) {
-                            startMarqueeAnimation(Math.abs(dragStartTranslate));
-                        }
+                        startAutoplay(Math.abs(dragStartTranslate));
                     }
 
                     // Prevent accidental card link opening on drag release
@@ -620,9 +629,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 } else if (wasPausedByTouch && isScrolling !== true) {
                     isNavigating = false;
-                    if (CATEGORY_SLIDER_CONFIG.autoplay && window.innerWidth > 1024) {
-                        startMarqueeAnimation(Math.abs(dragStartTranslate));
-                    }
+                    startAutoplay(Math.abs(dragStartTranslate));
                 }
 
                 // 8. RESET DRAG STATE
@@ -767,11 +774,16 @@ document.addEventListener('DOMContentLoaded', function () {
             let normalizedPos = Math.abs(currentTranslate) % cachedSetWidth;
             let newActiveIdx = Math.round(normalizedPos / cachedStepWidth) % originalCount;
 
-            if (newActiveIdx !== activeDotIdx) {
-                if (dotButtons[activeDotIdx]) dotButtons[activeDotIdx].classList.remove('active');
-                if (dotButtons[newActiveIdx]) dotButtons[newActiveIdx].classList.add('active');
-                activeDotIdx = newActiveIdx;
-            }
+            dotButtons.forEach((dot, idx) => {
+                if (idx === newActiveIdx) {
+                    dot.classList.add('active');
+                    dot.setAttribute('aria-current', 'true');
+                } else {
+                    dot.classList.remove('active');
+                    dot.removeAttribute('aria-current');
+                }
+            });
+            activeDotIdx = newActiveIdx;
         }
 
         if (nextBtn) {
