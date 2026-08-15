@@ -62,6 +62,29 @@ $search_menu_item = sprintf(
 	esc_attr__( 'Toggle product search', 'robo' ),
 	$desktop_search_html
 );
+
+// Generate the Cart menu item for Desktop navigation
+$cart_count    = ( class_exists( 'WooCommerce' ) && WC()->cart ) ? WC()->cart->get_cart_contents_count() : 0;
+$cart_url      = ( class_exists( 'WooCommerce' ) && function_exists( 'wc_get_cart_url' ) ) ? wc_get_cart_url() : '#';
+$badge_display = ( $cart_count > 99 ) ? '99+' : $cart_count;
+$badge_class   = ( $cart_count <= 0 ) ? 'd-none' : '';
+
+$cart_menu_item = sprintf(
+	'<li class="menu-item nav-item position-relative robo-cart-nav-item d-none d-lg-flex align-items-center ms-lg-2">
+		<a href="%s" class="nav-link border-0 bg-transparent p-1 d-inline-flex align-items-center justify-content-center text-dark hover-primary position-relative robo-cart-link" aria-label="%s">
+			<span class="robo-cart-icon d-inline-flex align-items-center justify-content-center">
+				<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+					<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 12a1 1 0 1 0 0 2 1 1 0 0 0 0-2m7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-7 1a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+				</svg>
+			</span>
+			<span class="robo-cart-badge %s">%s</span>
+		</a>
+	</li>',
+	esc_url( $cart_url ),
+	esc_attr__( 'View shopping cart', 'robo' ),
+	esc_attr( $badge_class ),
+	esc_html( $badge_display )
+);
 ?>
 <nav class="navbar navbar-expand-lg py-3 navbar-light bg-white" aria-label="<?php esc_attr_e( 'Main Navigation', 'robo' ); ?>">
 	<div class="<?php echo esc_attr( $container_class ); ?>">
@@ -79,6 +102,18 @@ $search_menu_item = sprintf(
 				<?php
 			}
 			?>
+		</div>
+
+		<!-- Mobile Header Right Actions (Cart icon for mobile) -->
+		<div class="d-flex align-items-center d-lg-none ms-auto me-2">
+			<a href="<?php echo esc_url( $cart_url ); ?>" class="nav-link border-0 bg-transparent p-1 d-inline-flex align-items-center justify-content-center text-dark hover-primary position-relative robo-cart-link" aria-label="<?php esc_attr_e( 'View shopping cart', 'robo' ); ?>">
+				<span class="robo-cart-icon d-inline-flex align-items-center justify-content-center">
+					<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+						<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 12a1 1 0 1 0 0 2 1 1 0 0 0 0-2m7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-7 1a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+					</svg>
+				</span>
+				<span class="robo-cart-badge <?php echo esc_attr( $badge_class ); ?>"><?php echo esc_html( $badge_display ); ?></span>
+			</a>
 		</div>
 
 		<!-- Toggler for Mobile Menu -->
@@ -104,13 +139,13 @@ $search_menu_item = sprintf(
 						'menu_class'     => 'navbar-nav mx-auto mb-2 mb-lg-0 fw-medium align-items-lg-center',
 						'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
 						'walker'         => new Robo_WP_Bootstrap_Navwalker(),
-						'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s' . $login_menu_item . $search_menu_item . '</ul>',
+						'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s' . $login_menu_item . $search_menu_item . $cart_menu_item . '</ul>',
 					)
 				);
 			} else {
 				// Fallback to custom menu items or page list.
-				$page_menu_filter = function( $menu ) use ( $login_menu_item, $search_menu_item ) {
-					return str_replace( '</ul>', $login_menu_item . $search_menu_item . '</ul>', $menu );
+				$page_menu_filter = function( $menu ) use ( $login_menu_item, $search_menu_item, $cart_menu_item ) {
+					return str_replace( '</ul>', $login_menu_item . $search_menu_item . $cart_menu_item . '</ul>', $menu );
 				};
 				add_filter( 'wp_page_menu', $page_menu_filter );
 				wp_page_menu(

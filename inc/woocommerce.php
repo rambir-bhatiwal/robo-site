@@ -473,3 +473,38 @@ function robo_ajax_add_bundle_to_cart() {
 add_action( 'wp_ajax_robo_add_bundle_to_cart', 'robo_ajax_add_bundle_to_cart' );
 add_action( 'wp_ajax_nopriv_robo_add_bundle_to_cart', 'robo_ajax_add_bundle_to_cart' );
 
+/**
+ * WooCommerce AJAX Cart Badge Fragment Update.
+ * Returns updated badge HTML on AJAX cart operations (add, remove, quantity update, etc.).
+ */
+function robo_woocommerce_cart_badge_fragment( $fragments ) {
+	$count         = ( class_exists( 'WooCommerce' ) && WC()->cart ) ? WC()->cart->get_cart_contents_count() : 0;
+	$badge_display = ( $count > 99 ) ? '99+' : $count;
+	$badge_class   = ( $count <= 0 ) ? 'd-none' : '';
+
+	ob_start();
+	?>
+	<span class="robo-cart-badge <?php echo esc_attr( $badge_class ); ?>"><?php echo esc_html( $badge_display ); ?></span>
+	<?php
+	$fragments['span.robo-cart-badge'] = ob_get_clean();
+
+	return $fragments;
+}
+add_filter( 'woocommerce_add_to_cart_fragments', 'robo_woocommerce_cart_badge_fragment' );
+
+/**
+ * Guard filter to prevent Woo Razorpay plugin warning when settings option is uninitialized.
+ */
+add_filter( 'option_woocommerce_razorpay_settings', function( $value ) {
+	if ( ! is_array( $value ) ) {
+		return array(
+			'key_id'                  => '',
+			'key_secret'              => '',
+			'enable_rtb_widget'       => 'no',
+			'enable_1cc_ga_analytics' => 'no',
+			'enable_1cc_fb_analytics' => 'no',
+			'route_enable'            => 'no',
+		);
+	}
+	return $value;
+} );

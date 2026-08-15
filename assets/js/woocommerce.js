@@ -34,6 +34,20 @@
 		initQuantityButtons();
 	});
 
+	// Animate cart badge pop effect on WooCommerce AJAX cart updates
+	$(document.body).on('added_to_cart removed_from_cart wc_fragments_refreshed wc_fragments_loaded updated_cart_totals updated_wc_div', function() {
+		const $badges = $('.robo-cart-badge');
+		$badges.removeClass('badge-pop');
+		if ($badges.length && $badges[0]) {
+			void $badges[0].offsetWidth; // force reflow for animation restart
+		}
+		$badges.addClass('badge-pop');
+		setTimeout(function() {
+			$badges.removeClass('badge-pop');
+		}, 400);
+	});
+
+
 	/**
 	 * Grid / List View switcher with localStorage state persistence.
 	 */
