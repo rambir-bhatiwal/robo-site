@@ -4,7 +4,8 @@
  *
  * @package Robo
  */
-
+// Exit if accessed directly.	
+// test for git access
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
