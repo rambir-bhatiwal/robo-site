@@ -14,7 +14,8 @@ if ( empty( $hero_image ) ) {
 	$hero_image = content_url( '/uploads/2026/07/513ac378-2fee-4500-8756-c9fb74781012.png' );
 }
 
-$btn1_url      = get_theme_mod( 'robo_hero_btn1_url', '#popular-products' );
+$btn1_text       = get_theme_mod( 'robo_hero_btn1_text', esc_html__( 'Get Started', 'robo' ) );
+$btn1_url        = get_theme_mod( 'robo_hero_btn1_url', '#popular-products' );
 $container_class = get_theme_mod( 'robo_container_width', 'container' );
 
 
@@ -95,9 +96,18 @@ if ( $has_hero_bg_image ) {
 			
 			<!-- LEFT -->
 			<div class="col-6 col-lg-5 hero-left-content">
+
+				<?php if ( ! empty( $btn1_text ) ) : ?>
+					<a href="<?php echo esc_url( ! empty( $btn1_url ) ? $btn1_url : '#' ); ?>" class="">
+						<span class="hero-badge">
+						    <?php echo esc_html( $btn1_text ); ?>
+						</span>
+					</a>
+				<?php else: ?>
 				<span class="hero-badge">
 					🤖 Robotics Kit
 				</span>
+				<?php endif; ?>
 
 				<h1 class="hero-title">
 					Mini Sumo
@@ -108,9 +118,6 @@ if ( $has_hero_bg_image ) {
 					Build, Code & Compete with India's most advanced Mini Sumo Robot kit.
 				</p>
 
-				<!-- <a href="<?php //echo esc_url($btn1_url); ?>" class="btn hero-btn robo-btn">
-					Explore Robots →
-				</a> -->
 			</div>
 
 			<!-- RIGHT -->

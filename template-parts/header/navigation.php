@@ -163,13 +163,13 @@ $cart_menu_item = sprintf(
 			?>
 
 			<!-- Right Actions (Call / CTA) -->
-			<div class="d-flex align-items-center gap-3 mt-3 mt-lg-0 flex-column flex-lg-row align-self-stretch align-self-lg-center">
-				<?php if ( ! empty( $cta_text ) ) : ?>
-					<a href="<?php echo esc_url( $cta_url ); ?>" class="btn btn-primary w-100 w-lg-auto shadow-sm rounded-pill px-4">
-						<?php echo esc_html( $cta_text ); ?>
-					</a>
-				<?php endif; ?>
-			</div>
+			<!-- <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0 flex-column flex-lg-row align-self-stretch align-self-lg-center"> -->
+				<?php // if ( ! empty( $cta_text ) ) : ?>
+					<!-- <a href="<?php // echo esc_url( $cta_url ); ?>" class="btn btn-primary w-100 w-lg-auto shadow-sm rounded-pill px-4"> -->
+						<?php // echo esc_html( $cta_text ); ?>
+					<!-- </a> -->
+				<?php // endif; ?>
+			<!-- </div> -->
 		</div>
 	</div>
 </nav>
