@@ -666,3 +666,15 @@
 		margin-top: 30px;
 	}
 } */
+@media (max-width: 767.98px) {
+	/* body.single-product .robo_woocommerce_breadcrumbs{
+		margin-top: 30px;
+	} */
+	#primaryNavbar {
+		margin-top: 20px;
+		border-top: 2px solid #595c5f4a;
+
+	}
+}
+
+

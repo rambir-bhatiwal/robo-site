@@ -104,8 +104,22 @@ $cart_menu_item = sprintf(
 			?>
 		</div>
 
-		<!-- Mobile Header Right Actions (Cart icon for mobile) -->
-		<div class="d-flex align-items-center d-lg-none ms-auto me-2">
+		<!-- Mobile Header Right Actions (Search Icon -> Cart Icon -> Menu Toggle) -->
+		<div class="d-flex align-items-center d-lg-none ms-auto gap-2">
+			
+			<!-- Mobile Search Icon Trigger -->
+			<div class="robo-search-nav-item d-flex align-items-center">
+				<button type="button" class="nav-link border-0 bg-transparent p-1 d-inline-flex align-items-center justify-content-center robo-search-toggle-btn text-dark hover-primary" aria-label="<?php esc_attr_e( 'Toggle product search', 'robo' ); ?>" aria-expanded="false">
+					<span class="search-open-icon d-inline-flex align-items-center justify-content-center">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+					</span>
+					<span class="search-close-icon d-none align-items-center justify-content-center">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+					</span>
+				</button>
+			</div>
+
+			<!-- Mobile Cart Icon -->
 			<a href="<?php echo esc_url( $cart_url ); ?>" class="nav-link border-0 bg-transparent p-1 d-inline-flex align-items-center justify-content-center text-dark hover-primary position-relative robo-cart-link" aria-label="<?php esc_attr_e( 'View shopping cart', 'robo' ); ?>">
 				<span class="robo-cart-icon d-inline-flex align-items-center justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
@@ -114,20 +128,16 @@ $cart_menu_item = sprintf(
 				</span>
 				<span class="robo-cart-badge <?php echo esc_attr( $badge_class ); ?>"><?php echo esc_html( $badge_display ); ?></span>
 			</a>
-		</div>
 
-		<!-- Toggler for Mobile Menu -->
-		<button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNavbar" aria-controls="primaryNavbar" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'robo' ); ?>">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+			<!-- Toggler for Mobile Menu -->
+			<button class="navbar-toggler border-0 shadow-none p-1 d-inline-flex align-items-center justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNavbar" aria-controls="primaryNavbar" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'robo' ); ?>">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+		</div>
 
 		<!-- Collapsible Navbar Content -->
 		<div class="collapse navbar-collapse" id="primaryNavbar">
-			
-			<!-- Mobile Menu Search Input (Visible at top of mobile menu when opened) -->
-			<div class="d-lg-none w-100 mb-3 pt-2 robo-mobile-menu-search">
-				<?php get_template_part( 'template-parts/header/search-bar', null, array( 'id_suffix' => 'mobile', 'is_mobile' => true ) ); ?>
-			</div>
 
 			<?php
 			if ( has_nav_menu( 'primary' ) ) {
@@ -172,4 +182,14 @@ $cart_menu_item = sprintf(
 			<!-- </div> -->
 		</div>
 	</div>
+
+	<!-- Mobile Search Panel (Positioned directly below the mobile header) -->
+	<div class="robo-mobile-search-panel d-lg-none">
+		<div class="<?php echo esc_attr( $container_class ); ?> px-3">
+			<?php get_template_part( 'template-parts/header/search-bar', null, array( 'id_suffix' => 'mobile', 'is_mobile' => true ) ); ?>
+		</div>
+	</div>
+
+	<!-- Mobile Search Background Overlay (Subtle background fade below header) -->
+	<div class="robo-mobile-search-overlay d-lg-none" aria-hidden="true"></div>
 </nav>

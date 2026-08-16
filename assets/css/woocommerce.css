@@ -2413,10 +2413,75 @@ form.checkout_coupon {
 	border-left: 3px solid var(--bs-primary, #0d6efd) !important;
 }
 
-/* Mobile search top layout */
-.robo-mobile-menu-search {
-	border-bottom: 1px solid #e9ecef;
-	padding-bottom: 1rem;
+/* ==========================================================================
+   Mobile Search Panel & Background Overlay Styles
+   ========================================================================== */
+
+@media (max-width: 991.98px) {
+	/* Search Panel positioned directly below the mobile header */
+	.robo-mobile-search-panel {
+		position: absolute !important;
+		top: 100% !important;
+		left: 0 !important;
+		right: 0 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		background-color: #ffffff !important;
+		border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+		border-bottom: 1px solid #dee2e6 !important;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+		padding: 10px 0 !important;
+		box-sizing: border-box !important;
+		z-index: 1035 !important;
+		display: none;
+	}
+
+	.robo-mobile-search-panel.is-open {
+		display: block !important;
+	}
+
+	.robo-mobile-search-panel .robo-search-wrapper {
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	.robo-mobile-search-panel .robo-search-input-group {
+		width: 100% !important;
+	}
+
+	.robo-mobile-search-panel .robo-search-dropdown {
+		left: 0 !important;
+		right: 0 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-top: 6px !important;
+	}
+
+	/* Subtle background overlay covering page content below header */
+	.robo-mobile-search-overlay {
+		position: fixed !important;
+		top: 0 !important;
+		left: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		width: 100vw !important;
+		height: 100vh !important;
+		background-color: rgba(0, 0, 0, 0.2) !important;
+		z-index: 1025 !important;
+		display: none;
+		cursor: pointer;
+	}
+
+	.robo-mobile-search-overlay.is-open {
+		display: block !important;
+	}
+}
+
+@media (min-width: 992px) {
+	.robo-mobile-search-panel,
+	.robo-mobile-search-overlay {
+		display: none !important;
+	}
 }
 
 /* ==========================================================================
