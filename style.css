@@ -128,9 +128,9 @@ position:relative;
     z-index: 2;
 }
 
-.hero-section h1{
+/* .hero-section h1{
 	 color:white;
-}
+} */
 /* LEFT */
 
 @media (min-width: 992px) {
@@ -144,7 +144,7 @@ position:relative;
     background: #80808047;
     padding: 10px 22px;
     border-radius: 50px;
-    color: #ffffff;
+    /* color: #ffffff; */
     margin-bottom: 20px;
     backdrop-filter: blur(10px);
 }
@@ -175,7 +175,7 @@ display:block;
 
 font-size:28px;
 
-color:#ffffff;
+/* color:#ffffff; */
 
 margin:25px 0 40px;
 
