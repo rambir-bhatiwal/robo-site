@@ -19,7 +19,7 @@ $homepage_sections = array(
 	'hero',
 	// 'trust-statistics',
 	// 'quick-actions',
-	'quick-actions-bar',
+	'quick-access',
 	'category-slider',
 	// 'about',
 	// 'services',

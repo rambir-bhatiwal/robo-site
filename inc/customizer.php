@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Load Hero Section Customizer.
 require_once ROBO_THEME_DIR . '/inc/customizer/hero.php';
 
+// Load Quick Access Section Customizer.
+require_once ROBO_THEME_DIR . '/inc/customizer/quick-access.php';
+
 /**
  * Add postMessage support for site title and description for the Theme Customizer.
  *
@@ -171,6 +174,11 @@ function robo_customize_register( $wp_customize ) {
 	// Section: Hero settings (Moved to inc/customizer/hero.php)
 	// ----------------------------------------------------
 	robo_customize_register_hero( $wp_customize );
+
+	// ----------------------------------------------------
+	// Section: Quick Access settings (inc/customizer/quick-access.php)
+	// ----------------------------------------------------
+	robo_customize_register_quick_access( $wp_customize );
 
 	// ----------------------------------------------------
 	// Section: Company Information

@@ -75,19 +75,10 @@ if ( ! function_exists( 'robo_scripts' ) ) {
 			'all'
 		);
 
-		// Enqueue Quick Actions Section Style.
+		// Enqueue Quick Access Section Style.
 		wp_enqueue_style(
-			'robo-quick-actions',
-			ROBO_THEME_URI . '/assets/css/sections/quick-actions.css',
-			array( 'bootstrap', 'robo-style', 'robo-trust-statistics' ),
-			ROBO_THEME_VERSION,
-			'all'
-		);
-
-		// Enqueue Quick Actions Bar CTA Style.
-		wp_enqueue_style(
-			'robo-quick-actions-bar',
-			ROBO_THEME_URI . '/assets/css/sections/quick-actions-bar.css',
+			'robo-quick-access',
+			ROBO_THEME_URI . '/assets/css/sections/quick-access.css',
 			array( 'bootstrap', 'robo-style' ),
 			ROBO_THEME_VERSION,
 			'all'
