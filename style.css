@@ -582,6 +582,7 @@ opacity:0;
 
     .hero-section,
     #hero {
+        min-height: 50vh;
         padding-top: 60px !important;
         padding-bottom: 5px !important;
         margin-top: 0 !important;

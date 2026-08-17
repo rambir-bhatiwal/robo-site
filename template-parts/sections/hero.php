@@ -91,37 +91,37 @@ if ( $has_hero_bg_image ) {
 		?>
 		<div class="hero-bg-overlay" style="background-color: <?php echo esc_attr( $rgba ); ?>;"></div>
 	<?php endif; ?>
-	<div class="<?php echo esc_attr( $container_class ); ?>">
-		<div class="row align-items-center hero-main-row">
+	<div class="d-none <?php echo esc_attr( $container_class ); ?>">
+		<div class="d-none row align-items-center hero-main-row">
 			
 			<!-- LEFT -->
-			<div class="col-6 col-lg-5 hero-left-content">
+			<div class="d-none col-6 col-lg-5 hero-left-content">
 
 				<?php if ( ! empty( $btn1_text ) ) : ?>
 					<a href="<?php echo esc_url( ! empty( $btn1_url ) ? $btn1_url : '#' ); ?>" class="">
-						<span class="hero-badge">
+						<span class="d-none hero-badge">
 						    <?php echo esc_html( $btn1_text ); ?>
 						</span>
 					</a>
 				<?php else: ?>
-				<span class="hero-badge">
+				<span class="d-none hero-badge">
 					🤖 Robotics Kit
 				</span>
 				<?php endif; ?>
 
-				<h1 class="hero-title">
+				<h1 class=" d-none hero-title">
 					Mini Sumo
 					<span>Robot</span>
 				</h1>
 
-				<p class="hero-text">
+				<p class="d-none hero-text">
 					Build, Code & Compete with India's most advanced Mini Sumo Robot kit.
 				</p>
 
 			</div>
 
 			<!-- RIGHT -->
-			<div class="col-6 col-lg-7 hero-right-content">
+			<div class="d-none col-6 col-lg-7 hero-right-content">
 				<div class="robot-wrapper">
 					<div class="glow"></div>
 					<div class="ring ring1 d-none"></div>
