@@ -582,7 +582,7 @@ opacity:0;
 
     .hero-section,
     #hero {
-        min-height: 50vh;
+        min-height: 35vh;
         padding-top: 60px !important;
         padding-bottom: 5px !important;
         margin-top: 0 !important;
@@ -2801,4 +2801,23 @@ section,
 /* Remove space for newsletter section only */
 .newsletter-section {
     margin-bottom: 0 !important;
+}
+
+/* @media (min-width: 1025px) { */
+@media (min-width: 768.9px) {
+    .hero-section,
+    #hero {
+        min-height: 70vh;
+        background-size: 100% 100% !important;
+
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px)  {
+    .hero-section,
+    #hero {
+        min-height: 50vh;
+        /* background-size: 100% 100% !important; */
+
+    }
 }
