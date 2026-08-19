@@ -161,27 +161,14 @@ while ( have_posts() ) :
 					</div>
 
 					<!-- 5. Action Buttons Bar -->
-					<div class="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white border">
+					<div class="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white border robo-lms-action-bar">
 						<div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-							<div class="d-flex flex-wrap align-items-center gap-2">
+							<div class="d-flex flex-wrap align-items-center gap-2 robo-lms-action-buttons">
 								<!-- ▶ Watch Video Button (Playlist trigger or main action) -->
 								<?php if ( count( $video_items ) > 1 ) : ?>
 									<a href="#video-playlist-selector" class="btn btn-danger rounded-pill px-3.5 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-2">
-										<span class="dashicons dashicons-controls-play"></span> <?php esc_html_e( 'Watch Video Lessons', 'robo' ); ?>
+										<span class="dashicons dashicons-controls-play flex-shrink-0"></span> <span class="text-truncate"><?php esc_html_e( 'Watch Video Lessons', 'robo' ); ?></span>
 									</a>
-								<?php endif; ?>
-
-								<!-- 📄 Related PDF Buttons -->
-								<?php if ( ! empty( $rel_pdfs ) ) : ?>
-									<?php foreach ( $rel_pdfs as $pdf_id ) : 
-										$pdf_title = get_the_title( $pdf_id );
-										$pdf_url   = get_permalink( $pdf_id );
-										if ( $pdf_title && $pdf_url ) : ?>
-											<a href="<?php echo esc_url( $pdf_url ); ?>" class="btn btn-outline-primary rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1">
-												<span class="dashicons dashicons-media-document"></span> <?php echo sprintf( esc_html__( 'PDF: %s', 'robo' ), esc_html( $pdf_title ) ); ?>
-											</a>
-										<?php endif; ?>
-									<?php endforeach; ?>
 								<?php endif; ?>
 
 								<!-- </> Related Code Buttons -->
@@ -190,8 +177,21 @@ while ( have_posts() ) :
 										$code_title = get_the_title( $code_id );
 										$code_url   = get_permalink( $code_id );
 										if ( $code_title && $code_url ) : ?>
-											<a href="<?php echo esc_url( $code_url ); ?>" class="btn btn-outline-success rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1">
-												<span class="dashicons dashicons-editor-code"></span> <?php echo sprintf( esc_html__( 'Code: %s', 'robo' ), esc_html( $code_title ) ); ?>
+											<a href="<?php echo esc_url( $code_url ); ?>" class="btn btn-success text-white rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-1">
+												<span class="dashicons dashicons-editor-code flex-shrink-0"></span> <span class="text-truncate"><?php echo sprintf( esc_html__( 'Code: %s', 'robo' ), esc_html( $code_title ) ); ?></span>
+											</a>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								<?php endif; ?>
+
+								<!-- 📄 Related PDF Buttons -->
+								<?php if ( ! empty( $rel_pdfs ) ) : ?>
+									<?php foreach ( $rel_pdfs as $pdf_id ) : 
+										$pdf_title = get_the_title( $pdf_id );
+										$pdf_url   = get_permalink( $pdf_id );
+										if ( $pdf_title && $pdf_url ) : ?>
+											<a href="<?php echo esc_url( $pdf_url ); ?>" class="btn btn-primary text-white rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-1">
+												<span class="dashicons dashicons-media-document flex-shrink-0"></span> <span class="text-truncate"><?php echo sprintf( esc_html__( 'PDF: %s', 'robo' ), esc_html( $pdf_title ) ); ?></span>
 											</a>
 										<?php endif; ?>
 									<?php endforeach; ?>
@@ -206,8 +206,8 @@ while ( have_posts() ) :
 										$prod_title = get_the_title( $prod_id );
 										$prod_url   = get_permalink( $prod_id );
 										if ( $prod_title && $prod_url ) : ?>
-											<a href="<?php echo esc_url( $prod_url ); ?>" class="btn btn-outline-warning text-dark rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1">
-												<span class="dashicons dashicons-cart"></span> <?php echo sprintf( esc_html__( 'Buy Kit: %s', 'robo' ), esc_html( $prod_title ) ); ?>
+											<a href="<?php echo esc_url( $prod_url ); ?>" class="btn btn-warning text-dark rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-1">
+												<span class="dashicons dashicons-cart flex-shrink-0"></span> <span class="text-truncate"><?php echo sprintf( esc_html__( 'Buy Kit: %s', 'robo' ), esc_html( $prod_title ) ); ?></span>
 											</a>
 										<?php endif; ?>
 									<?php endforeach; ?>
@@ -215,8 +215,8 @@ while ( have_posts() ) :
 							</div>
 
 							<!-- ← Back to Learning Videos -->
-							<a href="<?php echo esc_url( $archive_link ); ?>" class="btn btn-outline-secondary rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1 ms-auto">
-								<span class="dashicons dashicons-arrow-left-alt"></span> <?php esc_html_e( 'Back to Videos', 'robo' ); ?>
+							<a href="<?php echo esc_url( $archive_link ); ?>" class="btn btn-outline-secondary rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center justify-content-center gap-1 ms-md-auto robo-lms-back-btn">
+								<span class="dashicons dashicons-arrow-left-alt flex-shrink-0"></span> <span class="text-truncate"><?php esc_html_e( 'Back to Videos', 'robo' ); ?></span>
 							</a>
 						</div>
 					</div>

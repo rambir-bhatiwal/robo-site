@@ -844,20 +844,20 @@ class Render {
 							<!-- Primary Action: Watch Video -->
 							<div class="d-flex flex-wrap align-items-center gap-2">
 								<a href="<?php echo esc_url( $post_url ); ?>" class="btn btn-danger rounded-pill px-4 py-2 fw-semibold shadow-sm d-inline-flex align-items-center gap-2">
-									<span class="dashicons dashicons-controls-play"></span> <?php esc_html_e( 'Watch Video', 'robo' ); ?>
+									<span class="dashicons dashicons-controls-play flex-shrink-0"></span> <span class="text-truncate"><?php esc_html_e( 'Watch Video', 'robo' ); ?></span>
 								</a>
 							</div>
 
 							<!-- Related Code Buttons -->
 							<?php if ( ! empty( $rel_code ) ) : ?>
 								<div class="d-flex flex-wrap align-items-center gap-2 mt-1">
-									<small class="text-muted fw-bold fs-7 text-uppercase me-1"><?php esc_html_e( 'Code:', 'robo' ); ?></small>
+									<small class="text-muted fw-bold fs-7 text-uppercase me-1 d-none d-md-inline"><?php esc_html_e( 'Code:', 'robo' ); ?></small>
 									<?php foreach ( $rel_code as $code_id ) : 
 										$code_title = get_the_title( $code_id );
 										$code_url   = get_permalink( $code_id );
 										if ( $code_title && $code_url ) : ?>
-											<a href="<?php echo esc_url( $code_url ); ?>" class="btn btn-outline-success btn-sm rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1">
-												<span class="dashicons dashicons-editor-code"></span> <?php echo sprintf( esc_html__( 'Code: %s', 'robo' ), esc_html( $code_title ) ); ?>
+											<a href="<?php echo esc_url( $code_url ); ?>" class="btn btn-success text-white btn-sm rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-1">
+												<span class="dashicons dashicons-editor-code flex-shrink-0"></span> <span class="text-truncate"><?php echo sprintf( esc_html__( 'Code: %s', 'robo' ), esc_html( $code_title ) ); ?></span>
 											</a>
 										<?php endif; ?>
 									<?php endforeach; ?>
@@ -867,13 +867,13 @@ class Render {
 							<!-- Related PDF Buttons -->
 							<?php if ( ! empty( $rel_pdfs ) ) : ?>
 								<div class="d-flex flex-wrap align-items-center gap-2 mt-1">
-									<small class="text-muted fw-bold fs-7 text-uppercase me-1"><?php esc_html_e( 'PDF:', 'robo' ); ?></small>
+									<small class="text-muted fw-bold fs-7 text-uppercase me-1 d-none d-md-inline"><?php esc_html_e( 'PDF:', 'robo' ); ?></small>
 									<?php foreach ( $rel_pdfs as $pdf_id ) : 
 										$pdf_title = get_the_title( $pdf_id );
 										$pdf_url   = get_permalink( $pdf_id );
 										if ( $pdf_title && $pdf_url ) : ?>
-											<a href="<?php echo esc_url( $pdf_url ); ?>" class="btn btn-outline-primary btn-sm rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1">
-												<span class="dashicons dashicons-media-document"></span> <?php echo sprintf( esc_html__( 'PDF: %s', 'robo' ), esc_html( $pdf_title ) ); ?>
+											<a href="<?php echo esc_url( $pdf_url ); ?>" class="btn btn-primary text-white btn-sm rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-1">
+												<span class="dashicons dashicons-media-document flex-shrink-0"></span> <span class="text-truncate"><?php echo sprintf( esc_html__( 'PDF: %s', 'robo' ), esc_html( $pdf_title ) ); ?></span>
 											</a>
 										<?php endif; ?>
 									<?php endforeach; ?>
@@ -883,7 +883,7 @@ class Render {
 							<!-- Related Product Buttons -->
 							<?php if ( ! empty( $rel_prods ) && class_exists( 'WooCommerce' ) ) : ?>
 								<div class="d-flex flex-wrap align-items-center gap-2 mt-1">
-									<small class="text-muted fw-bold fs-7 text-uppercase me-1"><?php esc_html_e( 'Kit:', 'robo' ); ?></small>
+									<small class="text-muted fw-bold fs-7 text-uppercase me-1 d-none d-md-inline"><?php esc_html_e( 'Kit:', 'robo' ); ?></small>
 									<?php foreach ( $rel_prods as $prod_id ) : 
 										if ( 'product' !== get_post_type( $prod_id ) ) {
 											continue;
@@ -891,8 +891,8 @@ class Render {
 										$prod_title = get_the_title( $prod_id );
 										$prod_url   = get_permalink( $prod_id );
 										if ( $prod_title && $prod_url ) : ?>
-											<a href="<?php echo esc_url( $prod_url ); ?>" class="btn btn-outline-warning text-dark btn-sm rounded-pill px-3 py-1.5 fw-semibold d-inline-flex align-items-center gap-1">
-												<span class="dashicons dashicons-cart"></span> <?php echo sprintf( esc_html__( 'Buy Kit: %s', 'robo' ), esc_html( $prod_title ) ); ?>
+											<a href="<?php echo esc_url( $prod_url ); ?>" class="btn btn-warning text-dark btn-sm rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-1">
+												<span class="dashicons dashicons-cart flex-shrink-0"></span> <span class="text-truncate"><?php echo sprintf( esc_html__( 'Buy Kit: %s', 'robo' ), esc_html( $prod_title ) ); ?></span>
 											</a>
 										<?php endif; ?>
 									<?php endforeach; ?>

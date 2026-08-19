@@ -267,6 +267,8 @@
 	.robo-lms-video-card .video-card-title {
 		min-height: auto;
 	}
+}
+
 /* Standard Robo LMS Card Structure-Driven Architecture */
 .robo-lms-card {
 	display: flex;
@@ -307,6 +309,92 @@
 	}
 	.robo-lms-card .card-text {
 		min-height: auto;
+	}
+}
+
+/* Mobile 2-Row Equal Width Button Grid (Mobile Only < 768px) */
+@media (max-width: 767.98px) {
+	.robo-lms-video-card .video-card-buttons {
+		display: grid !important;
+		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+		gap: 0.5rem !important;
+	}
+
+	.robo-lms-video-card .video-card-buttons > div {
+		margin-top: 0 !important;
+		display: flex !important;
+		width: 100% !important;
+		min-width: 0 !important;
+	}
+
+	.robo-lms-video-card .video-card-buttons > div > small {
+		display: none !important;
+	}
+
+	.robo-lms-video-card .video-card-buttons .btn {
+		width: 100% !important;
+		font-size: 0.75rem !important;
+		padding: 0.4rem 0.5rem !important;
+		justify-content: center !important;
+		text-align: center !important;
+		white-space: nowrap !important;
+		overflow: hidden !important;
+		text-overflow: ellipsis !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		gap: 0.25rem !important;
+		box-sizing: border-box !important;
+		min-width: 0 !important;
+	}
+
+	.robo-lms-video-card .video-card-buttons .btn .dashicons {
+		font-size: 1rem !important;
+		flex-shrink: 0 !important;
+	}
+
+	.robo-lms-video-card .video-card-buttons .btn .text-truncate {
+		min-width: 0 !important;
+		max-width: 100% !important;
+	}
+
+	.robo-lms-action-buttons {
+		display: grid !important;
+		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+		gap: 0.5rem !important;
+		width: 100% !important;
+	}
+
+	.robo-lms-action-buttons .btn {
+		width: 100% !important;
+		font-size: 0.75rem !important;
+		padding: 0.4rem 0.5rem !important;
+		justify-content: center !important;
+		text-align: center !important;
+		white-space: nowrap !important;
+		overflow: hidden !important;
+		text-overflow: ellipsis !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		gap: 0.25rem !important;
+		box-sizing: border-box !important;
+		min-width: 0 !important;
+	}
+
+	.robo-lms-action-buttons .btn .dashicons {
+		font-size: 1rem !important;
+		flex-shrink: 0 !important;
+	}
+
+	.robo-lms-action-buttons .btn .text-truncate {
+		min-width: 0 !important;
+		max-width: 100% !important;
+	}
+
+	.robo-lms-action-bar .robo-lms-back-btn {
+		width: 100% !important;
+		font-size: 0.75rem !important;
+		padding: 0.4rem 0.5rem !important;
+		margin-top: 0.25rem !important;
 	}
 }
 
