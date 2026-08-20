@@ -163,55 +163,91 @@ while ( have_posts() ) :
 					<!-- 5. Action Buttons Bar -->
 					<div class="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white border robo-lms-action-bar">
 						<div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-							<div class="d-flex flex-wrap align-items-center gap-2 robo-lms-action-buttons">
-								<!-- ▶ Watch Video Button (Playlist trigger or main action) -->
-								<?php if ( count( $video_items ) > 1 ) : ?>
-									<a href="#video-playlist-selector" class="btn btn-danger rounded-pill px-3.5 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-2">
-										<span class="dashicons dashicons-controls-play flex-shrink-0"></span> <span class="text-truncate"><?php esc_html_e( 'Watch Video Lessons', 'robo' ); ?></span>
-									</a>
-								<?php endif; ?>
+							<div class="cpt-action-grid-wrapper flex-grow-1">
+								<div class="row g-2 cpt-action-grid align-items-center">
+									<!-- 1. Watch Video Button -->
+									<div class="col-6 col-md-auto cpt-action-col">
+										<a href="<?php echo count( $video_items ) > 1 ? '#video-playlist-selector' : esc_url( get_permalink( $post_id ) ); ?>" class="cpt-action-btn cpt-action-btn--video">
+											<span class="cpt-action-btn__icon" aria-hidden="true">
+												<svg class="cpt-action-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="display: block;">
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-2.5 5.5v9l7-4.5-7-4.5z"/>
+												</svg>
+											</span>
+											<span class="cpt-action-btn__text"><?php esc_html_e( 'Watch Video', 'robo' ); ?></span>
+											<span class="cpt-action-btn__arrow" aria-hidden="true">
+												<svg class="cpt-action-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+													<polyline points="9 18 15 12 9 6"></polyline>
+												</svg>
+											</span>
+										</a>
+									</div>
 
-								<!-- </> Related Code Buttons -->
-								<?php if ( ! empty( $rel_code ) ) : ?>
-									<?php foreach ( $rel_code as $code_id ) : 
-										$code_title = get_the_title( $code_id );
-										$code_url   = get_permalink( $code_id );
-										if ( $code_title && $code_url ) : ?>
-											<a href="<?php echo esc_url( $code_url ); ?>" class="btn btn-success text-white rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-1">
-												<span class="dashicons dashicons-editor-code flex-shrink-0"></span> <span class="text-truncate"><?php echo sprintf( esc_html__( 'Code: %s', 'robo' ), esc_html( $code_title ) ); ?></span>
-											</a>
-										<?php endif; ?>
-									<?php endforeach; ?>
-								<?php endif; ?>
+									<!-- 2. Code Button -->
+									<div class="col-6 col-md-auto cpt-action-col">
+										<?php
+										$first_code_url = ! empty( $rel_code ) ? get_permalink( $rel_code[0] ) : '#';
+										?>
+										<a href="<?php echo esc_url( $first_code_url ); ?>" class="cpt-action-btn cpt-action-btn--code<?php echo empty( $rel_code ) ? ' opacity-75' : ''; ?>">
+											<span class="cpt-action-btn__icon" aria-hidden="true">
+												<svg class="cpt-action-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+													<polyline points="16 18 22 12 16 6"></polyline>
+													<polyline points="8 6 2 12 8 18"></polyline>
+													<line x1="14" y1="4" x2="10" y2="20"></line>
+												</svg>
+											</span>
+											<span class="cpt-action-btn__text"><?php esc_html_e( 'Code', 'robo' ); ?></span>
+											<span class="cpt-action-btn__arrow" aria-hidden="true">
+												<svg class="cpt-action-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+													<polyline points="9 18 15 12 9 6"></polyline>
+												</svg>
+											</span>
+										</a>
+									</div>
 
-								<!-- 📄 Related PDF Buttons -->
-								<?php if ( ! empty( $rel_pdfs ) ) : ?>
-									<?php foreach ( $rel_pdfs as $pdf_id ) : 
-										$pdf_title = get_the_title( $pdf_id );
-										$pdf_url   = get_permalink( $pdf_id );
-										if ( $pdf_title && $pdf_url ) : ?>
-											<a href="<?php echo esc_url( $pdf_url ); ?>" class="btn btn-primary text-white rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-1">
-												<span class="dashicons dashicons-media-document flex-shrink-0"></span> <span class="text-truncate"><?php echo sprintf( esc_html__( 'PDF: %s', 'robo' ), esc_html( $pdf_title ) ); ?></span>
-											</a>
-										<?php endif; ?>
-									<?php endforeach; ?>
-								<?php endif; ?>
+									<!-- 3. PDF Button -->
+									<div class="col-6 col-md-auto cpt-action-col">
+										<?php
+										$first_pdf_url = ! empty( $rel_pdfs ) ? get_permalink( $rel_pdfs[0] ) : '#';
+										?>
+										<a href="<?php echo esc_url( $first_pdf_url ); ?>" class="cpt-action-btn cpt-action-btn--pdf<?php echo empty( $rel_pdfs ) ? ' opacity-75' : ''; ?>">
+											<span class="cpt-action-btn__icon" aria-hidden="true">
+												<svg class="cpt-action-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" style="display: block;">
+													<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													<polyline points="14 2 14 8 20 8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													<path d="M9.8 17.2c-.8.6-1.6.8-2 .5-.4-.3-.3-.9.2-1.6.6-.8 1.4-1.7 2.1-2.5-.1 1.4-.2 2.5-.3 3.6zm2.5-3.8c1-.8 2.2-1.2 2.8-1 .6.2.6.7.2 1.2-.4.6-1.3 1-2.4 1.1-.2-.5-.4-.9-.6-1.3zm-1.8-2.8c.3.7.1 1.5-.2 2.1-.5-1.1-.9-2.2-.6-2.6.2-.3.5-.3.8.5zm5.3 4.2c-.9-.2-2.1.2-3.3 1.1-1.2-.7-2.4-1.9-3-3.3.3-.8.5-1.9.2-2.4-.4-.7-1.3-.4-1.5.3-.3 1.1.2 2.5 1.2 4.1-.7 1.6-1.6 3.2-2.4 4-.7.7-.8 1.4-.3 1.7.5.4 1.5 0 2.4-1.2 1.3-.6 2.9-1.1 4.6-1.4 1.1.9 2 1.2 2.5 1 .6-.3.6-1 .2-1.7-.4-.6-1.1-.8-2.1-.8z" fill="currentColor" stroke="none"/>
+												</svg>
+											</span>
+											<span class="cpt-action-btn__text"><?php esc_html_e( 'PDF', 'robo' ); ?></span>
+											<span class="cpt-action-btn__arrow" aria-hidden="true">
+												<svg class="cpt-action-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+													<polyline points="9 18 15 12 9 6"></polyline>
+												</svg>
+											</span>
+										</a>
+									</div>
 
-								<!-- 🛒 Related Product (Buy Kit) Buttons -->
-								<?php if ( ! empty( $rel_prods ) && class_exists( 'WooCommerce' ) ) : ?>
-									<?php foreach ( $rel_prods as $prod_id ) : 
-										if ( 'product' !== get_post_type( $prod_id ) ) {
-											continue;
-										}
-										$prod_title = get_the_title( $prod_id );
-										$prod_url   = get_permalink( $prod_id );
-										if ( $prod_title && $prod_url ) : ?>
-											<a href="<?php echo esc_url( $prod_url ); ?>" class="btn btn-warning text-dark rounded-pill px-3 py-1.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-1">
-												<span class="dashicons dashicons-cart flex-shrink-0"></span> <span class="text-truncate"><?php echo sprintf( esc_html__( 'Buy Kit: %s', 'robo' ), esc_html( $prod_title ) ); ?></span>
-											</a>
-										<?php endif; ?>
-									<?php endforeach; ?>
-								<?php endif; ?>
+									<!-- 4. Buy This Kit Button -->
+									<div class="col-6 col-md-auto cpt-action-col">
+										<?php
+										$first_prod_url = ! empty( $rel_prods ) ? get_permalink( $rel_prods[0] ) : ( class_exists( 'WooCommerce' ) ? wc_get_page_permalink( 'shop' ) : '#' );
+										?>
+										<a href="<?php echo esc_url( $first_prod_url ); ?>" class="cpt-action-btn cpt-action-btn--kit<?php echo empty( $rel_prods ) ? ' opacity-75' : ''; ?>">
+											<span class="cpt-action-btn__icon" aria-hidden="true">
+												<svg class="cpt-action-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+													<circle cx="9" cy="21" r="1.5" fill="currentColor" stroke="none"></circle>
+													<circle cx="19" cy="21" r="1.5" fill="currentColor" stroke="none"></circle>
+													<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+												</svg>
+											</span>
+											<span class="cpt-action-btn__text"><?php esc_html_e( 'Buy This Kit', 'robo' ); ?></span>
+											<span class="cpt-action-btn__arrow" aria-hidden="true">
+												<svg class="cpt-action-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+													<polyline points="9 18 15 12 9 6"></polyline>
+												</svg>
+											</span>
+										</a>
+									</div>
+								</div>
 							</div>
 
 							<!-- ← Back to Learning Videos -->

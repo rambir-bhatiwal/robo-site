@@ -312,8 +312,241 @@
 	}
 }
 
-/* Mobile 2-Row Equal Width Button Grid (Mobile Only < 768px) */
+/* Base CPT Action Buttons (Desktop / Tablet) */
+.cpt-action-grid-wrapper {
+	width: 100%;
+}
+
+.cpt-action-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1.15rem;
+	font-weight: 600;
+	font-size: 0.875rem;
+	border-radius: 50rem;
+	text-decoration: none;
+	border: none;
+	outline: none;
+	transition: all 0.2s ease-in-out;
+}
+
+.cpt-action-btn:hover,
+.cpt-action-btn:focus {
+	text-decoration: none;
+}
+
+.cpt-action-btn .dashicons,
+.cpt-action-btn i,
+.cpt-action-btn svg {
+	font-size: 1.1rem;
+	width: 16px;
+	height: 16px;
+	line-height: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+
+
+.cpt-action-icon{
+	width: 22px !important;
+	height: 22px !important;
+}
+.cpt-action-btn--video {
+	background-color: #dc2626;
+	color: #ffffff;
+}
+.cpt-action-btn--video:hover,
+.cpt-action-btn--video:focus {
+	background-color: #b91c1c;
+	color: #ffffff;
+}
+
+.cpt-action-btn--code {
+	background-color: #16a34a;
+	color: #ffffff;
+}
+.cpt-action-btn--code:hover,
+.cpt-action-btn--code:focus {
+	background-color: #15803d;
+	color: #ffffff;
+}
+
+.cpt-action-btn--pdf {
+	background-color: #7c3aed;
+	color: #ffffff;
+}
+.cpt-action-btn--pdf:hover,
+.cpt-action-btn--pdf:focus {
+	background-color: #6d28d9;
+	color: #ffffff;
+}
+
+.cpt-action-btn--kit {
+	background-color: #f59e0b;
+	color: #111111;
+}
+.cpt-action-btn--kit:hover,
+.cpt-action-btn--kit:focus {
+	background-color: #d97706;
+	color: #111111;
+}
+
+@media (min-width: 768px) {
+	.cpt-action-btn__arrow {
+		display: none;
+	}
+}
+
+/* ==========================================================================
+   CPT Single Resource Buttons (Mobile Only: < 768px)
+   ========================================================================== */
 @media (max-width: 767.98px) {
+	/* 2x2 Grid Column Equal-Height Setup */
+	.cpt-action-grid {
+		display: flex !important;
+		flex-wrap: wrap !important;
+	}
+
+	.cpt-action-grid .cpt-action-col {
+		display: flex !important;
+	}
+
+	/* Base Mobile Action Button */
+	.cpt-action-btn {
+		display: flex !important;
+		align-items: center !important;
+		justify-content: space-between !important;
+		width: 100% !important;
+		height: 100% !important;
+		min-height: 46px !important;
+		padding: 8px 10px !important;
+		border-radius: 8px !important;
+		text-decoration: none !important;
+		border: none !important;
+		outline: none !important;
+		box-sizing: border-box !important;
+		transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+	}
+
+	.cpt-action-btn:focus,
+	.cpt-action-btn:hover {
+		text-decoration: none !important;
+	}
+
+	.cpt-action-btn:active {
+		transform: scale(0.98);
+	}
+
+	/* --- Internal 3-Part Layout: Left Icon, Center Text, Right Arrow --- */
+
+	/* 1. Left Icon: Fixed & Centered */
+	.cpt-action-btn__icon {
+		flex-shrink: 0 !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 22px !important;
+		line-height: 1 !important;
+	}
+
+	/* 2. Center Text: Flexible, Centered, Multiline Safe */
+	.cpt-action-btn__text {
+		flex-grow: 1 !important;
+		text-align: center !important;
+		font-size: 0.8125rem !important; /* 13px */
+		font-weight: 600 !important;
+		line-height: 1.15 !important;
+		padding: 0 4px !important;
+		white-space: normal !important;
+		word-break: normal !important;
+		overflow-wrap: break-word !important;
+	}
+
+	/* 3. Right Arrow: Pushed to the right edge */
+	.cpt-action-btn__arrow {
+		flex-shrink: 0 !important;
+		margin-left: auto !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: flex-end !important;
+		width: 14px !important;
+		line-height: 1 !important;
+	}
+
+	/* Ensure Dashicons and SVGs inside buttons inherit proper dimensions and colors */
+	.cpt-action-btn svg {
+		display: block;
+		max-width: 100%;
+		height: auto;
+	}
+
+	.cpt-action-btn i,
+	.cpt-action-btn .dashicons,
+	.cpt-action-btn span.dashicons {
+		font-size: 16px !important;
+		width: 16px !important;
+		height: 16px !important;
+		line-height: 1 !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+	}
+
+	/* --- Exact Scoped Color System --- */
+
+	/* 1. WATCH VIDEO: #DC2626 | Hover: #B91C1C | White Text/Icons */
+	.cpt-action-btn--video {
+		background-color: #dc2626 !important;
+		color: #ffffff !important;
+	}
+	.cpt-action-btn--video:hover,
+	.cpt-action-btn--video:focus,
+	.cpt-action-btn--video:active {
+		background-color: #b91c1c !important;
+		color: #ffffff !important;
+	}
+
+	/* 2. CODE: #16A34A | Hover: #15803D | White Text/Icons */
+	.cpt-action-btn--code {
+		background-color: #16a34a !important;
+		color: #ffffff !important;
+	}
+	.cpt-action-btn--code:hover,
+	.cpt-action-btn--code:focus,
+	.cpt-action-btn--code:active {
+		background-color: #15803d !important;
+		color: #ffffff !important;
+	}
+
+	/* 3. PDF: #7C3AED | Hover: #6D28D9 | White Text/Icons */
+	.cpt-action-btn--pdf {
+		background-color: #7c3aed !important;
+		color: #ffffff !important;
+	}
+	.cpt-action-btn--pdf:hover,
+	.cpt-action-btn--pdf:focus,
+	.cpt-action-btn--pdf:active {
+		background-color: #6d28d9 !important;
+		color: #ffffff !important;
+	}
+
+	/* 4. BUY THIS KIT: #F59E0B | Hover: #D97706 | Dark Text/Icons (#111111) */
+	.cpt-action-btn--kit {
+		background-color: #f59e0b !important;
+		color: #111111 !important;
+	}
+	.cpt-action-btn--kit:hover,
+	.cpt-action-btn--kit:focus,
+	.cpt-action-btn--kit:active {
+		background-color: #d97706 !important;
+		color: #111111 !important;
+	}
+
+	/* Video Card Buttons Compatibility */
 	.robo-lms-video-card .video-card-buttons {
 		display: grid !important;
 		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -322,9 +555,7 @@
 
 	.robo-lms-video-card .video-card-buttons > div {
 		margin-top: 0 !important;
-		display: flex !important;
-		width: 100% !important;
-		min-width: 0 !important;
+		display: contents !important;
 	}
 
 	.robo-lms-video-card .video-card-buttons > div > small {
@@ -335,59 +566,18 @@
 		width: 100% !important;
 		font-size: 0.75rem !important;
 		padding: 0.4rem 0.5rem !important;
-		justify-content: center !important;
-		text-align: center !important;
-		white-space: nowrap !important;
-		overflow: hidden !important;
-		text-overflow: ellipsis !important;
+		justify-content: flex-start !important;
+		text-align: left !important;
+		white-space: normal !important;
+		overflow: visible !important;
+		text-overflow: clip !important;
 		display: inline-flex !important;
 		align-items: center !important;
 		gap: 0.25rem !important;
 		box-sizing: border-box !important;
 		min-width: 0 !important;
-	}
-
-	.robo-lms-video-card .video-card-buttons .btn .dashicons {
-		font-size: 1rem !important;
-		flex-shrink: 0 !important;
-	}
-
-	.robo-lms-video-card .video-card-buttons .btn .text-truncate {
-		min-width: 0 !important;
-		max-width: 100% !important;
-	}
-
-	.robo-lms-action-buttons {
-		display: grid !important;
-		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-		gap: 0.5rem !important;
-		width: 100% !important;
-	}
-
-	.robo-lms-action-buttons .btn {
-		width: 100% !important;
-		font-size: 0.75rem !important;
-		padding: 0.4rem 0.5rem !important;
-		justify-content: center !important;
-		text-align: center !important;
-		white-space: nowrap !important;
-		overflow: hidden !important;
-		text-overflow: ellipsis !important;
-		display: inline-flex !important;
-		align-items: center !important;
-		gap: 0.25rem !important;
-		box-sizing: border-box !important;
-		min-width: 0 !important;
-	}
-
-	.robo-lms-action-buttons .btn .dashicons {
-		font-size: 1rem !important;
-		flex-shrink: 0 !important;
-	}
-
-	.robo-lms-action-buttons .btn .text-truncate {
-		min-width: 0 !important;
-		max-width: 100% !important;
+		height: 48px !important;
+		border-radius: 8px !important;
 	}
 
 	.robo-lms-action-bar .robo-lms-back-btn {
